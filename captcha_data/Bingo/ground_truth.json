@@ -1,0 +1,15 @@
+{
+  "bingo1.png": {
+    "answer": [
+      [0, 7],
+      [3, 8]
+    ],
+    "prompt": "Please click two images to exchange their position to line up the same images to a line, you can only exchange the images once.",
+    "description": "Bingo puzzle with animal emojis",
+    "grid_size": [3, 3],
+    "solution_line": {
+      "vertical": [0, 3, 6],
+      "horizontal": [6, 7, 8]
+    }
+  }
+} 

@@ -1,0 +1,10 @@
+{
+  "ground_image2.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "dog",
+    "reference_image": "ground_image2.png",
+    "option_images": ["ground_image2_sub1.png", "ground_image2_sub2.png", "ground_image2_sub3.png", "ground_image2_sub4.png", "ground_image2_sub5.png"],
+    "correct_option_index": 1
+  }
+} 

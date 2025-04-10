@@ -1,0 +1,10 @@
+{
+  "slide1.png": {
+    "component_image": "slide1_component.png",
+    "target_position": [75, 65],
+    "tolerance": 5,
+    "prompt": "Drag the slider component to the correct position",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "answer": [75, 65]
+  }
+} 

@@ -1,0 +1,9 @@
+{
+  "image1.jpg": {
+    "target_object": "moon",
+    "grid_size": [5, 5],
+    "correct_patches": [0,1,2,3,5,6,7,8,11,12,13],
+    "prompt": "Select all squares with moon",
+    "description": "A grid of 5x5 patches containing a motorcycle in the bottom right corner"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "images1": {
+    "question": "Find the pictures that include a car",
+    "description": "A grid of 9 images where the user must select all images containing cars",
+    "correct_selections": [1,2,3,4,5,7],
+    "images": ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"],
+    "prompt": "Select all images containing a car, then click submit",
+    "subfolder": "images1"
+  }
+} 
