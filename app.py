@@ -30,6 +30,10 @@ def index():
 def serve_captcha(captcha_type, filename):
     return send_from_directory(os.path.join('captcha_data', captcha_type), filename)
 
+@app.route('/captcha_data/<captcha_type>/<subdir>/<filename>')
+def serve_captcha_subdir(captcha_type, subdir, filename):
+    return send_from_directory(os.path.join('captcha_data', captcha_type, subdir), filename)
+
 @app.route('/api/get_puzzle', methods=['GET'])
 def get_puzzle():
     # Check if we should return a random puzzle from any type
@@ -67,6 +71,18 @@ def get_puzzle():
         prompt = ground_truth[selected_puzzle].get("question", "Click on the geometric shape")
     elif puzzle_type == "Rotation_Match":
         prompt = ground_truth[selected_puzzle].get("prompt", "Use the arrows to rotate the object to match the reference direction")
+    elif puzzle_type == "Slide_Puzzle":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Drag the slider component to the correct position")
+    elif puzzle_type == "Unusual_Detection":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Select the unusual items in the image")
+    elif puzzle_type == "Image_Recognition":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Select all images matching the description")
+    elif puzzle_type == "Bingo":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Please click two images to exchange their position to line up the same images to a line")
+    elif puzzle_type == "Image_Matching":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Using the arrows, match the animal in the left and right image.")
+    elif puzzle_type == "Patch_Select":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Select all squares with the specified objects")
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -78,6 +94,18 @@ def get_puzzle():
         input_type = "click"
     elif puzzle_type == "Rotation_Match":
         input_type = "rotation"
+    elif puzzle_type == "Slide_Puzzle":
+        input_type = "slide"
+    elif puzzle_type == "Unusual_Detection":
+        input_type = "multiselect"
+    elif puzzle_type == "Image_Recognition":
+        input_type = "image_grid"
+    elif puzzle_type == "Bingo":
+        input_type = "bingo_swap"
+    elif puzzle_type == "Image_Matching":
+        input_type = "image_matching"
+    elif puzzle_type == "Patch_Select":
+        input_type = "patch_select"
     
     # For Rotation_Match, include additional data needed for the interface
     additional_data = {}
@@ -105,6 +133,91 @@ def get_puzzle():
             "object_base": object_base,
             "current_angle": 0
         }
+    # For Slide_Puzzle, include the component image path and target position data
+    elif puzzle_type == "Slide_Puzzle":
+        # Get component image name
+        component_image = ground_truth[selected_puzzle].get("component_image")
+        
+        if not component_image:
+            # If missing required fields, try another puzzle or fall back
+            return jsonify({'error': f'Invalid slide puzzle data: {selected_puzzle}'}), 500
+        
+        # Format path for the component image
+        component_path = f'/captcha_data/{puzzle_type}/{component_image}'
+        
+        additional_data = {
+            "component_image": component_path,
+            "background_image": f'/captcha_data/{puzzle_type}/{selected_puzzle}'
+        }
+    # For Unusual_Detection, include the grid size
+    elif puzzle_type == "Unusual_Detection":
+        # Get grid size from ground truth
+        grid_size = ground_truth[selected_puzzle].get("grid_size", [2, 3])  # Default to 2x3 grid if not specified
+        
+        additional_data = {
+            "grid_size": grid_size
+        }
+    # For Image_Recognition, include the grid images
+    elif puzzle_type == "Image_Recognition":
+        # Get images array from ground truth
+        images = ground_truth[selected_puzzle].get("images", [])
+        grid_size = [3, 3]  # Default grid size for image recognition (3x3)
+        
+        # Get the subfolder name from the puzzle_id or use a specific subfolder field
+        subfolder = ground_truth[selected_puzzle].get("subfolder", selected_puzzle)
+        
+        # Include image paths in response - dynamically use the subfolder
+        image_paths = [f'/captcha_data/{puzzle_type}/{subfolder}/{img}' for img in images]
+        
+        additional_data = {
+            "images": image_paths,
+            "grid_size": grid_size,
+            "question": ground_truth[selected_puzzle].get("question", "Select matching images")
+        }
+    # For Bingo, include the grid size
+    elif puzzle_type == "Bingo":
+        # Get grid size from ground truth
+        grid_size = ground_truth[selected_puzzle].get("grid_size", [3, 3])  # Default to 3x3 grid if not specified
+        
+        additional_data = {
+            "grid_size": grid_size,
+            "solution_line": ground_truth[selected_puzzle].get("solution_line", {}),
+            "answer": ground_truth[selected_puzzle].get("answer", [])
+        }
+    # For Image_Matching, include the reference image and options
+    elif puzzle_type == "Image_Matching":
+        # Get the reference image and option images
+        reference_image = ground_truth[selected_puzzle].get("reference_image")
+        option_images = ground_truth[selected_puzzle].get("option_images", [])
+        correct_option_index = ground_truth[selected_puzzle].get("correct_option_index", 0)
+        
+        if not reference_image or not option_images:
+            return jsonify({'error': f'Invalid image matching data: {selected_puzzle}'}), 500
+        
+        # Format paths for these images
+        ref_path = f'/captcha_data/{puzzle_type}/{reference_image}'
+        option_paths = [f'/captcha_data/{puzzle_type}/{img}' for img in option_images]
+        
+        additional_data = {
+            "reference_image": ref_path,
+            "option_images": option_paths,
+            "current_option_index": 0,
+            "correct_option_index": correct_option_index
+        }
+    # For Patch_Select, include the grid size and target object
+    elif puzzle_type == "Patch_Select":
+        # Get grid size from ground truth, default to 6x6 grid
+        grid_size = ground_truth[selected_puzzle].get("grid_size", [6, 6])
+        target_object = ground_truth[selected_puzzle].get("target_object", "motorcycles")
+        correct_patches = ground_truth[selected_puzzle].get("correct_patches", [])
+        
+        additional_data = {
+            "grid_size": grid_size,
+            "target_object": target_object,
+            "correct_patches": correct_patches
+        }
+    else:
+        prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
     response_data = {
         'puzzle_type': puzzle_type,
@@ -223,6 +336,111 @@ def check_answer():
             correct_answer_info = correct_angle
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Rotation_Match'}), 400
+    
+    elif puzzle_type == 'Slide_Puzzle':
+        # For slide puzzle, check if the component is positioned correctly
+        try:
+            # Get the target position from ground truth
+            target_position = ground_truth[puzzle_id].get('target_position')
+            tolerance = ground_truth[puzzle_id].get('tolerance', 10)
+            
+            # User answer should be the final position coordinates [x, y]
+            user_x, user_y = user_answer
+            target_x, target_y = target_position
+            
+            # Calculate distance from target position
+            distance = ((user_x - target_x) ** 2 + (user_y - target_y) ** 2) ** 0.5
+            
+            # Check if within tolerance
+            is_correct = distance <= tolerance
+            correct_answer_info = target_position
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Slide_Puzzle'}), 400
+    
+    elif puzzle_type == 'Unusual_Detection':
+        # For unusual detection, check if the selected grid cells match the unusual ones
+        try:
+            # Get the expected unusual cells from ground truth
+            correct_cells = ground_truth[puzzle_id].get('answer', [])
+            
+            # User answer should be a list of selected grid cell indices
+            user_cells = user_answer
+            
+            # Check if the selected cells match exactly
+            is_correct = set(user_cells) == set(correct_cells)
+            correct_answer_info = correct_cells
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Unusual_Detection'}), 400
+    
+    elif puzzle_type == 'Image_Recognition':
+        # For image recognition, check if the selected images match the expected ones
+        try:
+            # Get the expected correct image indices from ground truth
+            correct_selections = ground_truth[puzzle_id].get('correct_selections', [])
+            
+            # User answer should be a list of selected image indices
+            user_selections = user_answer
+            
+            # Check if the selected images match exactly
+            is_correct = set(user_selections) == set(correct_selections)
+            correct_answer_info = correct_selections
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Image_Recognition'}), 400
+    
+    elif puzzle_type == 'Bingo':
+        # For Bingo, check if the swapped positions would create a line of matching images
+        try:
+            # Get the expected correct swap options from ground truth
+            correct_swaps = ground_truth[puzzle_id].get('answer', [])
+            
+            # User answer should be a list of two indices to swap
+            user_swaps = user_answer
+            
+            # Check if the swaps match any of the possible correct swaps
+            # For this puzzle, there can be multiple correct solutions
+            is_correct = False
+            
+            # Go through each possible solution
+            for correct_swap in correct_swaps:
+                # Check if user's swap matches this solution (order doesn't matter)
+                if (set(user_swaps) == set(correct_swap) or 
+                    (set(user_swaps) == set(correct_swap[::-1]) if len(correct_swap) == 2 else False)):
+                    is_correct = True
+                    break
+                    
+            correct_answer_info = correct_swaps
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Bingo'}), 400
+    
+    elif puzzle_type == 'Image_Matching':
+        # For Image Matching, check if the selected option index matches the correct one
+        try:
+            # Get the correct option index from ground truth
+            correct_index = ground_truth[puzzle_id].get('correct_option_index')
+            
+            # User answer should be the selected option index
+            user_index = int(user_answer)
+            
+            # Check if indices match
+            is_correct = user_index == correct_index
+            correct_answer_info = correct_index
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Image_Matching'}), 400
+    
+    elif puzzle_type == 'Patch_Select':
+        # For Patch_Select, check if the selected patches match the correct ones
+        try:
+            # Get the correct patches from ground truth
+            correct_patches = ground_truth[puzzle_id].get('correct_patches', [])
+            
+            # User answer should be a list of selected patch indices
+            user_patches = user_answer
+            
+            # Check if the selected patches match exactly
+            is_correct = set(user_patches) == set(correct_patches)
+            correct_answer_info = correct_patches
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Patch_Select'}), 400
     
     else:
         # For other types, compare as strings (case insensitive)

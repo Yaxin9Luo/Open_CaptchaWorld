@@ -288,4 +288,367 @@ h1 {
     .object-image-container {
         flex: 0 0 100%;
     }
+}
+
+/* Slider Puzzle Styles */
+.background-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider-component {
+    position: absolute;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s ease;
+}
+
+.slider-component:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.slider-component:active {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.slider-submit {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.submit-slider {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-slider:hover {
+    background-color: #45a049;
+}
+
+.submit-slider:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Hover instructions for the slider */
+.background-container::before {
+    content: "Drag the puzzle piece to the correct position";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.background-container:hover::before {
+    opacity: 1;
+}
+
+/* Add responsive styles for smaller screens */
+@media (max-width: 600px) {
+    .background-container {
+        max-width: 100%;
+    }
+    
+    .slider-component img {
+        max-width: 100%;
+    }
+}
+
+/* Target area marker for slider puzzle debug */
+.target-area {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px dashed #00cc00;
+    background-color: rgba(0, 204, 0, 0.2);
+    pointer-events: none;
+    z-index: 5;
+    animation: pulse-green 1.5s infinite alternate;
+}
+
+@keyframes pulse-green {
+    from {
+        box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.4);
+        background-color: rgba(0, 204, 0, 0.2);
+    }
+    to {
+        box-shadow: 0 0 0 10px rgba(0, 204, 0, 0);
+        background-color: rgba(0, 204, 0, 0.3);
+    }
+}
+
+/* Debugging coordinates label */
+.coords-label {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 5px;
+    font-size: 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+/* Unusual Detection Grid Styles */
+.unusual-detection-grid {
+    display: grid;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.grid-cell {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid #333;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+}
+
+.grid-cell:hover {
+    transform: scale(0.98);
+}
+
+.cell-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cell-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 120, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 3;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+.submit-unusual {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-unusual:hover {
+    background-color: #45a049;
+}
+
+.submit-unusual:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* End Unusual Detection Styles */
+
+/* Image Matching Styles */
+.matching-layout {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.option-image-container {
+    flex: 0 0 45%;
+    text-align: center;
+    position: relative;
+}
+
+.option-image-container::before {
+    content: "Match This";
+}
+
+#option-image {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+/* Navigation controls */
+.image-matching-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+.navigate-left,
+.navigate-right {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2980b9;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.navigate-left:hover,
+.navigate-right:hover {
+    background-color: #3498db;
+}
+
+.navigate-left:active,
+.navigate-right:active {
+    background-color: #1c638d;
+}
+
+/* Indicator dots */
+.indicator-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bdc3c7;
+    transition: background-color 0.2s;
+}
+
+.dot.active {
+    background-color: #2980b9;
+}
+
+/* Submit button for image matching */
+.image-matching-submit {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.submit-image-matching {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-image-matching:hover {
+    background-color: #2ecc71;
+}
+
+.submit-image-matching:active {
+    background-color: #219653;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .matching-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .reference-image-container,
+    .option-image-container {
+        flex: 0 0 100%;
+    }
+}
+
+/* Add styles for Patch Select grid */
+.patch-select-grid {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    overflow: hidden;
+    position: relative;
+    height: 450px; /* Set a fixed height */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.patch-select-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.patch-select-image-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.patch-select-cell {
+    position: relative;
+    z-index: 1;
+    min-height: 80px; /* Increase minimum height */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.patch-select-cell:hover {
+    background-color: rgba(0, 123, 255, 0.2);
+    border: 3px solid rgba(0, 123, 255, 0.7);
+}
+
+.patch-select-cell.selected {
+    background-color: rgba(0, 123, 255, 0.3);
+    border: 3px solid rgba(0, 123, 255, 0.8);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 } 
