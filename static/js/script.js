@@ -1389,9 +1389,7 @@ document.addEventListener('DOMContentLoaded', () => {
             answerData.answer = selectedCells;
         } else if (currentPuzzle.input_type === 'image_grid') {
             // For image grid selection, send the selected image indices
-            const selectedImages = Array.from(document.querySelectorAll('.image-grid-item.selected'))
-                .map(item => parseInt(item.dataset.index));
-            answerData.answer = selectedImages;
+            answerData.answer = selectedCells;
         } else if (currentPuzzle.input_type === 'bingo_swap') {
             // For bingo swap, send the selected cells to swap
             answerData.answer = bingoSelectedCells;
@@ -1898,6 +1896,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update the answer in the UI
                 userAnswerInput.value = JSON.stringify(selectedPatches);
                 
+                // Enable the submit button when squares are selected
+                submitBtn.disabled = false;
+                
                 // Log selected patches for debugging
                 console.log('Selected patches:', selectedPatches);
             });
@@ -1914,7 +1915,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide the regular input and replace with verify button
         userAnswerInput.style.display = 'none';
         submitBtn.textContent = 'Verify';
-        submitBtn.style.display = 'block';
+        submitBtn.style.display = 'inline-block';  // Changed to inline-block
+        inputGroup.style.display = 'flex';
+        submitBtn.disabled = false; // Ensure the button is enabled
         
         // Clear any previous answer
         userAnswerInput.value = '[]';
