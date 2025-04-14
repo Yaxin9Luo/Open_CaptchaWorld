@@ -3,7 +3,7 @@
       "type": "Letter A",
       "area": [[50, 40], [90, 90]]
     },
-    "question": "Click the Letter on the left of the Parallelogram",
+    "prompt": "Click the Letter on the left of the Parallelogram",
     "description": "Geometry click puzzle with a cube and letters"
   },
   "dingxiang_000002.jpg": {
@@ -11,7 +11,7 @@
       "type": "circle",
       "area": [[220, 65], [295, 115]]
     },
-    "question": "Click the 2-D Shape",
+    "prompt": "Click the 2-D Shape",
     "description": "Geometry click puzzle with a cube and letters"
   },
   "dingxiang_000003.jpg": {
@@ -19,7 +19,7 @@
       "type": "circle",
       "area": [[100, 65], [125, 145]]
     },
-    "question": "Click the letter closest to the cube",
+    "prompt": "Click the letter closest to the cube",
     "description": "Geometry click puzzle with a cube and letters"
   },
   "dingxiang_000004.jpg": {
@@ -27,6 +27,6 @@
       "type": "circle",
       "area": [[35, 105], [75, 145]]
     },
-    "question": "Click the 2-D Shape",
+    "prompt": "Click the 2-D Shape",
     "description": "Geometry click puzzle with a cube and letters"
   },

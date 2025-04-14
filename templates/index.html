@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAPTCHA Puzzle Benchmark</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        /* Additional styling to ensure input field visibility */
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            width: 100%;
+        }
+        #user-answer {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        #submit-answer {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        #submit-answer:hover {
+            background-color: #45a049;
+        }
+        #submit-answer:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
     <div class="container">

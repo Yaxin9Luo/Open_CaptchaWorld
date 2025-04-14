@@ -1145,6 +1145,13 @@ document.addEventListener('DOMContentLoaded', () => {
         resultMessage.textContent = '';
         resultMessage.className = 'result-message';
         
+        // Reset the submit button text
+        submitBtn.textContent = 'Submit';
+        submitBtn.disabled = false;
+        
+        // Reset input field display
+        userAnswerInput.style.display = 'block';
+        
         // Get a random puzzle from any available type
         fetch('/api/get_puzzle?random=true')
             .then(response => response.json())
@@ -1315,6 +1322,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Setup for text/number input CAPTCHAs
                     puzzleImage.src = data.image_path;
                     inputGroup.style.display = 'flex';
+                    userAnswerInput.style.display = 'block'; // Ensure the input is visible
                     puzzleImage.style.cursor = 'default';
                     puzzleImage.classList.remove('clickable');
                     puzzleImageContainer.style.display = 'block';
@@ -1326,10 +1334,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Update prompt after clearing
                     if (data.prompt) {
                         puzzlePrompt.textContent = data.prompt;
+                    } else if (data.puzzle_type === 'Dice_Count') {
+                        puzzlePrompt.textContent = "Sum up the numbers on all the dice";
                     }
                     
                     // Reset submit button
                     submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit';
                     
                     // Clear and focus input
                     userAnswerInput.value = '';
@@ -1338,8 +1349,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Set input type based on puzzle type
                     if (data.input_type === 'number') {
                         userAnswerInput.setAttribute('type', 'number');
+                        userAnswerInput.setAttribute('placeholder', 'Enter the sum');
                     } else {
                         userAnswerInput.setAttribute('type', 'text');
+                        userAnswerInput.setAttribute('placeholder', 'Your answer');
                     }
                 }
             })
@@ -1351,6 +1364,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function submitAnswer() {
+        // Don't submit if there's no input for number/text input types
+        if ((currentPuzzle.input_type === 'number' || currentPuzzle.input_type === 'text') && 
+            !userAnswerInput.value.trim()) {
+            // Don't submit empty answers for number/text inputs
+            return;
+        }
+        
         // Disable submit button to prevent double submissions
         submitBtn.disabled = true;
         submitBtn.textContent = 'Processing...';
@@ -1491,13 +1511,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            // Load a new puzzle after a delay
-            setTimeout(loadNewPuzzle, 2000);
+            // After handling the result and before loading a new puzzle
+            setTimeout(() => {
+                // Reset the submit button text before loading new puzzle
+                submitBtn.textContent = 'Submit';
+                
+                // Make sure we reset input visibility before loading a new puzzle
+                userAnswerInput.style.display = 'block';
+                
+                loadNewPuzzle();
+            }, 2000);
         })
         .catch(error => {
             console.error('Error checking answer:', error);
             resultMessage.textContent = 'Error checking answer. Please try again.';
             resultMessage.className = 'result-message incorrect';
+            // Re-enable the submit button on error
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit';
         });
     }
 
