@@ -1129,7 +1129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             existingBingoSubmit.remove();
         }
         
-        // Remove any image matching controls and submit buttons
+        // After checking and removing existingImageMatchingControls
         const existingImageMatchingControls = document.querySelector('.image-matching-controls');
         if (existingImageMatchingControls) {
             existingImageMatchingControls.remove();
@@ -1138,6 +1138,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const existingImageMatchingSubmit = document.querySelector('.image-matching-submit');
         if (existingImageMatchingSubmit) {
             existingImageMatchingSubmit.remove();
+        }
+        
+        // Remove any dart count controls and submit buttons
+        const existingDartCountSubmit = document.querySelector('.dart-count-submit');
+        if (existingDartCountSubmit) {
+            existingDartCountSubmit.remove();
         }
         
         // Reset the puzzle prompt and image
@@ -1318,6 +1324,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Setup patch selection grid
                     setupPatchSelectGrid();
+                } else if (data.input_type === 'dart_count') {
+                    // Setup for Dart Count CAPTCHA
+                    inputGroup.style.display = 'none';
+                    puzzleImage.style.display = 'none';
+                    puzzleImageContainer.style.display = 'block';
+                    
+                    // Update prompt for the Dart Count puzzle
+                    if (data.prompt) {
+                        puzzlePrompt.textContent = data.prompt;
+                    } else {
+                        puzzlePrompt.textContent = "Use the arrows to pick the image where all the darts add up to the number in the left image.";
+                    }
+                    
+                    // Set up Dart Count interface
+                    setupDartCount();
                 } else {
                     // Setup for text/number input CAPTCHAs
                     puzzleImage.src = data.image_path;
@@ -1417,6 +1438,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // For image matching, send the current option index
             const currentOptionIndex = currentPuzzle.current_option_index || 0;
             answerData.answer = currentOptionIndex;
+        } else if (currentPuzzle.input_type === 'dart_count') {
+            // For dart count, send the selected dart image index
+            answerData.answer = userAnswerInput.value;
         } else if (currentPuzzle.input_type === 'patch_select') {
             // For patch select, send the selected patch indices
             try {
@@ -1449,25 +1473,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultMessage.textContent = 'Correct!';
                 resultMessage.className = 'result-message correct';
             } else {
-                // Format correct answer display based on puzzle type
-                let correctAnswerDisplay = '';
-                
-                if (currentPuzzle.puzzle_type === 'Geometry_Click') {
-                    if (data.correct_answer && data.correct_answer.type) {
-                        correctAnswerDisplay = `the ${data.correct_answer.type}`;
-                    } else {
-                        correctAnswerDisplay = 'the correct shape';
-                    }
-                    resultMessage.textContent = `Incorrect. You should have clicked on ${correctAnswerDisplay}.`;
-                } else if (currentPuzzle.puzzle_type === 'Rotation_Match') {
-                    // For rotation puzzles
-                    correctAnswerDisplay = `${data.correct_answer}°`;
-                    resultMessage.textContent = `Incorrect. The correct rotation is ${correctAnswerDisplay}.`;
-                } else {
-                    correctAnswerDisplay = data.correct_answer;
-                    resultMessage.textContent = `Incorrect. The correct answer is ${correctAnswerDisplay}.`;
-                }
-                
+                // Just show "Incorrect" without revealing the correct answer
+                resultMessage.textContent = 'Incorrect.';
                 resultMessage.className = 'result-message incorrect';
             }
             
@@ -1952,5 +1959,200 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Clear any previous answer
         userAnswerInput.value = '[]';
+    }
+
+    /**
+     * Sets up the dart count interface with reference image and option images
+     */
+    function setupDartCount() {
+        // Clear the puzzle container first
+        puzzleImageContainer.innerHTML = '';
+        
+        // Create container for the dart count interface
+        const dartCountContainer = document.createElement('div');
+        dartCountContainer.className = 'dart-count-container';
+        dartCountContainer.style.display = 'flex';
+        dartCountContainer.style.alignItems = 'center';
+        dartCountContainer.style.justifyContent = 'center'; // Center the content
+        dartCountContainer.style.width = '100%';
+        dartCountContainer.style.padding = '0 30px'; // Add padding to container for arrow space
+        
+        // Create reference image container (left side)
+        const referenceContainer = document.createElement('div');
+        referenceContainer.className = 'reference-container';
+        referenceContainer.style.width = '40%'; // Slightly narrower to leave space for arrows
+        referenceContainer.style.textAlign = 'center';
+        referenceContainer.style.margin = '0 5%'; // Add margin for spacing
+        
+        // Create reference image
+        const referenceImg = document.createElement('img');
+        referenceImg.src = currentPuzzle.reference_image;
+        referenceImg.alt = 'Reference Number';
+        referenceImg.style.maxWidth = '100%';
+        referenceImg.style.border = '1px solid #ccc';
+        
+        // Add "Sum to reach" label
+        const sumLabel = document.createElement('div');
+        sumLabel.textContent = 'Sum to reach';
+        sumLabel.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        sumLabel.style.color = 'white';
+        sumLabel.style.padding = '5px';
+        sumLabel.style.position = 'absolute';
+        sumLabel.style.bottom = '0';
+        sumLabel.style.left = '0';
+        sumLabel.style.width = '100%';
+        
+        // Create a wrapper for the reference image to allow for positioning the label
+        const referenceWrapper = document.createElement('div');
+        referenceWrapper.style.position = 'relative';
+        referenceWrapper.appendChild(referenceImg);
+        referenceWrapper.appendChild(sumLabel);
+        
+        referenceContainer.appendChild(referenceWrapper);
+        
+        // Create options container (right side)
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'options-container';
+        optionsContainer.style.width = '40%'; // Slightly narrower to leave space for arrows
+        optionsContainer.style.position = 'relative';
+        optionsContainer.style.margin = '0 5%'; // Add margin for spacing
+        
+        // Create option image
+        const optionImg = document.createElement('img');
+        optionImg.id = 'dart-option-image';
+        optionImg.src = currentPuzzle.option_images[0]; // Start with the first option
+        optionImg.alt = 'Dart Option';
+        optionImg.style.maxWidth = '100%';
+        optionImg.style.border = '1px solid #ccc';
+        
+        // Create navigation controls
+        const prevButton = document.createElement('button');
+        prevButton.className = 'nav-button prev-button';
+        prevButton.innerHTML = '&larr;'; // Left arrow
+        prevButton.style.position = 'absolute';
+        prevButton.style.left = '-50px'; // Move further away from the image
+        prevButton.style.top = '50%';
+        prevButton.style.transform = 'translateY(-50%)';
+        prevButton.style.zIndex = '10';
+        prevButton.style.borderRadius = '50%';
+        prevButton.style.width = '40px';
+        prevButton.style.height = '40px';
+        prevButton.style.fontSize = '20px';
+        prevButton.style.border = '1px solid #ccc';
+        prevButton.style.background = 'white';
+        prevButton.style.cursor = 'pointer';
+        prevButton.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+        
+        const nextButton = document.createElement('button');
+        nextButton.className = 'nav-button next-button';
+        nextButton.innerHTML = '&rarr;'; // Right arrow
+        nextButton.style.position = 'absolute';
+        nextButton.style.right = '-50px'; // Move further away from the image
+        nextButton.style.top = '50%';
+        nextButton.style.transform = 'translateY(-50%)';
+        nextButton.style.zIndex = '10';
+        nextButton.style.borderRadius = '50%';
+        nextButton.style.width = '40px';
+        nextButton.style.height = '40px';
+        nextButton.style.fontSize = '20px';
+        nextButton.style.border = '1px solid #ccc';
+        nextButton.style.background = 'white';
+        nextButton.style.cursor = 'pointer';
+        nextButton.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+        
+        // Store current option index
+        let currentOptionIndex = 0;
+        
+        // Create option indicators (dots)
+        const indicatorContainer = document.createElement('div');
+        indicatorContainer.className = 'indicator-container';
+        indicatorContainer.style.display = 'flex';
+        indicatorContainer.style.justifyContent = 'center';
+        indicatorContainer.style.marginTop = '10px';
+        
+        // Add indicators for each option
+        for (let i = 0; i < currentPuzzle.option_images.length; i++) {
+            const indicator = document.createElement('div');
+            indicator.className = 'option-indicator';
+            indicator.style.width = '12px';
+            indicator.style.height = '12px';
+            indicator.style.borderRadius = '50%';
+            indicator.style.margin = '0 5px';
+            indicator.style.backgroundColor = i === 0 ? '#4CAF50' : '#ccc';
+            
+            indicatorContainer.appendChild(indicator);
+        }
+        
+        // Update function for changing options
+        function updateDartOption(direction) {
+            const optionCount = currentPuzzle.option_images.length;
+            
+            // Update index
+            if (direction === 'next') {
+                currentOptionIndex = (currentOptionIndex + 1) % optionCount;
+            } else {
+                currentOptionIndex = (currentOptionIndex - 1 + optionCount) % optionCount;
+            }
+            
+            // Update image
+            optionImg.src = currentPuzzle.option_images[currentOptionIndex];
+            
+            // Update indicators
+            const indicators = indicatorContainer.querySelectorAll('.option-indicator');
+            indicators.forEach((ind, i) => {
+                ind.style.backgroundColor = i === currentOptionIndex ? '#4CAF50' : '#ccc';
+            });
+            
+            // Store the selected index for submission
+            userAnswerInput.value = currentOptionIndex;
+        }
+        
+        // Add event listeners to navigation buttons
+        prevButton.addEventListener('click', function() {
+            updateDartOption('prev');
+        });
+        
+        nextButton.addEventListener('click', function() {
+            updateDartOption('next');
+        });
+        
+        // Add elements to containers
+        optionsContainer.appendChild(optionImg);
+        optionsContainer.appendChild(prevButton);
+        optionsContainer.appendChild(nextButton);
+        
+        // Add containers to main container
+        dartCountContainer.appendChild(referenceContainer);
+        dartCountContainer.appendChild(optionsContainer);
+        
+        // Add main container and indicators to puzzle container
+        puzzleImageContainer.appendChild(dartCountContainer);
+        puzzleImageContainer.appendChild(indicatorContainer);
+        
+        // Create submit button
+        const submitContainer = document.createElement('div');
+        submitContainer.className = 'dart-count-submit';
+        submitContainer.style.textAlign = 'center';
+        submitContainer.style.marginTop = '15px';
+        
+        const dartSubmitBtn = document.createElement('button');
+        dartSubmitBtn.textContent = 'Submit';
+        dartSubmitBtn.className = 'submit-dart-count';
+        dartSubmitBtn.style.padding = '10px 20px';
+        dartSubmitBtn.style.backgroundColor = '#4CAF50';
+        dartSubmitBtn.style.color = 'white';
+        dartSubmitBtn.style.border = 'none';
+        dartSubmitBtn.style.borderRadius = '4px';
+        dartSubmitBtn.style.cursor = 'pointer';
+        dartSubmitBtn.style.fontSize = '16px';
+        
+        dartSubmitBtn.addEventListener('click', submitAnswer);
+        
+        submitContainer.appendChild(dartSubmitBtn);
+        puzzleImageContainer.appendChild(submitContainer);
+        
+        // Set initial value in hidden input field
+        userAnswerInput.value = currentOptionIndex;
+        userAnswerInput.style.display = 'none';
     }
 }); 

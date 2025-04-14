@@ -1,238 +1,170 @@
-# CAPTCHA Puzzle Benchmark - Project Summary
+# CAPTCHA Puzzle Benchmark: Project Summary
 
 ## Overview
-
-The CAPTCHA Puzzle Benchmark is a web-based environment designed for testing and benchmarking Multimodal LLM (Large Language Model) Agents on CAPTCHA-style puzzles. The system presents various types of CAPTCHA challenges that test AI systems' capability to interpret, reason about, and interact with visual content.
+The CAPTCHA Puzzle Benchmark is a web-based environment for testing and benchmarking Multimodal LLM (Large Language Model) Agents on CAPTCHA-style puzzles. The system presents various types of visual challenges that require different interaction methods and cognitive skills to solve, making it an ideal benchmark for testing AI capabilities.
 
 ## Project Structure
 
 ```
-├── app.py                   # Main Flask application server
-├── manage_captchas.py       # Command-line tool for managing CAPTCHA puzzles
-├── rotate_images.py         # Utility for creating rotation puzzles
+├── app.py                   # Main Flask application
+├── benchmark_results.json   # Log of benchmark results
+├── captcha_data/            # Directory containing all CAPTCHA puzzles
+│   ├── Bingo/               # Bingo puzzle type
+│   ├── Dart_Count/          # Dart counting puzzle type  
+│   ├── Dice_Count/          # Dice counting puzzle type
+│   ├── Geometry_Click/      # Geometry clicking puzzle type
+│   ├── Image_Matching/      # Image matching puzzle type
+│   ├── Image_Recognition/   # Image recognition puzzle type
+│   ├── Patch_Select/        # Patch selection puzzle type
+│   ├── Rotation_Match/      # Rotation matching puzzle type
+│   ├── Slide_Puzzle/        # Slide puzzle type
+│   └── Unusual_Detection/   # Unusual detection puzzle type
+├── manage_captchas.py       # CLI tool for managing CAPTCHA puzzles
 ├── requirements.txt         # Python dependencies
-├── benchmark_results.json   # Logs of benchmark attempts
-├── README.md                # Project documentation
-│
+├── rotate_images.py         # Tool for creating rotation puzzles
 ├── static/                  # Static web assets
-│   ├── css/
-│   │   └── style.css        # CSS styling for the web interface
-│   └── js/
-│       └── script.js        # Frontend JavaScript logic
-│
-├── templates/               # Flask HTML templates
-│   └── index.html           # Main page template
-│
-└── captcha_data/            # CAPTCHA puzzle data organized by type
-    ├── Dice_Count/
-    ├── Geometry_Click/
-    ├── Rotation_Match/
-    ├── Slide_Puzzle/
-    ├── Unusual_Detection/
-    ├── Image_Recognition/
-    ├── Bingo/
-    ├── Image_Matching/
-    └── Patch_Select/
+│   ├── css/                 # CSS styles
+│   │   └── style.css        # Main stylesheet
+│   └── js/                  # JavaScript files
+│       └── script.js        # Main client-side logic
+└── templates/               # HTML templates
+    └── index.html           # Main page template
 ```
 
 ## Dependencies
 
-### Python Dependencies
-- Flask (2.0.1) - Web framework
-- Werkzeug (2.0.2) - WSGI utility library
-- Flask-CORS (3.0.10) - Cross-Origin Resource Sharing extension
-- Pillow (9.4.0) - Image processing library
-
-### Frontend Dependencies
-The project uses vanilla JavaScript without external libraries for the frontend.
-
-## Core Components and Their Interactions
-
 ### Backend (Python)
+- **Flask (2.0.1)**: Web framework
+- **Werkzeug (2.0.2)**: WSGI utility library
+- **Flask-CORS (3.0.10)**: Cross-Origin Resource Sharing extension
+- **Pillow (9.4.0)**: Image processing library
 
-1. **app.py**
-   - Main Flask application controller
-   - Handles HTTP routes and API endpoints
-   - Key endpoints:
-     - `/` - Serves the main page
-     - `/api/get_puzzle` - Returns a random or specified puzzle
-     - `/api/check_answer` - Validates user answers
-     - `/api/benchmark_results` - Records benchmark attempts
-     - `/api/types` - Lists available CAPTCHA types
+### Frontend
+- **Vanilla JavaScript**: No external JS frameworks
+- **CSS**: Custom styling
 
-2. **manage_captchas.py**
-   - Command-line tool for puzzle management
-   - Provides functionality to:
-     - List CAPTCHA types
-     - Add new CAPTCHA types
-     - Add new puzzles to existing types
-     - List all puzzles for a specific type
+## CAPTCHA Types and Interactions
 
-3. **rotate_images.py**
-   - Utility for creating rotation-based CAPTCHAs
-   - Generates rotated versions of objects
-   - Creates puzzles requiring alignment to reference images
+The system supports multiple CAPTCHA types, each requiring different interaction methods:
 
-### Frontend (JavaScript/HTML)
+| CAPTCHA Type | Description | Interaction Method |
+|--------------|-------------|-------------------|
+| Dice_Count | Count the sum of dice values | Number input |
+| Geometry_Click | Click on specific geometric shape | Click |
+| Rotation_Match | Rotate object to match reference | Rotation controls |
+| Slide_Puzzle | Position a component correctly | Dragging |
+| Unusual_Detection | Find unusual items in grid | Multiselect |
+| Image_Recognition | Select images matching description | Grid selection |
+| Bingo | Swap tiles to create matching line | Tile swapping |
+| Image_Matching | Match images using arrow controls | Navigation controls |
+| Patch_Select | Select grid cells with specific objects | Grid selection |
 
-1. **index.html**
-   - Main interface template
-   - Contains containers for:
-     - CAPTCHA image display
-     - User input controls
-     - Benchmark statistics
+## Core Components
 
-2. **script.js**
-   - Handles frontend logic including:
-     - Loading puzzles
-     - Puzzle UI customization based on type
-     - User interaction handlers
-     - Answer submission
-     - Benchmark statistics tracking
+### Backend (app.py)
 
-3. **style.css**
-   - Styles for all UI components
-   - Responsive design elements
-   - Special styling for different CAPTCHA types
+The main Flask application provides RESTful endpoints:
 
-## CAPTCHA Types and Implementation Details
+1. **`/`**: Serves the main page
+2. **`/captcha_data/<captcha_type>/<filename>`**: Serves CAPTCHA images
+3. **`/api/get_puzzle`**: Returns a random or specific puzzle
+4. **`/api/check_answer`**: Validates submitted answers
+5. **`/api/benchmark_results`**: Records benchmark results
+6. **`/api/types`**: Lists available CAPTCHA types
 
-The project supports multiple types of CAPTCHA puzzles, each with specific UI requirements and validation logic:
+Key functions:
+- `load_ground_truth()`: Loads answer data for puzzles
+- `get_captcha_types()`: Gets available CAPTCHA types
+- `get_puzzle()`: Selects and configures puzzles based on type
 
-1. **Dice_Count**
-   - **Description**: Users count the sum of numbers on multiple dice
-   - **Input Type**: number
-   - **Files**: captcha_data/Dice_Count/
+### Frontend (script.js)
 
-2. **Geometry_Click**
-   - **Description**: Users click on specific geometric shapes
-   - **Input Type**: click (coordinates)
-   - **Files**: captcha_data/Geometry_Click/
+The client-side JavaScript manages the user interface and interactions:
 
-3. **Rotation_Match**
-   - **Description**: Users rotate an object to match a reference orientation
-   - **Input Type**: rotation (angle selection)
-   - **Files**: captcha_data/Rotation_Match/
-   - **Special Files**: rotate_images.py (creates rotation puzzles)
+- **Puzzle Loading**: `loadNewPuzzle()` fetches and displays puzzles
+- **Answer Submission**: `submitAnswer()` validates and submits answers
+- **Type-Specific UI**: Different setup functions for each CAPTCHA type:
+  - `setupRotationControls()`: For rotation puzzles
+  - `setupSlidePuzzle()`: For slide puzzles
+  - `setupUnusualDetectionGrid()`: For unusual detection
+  - `setupImageRecognition()`: For image recognition
+  - `setupBingoSwap()`: For bingo puzzles
+  - `setupImageMatching()`: For image matching
+  - `setupPatchSelectGrid()`: For patch selection
 
-4. **Slide_Puzzle**
-   - **Description**: Users drag a component to the correct position
-   - **Input Type**: slide (position)
-   - **Files**: captcha_data/Slide_Puzzle/
+### Data Structure (captcha_data/)
 
-5. **Unusual_Detection**
-   - **Description**: Users identify unusual items in a grid
-   - **Input Type**: multiselect
-   - **Files**: captcha_data/Unusual_Detection/
+Each CAPTCHA type folder contains:
+- Image files for the puzzles
+- `ground_truth.json` with answers and metadata
 
-6. **Image_Recognition**
-   - **Description**: Users select images matching a description
-   - **Input Type**: image_grid
-   - **Files**: captcha_data/Image_Recognition/
-
-7. **Bingo**
-   - **Description**: Users swap positions to line up matching images
-   - **Input Type**: bingo_swap
-   - **Files**: captcha_data/Bingo/
-
-8. **Image_Matching**
-   - **Description**: Users match images using arrow controls
-   - **Input Type**: image_matching
-   - **Files**: captcha_data/Image_Matching/
-
-9. **Patch_Select**
-   - **Description**: Users select grid squares containing specific objects
-   - **Input Type**: patch_select
-   - **Files**: captcha_data/Patch_Select/
-
-## Key Data Structures
-
-### Ground Truth Format
-Each CAPTCHA type has a `ground_truth.json` file defining correct answers:
-
+Example structure for Dice_Count:
 ```json
 {
-  "image1.png": {
-    "answer": "value",
-    "description": "Description of the puzzle"
+  "dice10.png": {
+    "sum": 73,
+    "description": "Contains multiple dice with numbers that sum to 73"
   }
 }
 ```
 
-Special fields may exist for different puzzle types, such as:
-- `sum` for Dice_Count
-- `correct_angle` for Rotation_Match
-- `correct_patches` for Patch_Select
+## Utility Tools
 
-### Benchmark Results Format
-Results are stored in `benchmark_results.json`:
+### manage_captchas.py
 
-```json
-[
-  {
-    "puzzle_type": "Dice_Count",
-    "puzzle_id": "dice1.png",
-    "user_answer": "15",
-    "correct_answer": "15",
-    "is_correct": true,
-    "timestamp": "2023-05-22T14:30:22.123Z"
-  }
-]
-```
+CLI tool for managing CAPTCHA puzzles:
+- List available CAPTCHA types
+- Add new CAPTCHA types
+- Add new puzzles to existing types
+- List puzzles for a specific type
 
-## Application Flow
-
-1. **Server Initialization**
-   - Flask app starts on port 5001
-   - CAPTCHA types and puzzles are loaded
-
-2. **Frontend Initialization**
-   - Page loads and requests a random puzzle from `/api/get_puzzle`
-   - UI is dynamically configured based on puzzle type
-
-3. **User Interaction**
-   - User interacts with the puzzle (clicking, typing, dragging, etc.)
-   - Frontend handles puzzle-specific interactions
-
-4. **Answer Submission**
-   - User submits an answer
-   - Answer is sent to `/api/check_answer` for validation
-   - Result is displayed and recorded
-   - A new puzzle is automatically loaded
-
-5. **Benchmark Recording**
-   - Results are stored in `benchmark_results.json`
-   - Frontend statistics are updated
-
-## Extending the System
-
-### Adding New CAPTCHA Types
-1. Create a directory under `captcha_data/`
-2. Add puzzle images
-3. Create a `ground_truth.json` file with answers
-4. The system will automatically include the new type
-
-### Adding New Puzzles
-Use the command-line tool:
+Usage examples:
 ```bash
+python manage_captchas.py list-types
+python manage_captchas.py add-type Text_Recognition
 python manage_captchas.py add-puzzle Dice_Count /path/to/new_dice.png 42
 ```
 
-## Debugging Information
+### rotate_images.py
 
-For debugging purposes, the application provides:
-1. A debug mode flag in script.js (currently set to `false`)
-2. Debug info in API responses
-3. Console logging for key events
-4. Access to ground truth data through the API (for testing)
+Tool for creating rotation puzzles:
+- Create rotated versions of images at different angles
+- Set up rotation puzzles with reference images
+- Generate complete puzzle sets
 
-## Important File Locators
+Usage examples:
+```bash
+python rotate_images.py rotate image.png
+python rotate_images.py puzzle reference.png object.png 90
+python rotate_images.py set reference.png object.png 90
+```
 
-- **Main Application**: app.py
-- **Frontend Logic**: static/js/script.js
-- **Styling**: static/css/style.css
-- **HTML Template**: templates/index.html
-- **CAPTCHA Data**: captcha_data/[TYPE]/
-- **Benchmark Results**: benchmark_results.json
-- **CAPTCHA Management Tool**: manage_captchas.py
-- **Rotation Utility**: rotate_images.py 
+## Data Flow
+
+1. The user/agent accesses the web interface
+2. The front-end requests a random puzzle via `/api/get_puzzle`
+3. Server selects a puzzle, constructs response with puzzle metadata
+4. Front-end sets up appropriate UI based on puzzle type
+5. User/agent interacts with the puzzle
+6. Answer is submitted via `/api/check_answer`
+7. Server validates the answer against ground truth
+8. Result is recorded in benchmark_results.json
+9. New puzzle is automatically loaded
+
+## Benchmark Results
+
+Results are logged to `benchmark_results.json` with:
+- Puzzle type
+- Puzzle ID
+- User's/agent's answer
+- Correct answer
+- Whether the answer was correct
+- Timestamp
+
+## Extending the Benchmark
+
+New CAPTCHA types can be added by:
+1. Creating a new directory under `captcha_data/`
+2. Adding puzzle images
+3. Creating a `ground_truth.json` file with answers
+4. The system will automatically include the new type in random selection 

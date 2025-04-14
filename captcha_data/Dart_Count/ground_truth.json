@@ -1,0 +1,37 @@
+{
+  "dart_puzzle_1.json": {
+    "reference_image": "reference_num30.png",
+    "reference_number": 30,
+    "option_images": [
+      "1darts_1.png",
+      "1darts_2.png",
+      "2darts_1.png",
+      "2darts_2.png",
+      "2darts_3.png",
+      "3darts_1.png",
+      "3darts_2.png",
+      "3darts_3.png",
+      "3darts_4.png",
+      "4darts_1.png",
+      "4darts_2.png",
+      "4darts_3.png"
+    ],
+    "correct_option_index": 11,
+    "prompt": "Use the arrows to pick the image where all the darts add up to the number in the left image.",
+    "description": "Dart counting puzzle where players need to find the image with darts that add up to the reference number",
+    "dart_sums": {
+      "1darts_1.png": 2,
+      "1darts_2.png": 5,
+      "2darts_1.png": 17,
+      "2darts_2.png": 16,
+      "2darts_3.png": 7,
+      "3darts_1.png": 26,
+      "3darts_2.png": 21,
+      "3darts_3.png": 15,
+      "3darts_4.png": 7,
+      "4darts_1.png": 21,
+      "4darts_2.png": 19,
+      "4darts_3.png": 30
+    }
+  }
+} 

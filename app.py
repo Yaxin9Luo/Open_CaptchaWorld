@@ -83,6 +83,8 @@ def get_puzzle():
         prompt = ground_truth[selected_puzzle].get("prompt", "Using the arrows, match the animal in the left and right image.")
     elif puzzle_type == "Patch_Select":
         prompt = ground_truth[selected_puzzle].get("prompt", "Select all squares with the specified objects")
+    elif puzzle_type == "Dart_Count":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Use the arrows to pick the image where all the darts add up to the number in the left image.")
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -106,6 +108,8 @@ def get_puzzle():
         input_type = "image_matching"
     elif puzzle_type == "Patch_Select":
         input_type = "patch_select"
+    elif puzzle_type == "Dart_Count":
+        input_type = "dart_count"
     
     # For Rotation_Match, include additional data needed for the interface
     additional_data = {}
@@ -207,14 +211,36 @@ def get_puzzle():
     # For Patch_Select, include the grid size and target object
     elif puzzle_type == "Patch_Select":
         # Get grid size from ground truth, default to 6x6 grid
-        grid_size = ground_truth[selected_puzzle].get("grid_size", [6, 6])
-        target_object = ground_truth[selected_puzzle].get("target_object", "motorcycles")
+        grid_size = ground_truth[selected_puzzle].get("grid_size", [5, 5])
+        target_object = ground_truth[selected_puzzle].get("target_object", "moon")
         correct_patches = ground_truth[selected_puzzle].get("correct_patches", [])
         
         additional_data = {
             "grid_size": grid_size,
             "target_object": target_object,
             "correct_patches": correct_patches
+        }
+    # For Dart_Count, include the reference image and options
+    elif puzzle_type == "Dart_Count":
+        # Get the reference image and option images
+        reference_image = ground_truth[selected_puzzle].get("reference_image")
+        option_images = ground_truth[selected_puzzle].get("option_images", [])
+        correct_option_index = ground_truth[selected_puzzle].get("correct_option_index", 0)
+        reference_number = ground_truth[selected_puzzle].get("reference_number", 0)
+        
+        if not reference_image or not option_images:
+            return jsonify({'error': f'Invalid dart count data: {selected_puzzle}'}), 500
+        
+        # Format paths for these images
+        ref_path = f'/captcha_data/{puzzle_type}/{reference_image}'
+        option_paths = [f'/captcha_data/{puzzle_type}/{img}' for img in option_images]
+        
+        additional_data = {
+            "reference_image": ref_path,
+            "option_images": option_paths,
+            "current_option_index": 0,
+            "correct_option_index": correct_option_index,
+            "reference_number": reference_number
         }
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
@@ -441,6 +467,21 @@ def check_answer():
             correct_answer_info = correct_patches
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Patch_Select'}), 400
+    
+    elif puzzle_type == 'Dart_Count':
+        # For Dart_Count, check if the selected option index matches the correct one
+        try:
+            # Get the correct option index from ground truth
+            correct_index = ground_truth[puzzle_id].get('correct_option_index')
+            
+            # User answer should be the selected option index
+            user_index = int(user_answer)
+            
+            # Check if indices match
+            is_correct = user_index == correct_index
+            correct_answer_info = correct_index
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Dart_Count'}), 400
     
     else:
         # For other types, compare as strings (case insensitive)
