@@ -1,0 +1,9 @@
+{
+  "path1.JPG": {
+    "reference_image": "path1.JPG",
+    "options": ["duck1.JPG", "duck2.JPG", "duck3.JPG", "duck4.JPG", "duck5.JPG"],
+    "correct_option": 2,
+    "prompt": "Use the arrows to move the duck to the spot indicated by the cross",
+    "description": "Path finding puzzle with duck placement"
+  }
+} 

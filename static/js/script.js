@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentRotationAngle = 0; // Track current rotation for Rotation_Match
     let selectedCells = []; // Track selected cells for Unusual_Detection
     let bingoSelectedCells = []; // Track selected cells for Bingo swap
+    let selectedAnimalIndex = -1; // Track selected animal index for Select_Animal
 
     // Event listeners
     submitBtn.addEventListener('click', submitAnswer);
@@ -1467,22 +1468,35 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (currentPuzzle.input_type === 'patch_select') {
             // For patch select, send the selected patch indices
             try {
-                // Get the selected patches from userAnswerInput.value (JSON string)
-                const selectedPatches = JSON.parse(userAnswerInput.value);
-                answerData.answer = selectedPatches;
+                // Try to parse the JSON value from the input
+                const parsedSelection = JSON.parse(userAnswerInput.value);
+                
+                // If parsed array is empty but global selectedCells is not, use global
+                if (parsedSelection.length === 0 && selectedCells.length > 0) {
+                    answerData.answer = selectedCells;
+                } else {
+                    answerData.answer = parsedSelection;
+                }
             } catch (error) {
                 console.error('Error parsing selected patches:', error);
-                answerData.answer = [];
+                // Fallback to the global array if parsing fails
+                answerData.answer = selectedCells;
             }
         } else if (currentPuzzle.input_type === 'select_animal') {
             // For select animal, send the selected animal index
             try {
-                // Get the selected animal from userAnswerInput.value (JSON string)
-                const selectedAnimal = JSON.parse(userAnswerInput.value);
-                answerData.answer = selectedAnimal;
+                // If the value is empty, use the global selectedAnimalIndex
+                if (userAnswerInput.value === '[]' || userAnswerInput.value.trim() === '') {
+                    answerData.answer = selectedAnimalIndex >= 0 ? [selectedAnimalIndex] : [];
+                } else {
+                    // Otherwise parse the JSON from the input
+                    const selectedAnimal = JSON.parse(userAnswerInput.value);
+                    answerData.answer = selectedAnimal;
+                }
             } catch (error) {
                 console.error('Error parsing selected animal:', error);
-                answerData.answer = [];
+                // Use the global variable as a fallback
+                answerData.answer = selectedAnimalIndex >= 0 ? [selectedAnimalIndex] : [];
             }
         } else if (currentPuzzle.input_type === 'object_match') {
             // For object match, send the selected option index
@@ -1879,6 +1893,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear the puzzle image container
         puzzleImageContainer.innerHTML = '';
         
+        // IMPORTANT: Reset the global selectedCells array to fix the bug
+        // when encountering these puzzles multiple times
+        selectedCells = [];
+        
         // Create a container for the patch select grid
         const gridContainer = document.createElement('div');
         gridContainer.className = 'patch-select-grid';
@@ -1920,7 +1938,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gridContainer.appendChild(imageContainer);
         
         // Create grid cells for selection
-        const selectedPatches = [];
+        // Use the global selectedCells array directly
         
         for (let i = 0; i < rows * cols; i++) {
             const cell = document.createElement('div');
@@ -1956,26 +1974,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Hide checkmark
                     checkmark.style.opacity = '0';
                     // Remove from selected array
-                    const index = selectedPatches.indexOf(i);
+                    const index = selectedCells.indexOf(i);
                     if (index > -1) {
-                        selectedPatches.splice(index, 1);
+                        selectedCells.splice(index, 1);
                     }
                 } else {
                     cell.classList.add('selected');
                     // Show checkmark
                     checkmark.style.opacity = '1';
                     // Add to selected array
-                    selectedPatches.push(i);
+                    selectedCells.push(i);
                 }
                 
                 // Update the answer in the UI
-                userAnswerInput.value = JSON.stringify(selectedPatches);
+                userAnswerInput.value = JSON.stringify(selectedCells);
                 
                 // Enable the submit button when squares are selected
                 submitBtn.disabled = false;
                 
                 // Log selected patches for debugging
-                console.log('Selected patches:', selectedPatches);
+                console.log('Selected patches:', selectedCells);
             });
             
             gridContainer.appendChild(cell);
@@ -2008,6 +2026,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Clear the puzzle image container
         puzzleImageContainer.innerHTML = '';
+        
+        // IMPORTANT: Reset the selectedAnimalIndex to -1 to fix the bug when encountering this puzzle multiple times
+        selectedAnimalIndex = -1;
         
         // Create a simple container directly
         const container = document.createElement('div');
@@ -2044,7 +2065,8 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
             
-            // Create grid cells for selection
+            // IMPORTANT: Create a fresh selectedAnimal object with -1 index to fix the bug
+            // when encountering these puzzles multiple times
             const selectedAnimal = { index: -1 };
             
             for (let i = 0; i < rows * cols; i++) {
@@ -2079,6 +2101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Update selection
                     selectedAnimal.index = i;
+                    selectedAnimalIndex = i; // Update the global variable
                     cell.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
                     cell.style.border = '2px solid rgba(76, 175, 80, 0.9)';
                     

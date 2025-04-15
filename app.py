@@ -91,6 +91,8 @@ def get_puzzle():
         prompt = ground_truth[selected_puzzle].get("prompt", "Pick a fox")
     elif puzzle_type == "Coordinates":
         prompt = ground_truth[selected_puzzle].get("prompt", "Using the arrows, move Jerry to the indicated seat")
+    elif puzzle_type == "Path_Finder":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Use the arrows to move the duck to the spot indicated by the cross")
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -121,6 +123,8 @@ def get_puzzle():
     elif puzzle_type == "Select_Animal":
         input_type = "select_animal"
     elif puzzle_type == "Coordinates":
+        input_type = "image_matching"
+    elif puzzle_type == "Path_Finder":
         input_type = "image_matching"
     
     # For Rotation_Match, include additional data needed for the interface
@@ -305,6 +309,26 @@ def get_puzzle():
             "option_images": option_paths,
             "current_option_index": 0,
             "correct_option_index": correct_option_index
+        }
+    # For Path_Finder, include the reference image and options
+    elif puzzle_type == "Path_Finder":
+        # Get the reference image and option images
+        reference_image = ground_truth[selected_puzzle].get("reference_image")
+        options = ground_truth[selected_puzzle].get("options", [])
+        correct_option = ground_truth[selected_puzzle].get("correct_option", 0)
+        
+        if not reference_image or not options:
+            return jsonify({'error': f'Invalid path finder data: {selected_puzzle}'}), 500
+        
+        # Format paths for these images
+        ref_path = f'/captcha_data/{puzzle_type}/{reference_image}'
+        option_paths = [f'/captcha_data/{puzzle_type}/{img}' for img in options]
+        
+        additional_data = {
+            "reference_image": ref_path,
+            "option_images": option_paths,
+            "current_option_index": 0,
+            "correct_option_index": correct_option
         }
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
@@ -592,6 +616,21 @@ def check_answer():
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Coordinates'}), 400
     
+    elif puzzle_type == 'Path_Finder':
+        # For Path_Finder, check if the selected option index matches the correct one
+        try:
+            # Get the correct option index from ground truth
+            correct_index = ground_truth[puzzle_id].get('correct_option')
+            
+            # User answer should be the selected option index
+            user_index = int(user_answer)
+            
+            # Check if indices match
+            is_correct = user_index == correct_index
+            correct_answer_info = correct_index
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Path_Finder'}), 400
+    
     else:
         # For other types, compare as strings (case insensitive)
         correct_answer = ground_truth[puzzle_id].get('answer')
@@ -607,6 +646,8 @@ def check_answer():
         answer_key = 'correct_patches'
     elif puzzle_type == 'Coordinates':
         answer_key = 'correct_option_index'
+    elif puzzle_type == 'Path_Finder':
+        answer_key = 'correct_option'
     else:
         answer_key = 'answer'
     
