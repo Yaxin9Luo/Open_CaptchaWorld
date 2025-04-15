@@ -1,0 +1,9 @@
+{
+  "coordinate_sample1.png": {
+    "correct_option_index": 4,
+    "prompt": "Using the arrows, move Jerry to the indicated seat",
+    "reference_image": "coordinate1.png",
+    "option_images": ["jerry1.png", "jerry2.png", "jerry3.png", "jerry4.png", "jerry5.png"],
+    "description": "Coordinate puzzle where user must select the image where Jerry is at the seat indicated in the left image"
+  }
+}

@@ -1,0 +1,1 @@
+{"image1.png": {"target_object": "fox", "grid_size": [2, 3], "correct_patches": [5], "prompt": "Pick a fox", "description": "A grid of 2x3 images containing different animals on buildings"}}

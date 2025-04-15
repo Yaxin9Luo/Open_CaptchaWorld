@@ -1,0 +1,14 @@
+{
+  "example1.png": {
+    "reference_image": "reference1.png",
+    "option_images": [
+      "image1.png", 
+      "image3.png", 
+      "image5.png", 
+      "image6.png", 
+      "image8.png"
+    ],
+    "correct_option_index": 0,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  }
+} 
