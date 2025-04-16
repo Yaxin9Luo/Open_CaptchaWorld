@@ -1,0 +1,14 @@
+{
+  "path1.png": {
+    "target_position": [190, 210],
+    "tolerance": 25,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path2.png": {
+    "target_position": [265, 445],
+    "tolerance": 15,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  }
+} 

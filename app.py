@@ -93,6 +93,8 @@ def get_puzzle():
         prompt = ground_truth[selected_puzzle].get("prompt", "Using the arrows, move Jerry to the indicated seat")
     elif puzzle_type == "Path_Finder":
         prompt = ground_truth[selected_puzzle].get("prompt", "Use the arrows to move the duck to the spot indicated by the cross")
+    elif puzzle_type == "Place_Dot":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Click to place a Dot at the end of the car's path")
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -126,6 +128,8 @@ def get_puzzle():
         input_type = "image_matching"
     elif puzzle_type == "Path_Finder":
         input_type = "image_matching"
+    elif puzzle_type == "Place_Dot":
+        input_type = "place_dot"
     
     # For Rotation_Match, include additional data needed for the interface
     additional_data = {}
@@ -366,6 +370,17 @@ def get_ground_truth():
     # Return the ground truth for the specified puzzle
     puzzle_data = ground_truth[puzzle_id]
     
+    # For Place_Dot puzzles, include the target_position and tolerance in the answer
+    if puzzle_type == 'Place_Dot':
+        return jsonify({
+            'answer': {
+                'target_position': puzzle_data.get('target_position'),
+                'tolerance': puzzle_data.get('tolerance', 15)
+            },
+            'question': puzzle_data.get('question'),
+            'description': puzzle_data.get('description')
+        })
+    
     return jsonify({
         'answer': puzzle_data.get('answer'),
         'question': puzzle_data.get('question'),
@@ -570,6 +585,26 @@ def check_answer():
             correct_answer_info = correct_index
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Dart_Count'}), 400
+    
+    elif puzzle_type == 'Place_Dot':
+        # For Place_Dot, check if the dot is placed at the end of the car's path
+        try:
+            # Get the target position from ground truth
+            target_position = ground_truth[puzzle_id].get('target_position')
+            tolerance = ground_truth[puzzle_id].get('tolerance', 15)  # Default tolerance of 15 pixels
+            
+            # Extract coordinates from user's answer (click position)
+            user_x, user_y = user_answer
+            target_x, target_y = target_position
+            
+            # Calculate distance from target position
+            distance = ((user_x - target_x) ** 2 + (user_y - target_y) ** 2) ** 0.5
+            
+            # Check if within tolerance
+            is_correct = distance <= tolerance
+            correct_answer_info = target_position
+        except (ValueError, TypeError, KeyError):
+            return jsonify({'error': 'Invalid answer format for Place_Dot'}), 400
     
     elif puzzle_type == 'Object_Match':
         # For Object_Match, check if the selected option index matches the correct one

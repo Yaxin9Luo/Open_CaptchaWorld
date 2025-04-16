@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputGroup = document.querySelector('.input-group');
 
     // Debug mode - set to true to show ground truth areas
-    const DEBUG_MODE = false;
+    const DEBUG_MODE = true;
 
     // Tracking state
     let currentPuzzle = null;
@@ -1348,32 +1348,49 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Setup animal selection grid
                     setupSelectAnimalGrid();
                 } else if (data.input_type === 'object_match') {
-                    // Setup for Object Match CAPTCHA
+                    // Setup for object match puzzles
                     inputGroup.style.display = 'none';
                     puzzleImage.style.display = 'none';
                     puzzleImageContainer.style.display = 'block';
                     
-                    // Update prompt for the Object Match puzzle
+                    // Update prompt
                     if (data.prompt) {
                         puzzlePrompt.textContent = data.prompt;
                     } else {
                         puzzlePrompt.textContent = "Use the arrows to change the number of objects until it matches the left image.";
                     }
                     
-                    // Set up Object Match interface
+                    // Set up object match interface
                     setupObjectMatch();
+                } else if (data.input_type === 'place_dot') {
+                    // Setup for Place_Dot CAPTCHAs
+                    inputGroup.style.display = 'none';
+                    puzzleImage.style.display = 'none';
+                    puzzleImageContainer.style.display = 'block';
+                    
+                    // Update prompt
+                    if (data.prompt) {
+                        puzzlePrompt.textContent = data.prompt;
+                    } else {
+                        puzzlePrompt.textContent = "Click to place a Dot at the end of the car's path";
+                    }
+                    
+                    // Set up place dot interface
+                    setupPlaceDot();
                 } else {
-                    // Setup for text/number input CAPTCHAs
+                    // Default for text-based CAPTCHAs
                     puzzleImage.src = data.image_path;
                     inputGroup.style.display = 'flex';
-                    userAnswerInput.style.display = 'block'; // Ensure the input is visible
                     puzzleImage.style.cursor = 'default';
                     puzzleImage.classList.remove('clickable');
-                    puzzleImageContainer.style.display = 'block';
-                    puzzleImage.style.display = 'block';
                     
                     // Add puzzle image back to container
-                    puzzleImageContainer.appendChild(puzzleImage);
+                    if (puzzleImageContainer.innerHTML === '') {
+                        puzzleImageContainer.appendChild(puzzleImage);
+                    }
+                    
+                    puzzleImageContainer.style.display = 'block';
+                    puzzleImage.style.display = 'block';
                     
                     // Update prompt after clearing
                     if (data.prompt) {
@@ -1398,6 +1415,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         userAnswerInput.setAttribute('type', 'text');
                         userAnswerInput.setAttribute('placeholder', 'Your answer');
                     }
+                    
+                    // Ensure the input is visible
+                    userAnswerInput.style.display = 'block';
                 }
             })
             .catch(error => {
@@ -1502,6 +1522,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // For object match, send the selected option index
             const selectedIndex = parseInt(puzzleImageContainer.dataset.currentOptionIndex);
             answerData.answer = selectedIndex;
+        } else if (currentPuzzle.input_type === 'place_dot') {
+            // For place_dot input, send the click coordinates
+            if (!clickCoordinates) {
+                console.error('No dot coordinates found');
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+                return;
+            }
+            answerData.answer = clickCoordinates;
         } else {
             // For text/number inputs, use the input value
             answerData.answer = userAnswerInput.value;
@@ -2291,6 +2321,179 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Updated option image:', {
             index: newIndex,
             src: optionImage.src
+        });
+    }
+
+    /**
+     * Setup the Place_Dot interface allowing the user to click on the image to place a dot
+     */
+    function setupPlaceDot() {
+        // Clear the puzzle image container
+        puzzleImageContainer.innerHTML = '';
+        
+        // Create a container for the image with relative positioning
+        const container = document.createElement('div');
+        container.style.position = 'relative';
+        container.style.width = '100%';
+        container.style.maxWidth = '800px';
+        container.style.margin = '0 auto';
+        
+        // Create and add the image
+        const img = document.createElement('img');
+        img.src = `/captcha_data/${currentPuzzle.puzzle_type}/${currentPuzzle.puzzle_id}`;
+        img.alt = 'Car path image';
+        img.style.width = '100%';
+        img.style.display = 'block';
+        img.style.cursor = 'crosshair';
+        container.appendChild(img);
+        
+        // Reset any previous click coordinates
+        clickCoordinates = null;
+        
+        // Add click handler to the image
+        img.addEventListener('click', (e) => {
+            // Remove any existing dot
+            const existingDot = container.querySelector('.place-dot-marker');
+            if (existingDot) {
+                existingDot.remove();
+            }
+            
+            // Get click coordinates relative to the image
+            const rect = e.target.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+            
+            // Store coordinates for submission
+            clickCoordinates = [x, y];
+            
+            // Create dot marker
+            const dot = document.createElement('div');
+            dot.className = 'place-dot-marker';
+            dot.style.position = 'absolute';
+            dot.style.width = '20px';
+            dot.style.height = '20px';
+            dot.style.borderRadius = '50%';
+            dot.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+            dot.style.border = '2px solid #ff0000';
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+            dot.style.transform = 'translate(-50%, -50%)';
+            dot.style.pointerEvents = 'none';
+            dot.style.zIndex = '10';
+            
+            // Add animation
+            dot.style.animation = 'pulse 1s infinite alternate';
+            
+            // Add dot to container
+            container.appendChild(dot);
+            
+            // Enable submit button
+            submitBtn.disabled = false;
+            
+            // Log coordinates for debugging
+            console.log('Dot placed at:', { x, y });
+        });
+        
+        // Add the container to the puzzle container
+        puzzleImageContainer.appendChild(container);
+        
+        // In debug mode, fetch the ground truth to show the target area
+        if (DEBUG_MODE) {
+            fetch('/api/get_ground_truth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    puzzle_type: currentPuzzle.puzzle_type,
+                    puzzle_id: currentPuzzle.puzzle_id
+                })
+            })
+            .then(response => response.json())
+            .then(gtData => {
+                // Check if we have a target position in the answer
+                if (gtData.answer && gtData.answer.target_position) {
+                    const targetPosition = gtData.answer.target_position;
+                    const tolerance = gtData.answer.tolerance || 15; // Default to 15px
+                    showTargetDotArea(container, targetPosition, tolerance);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching ground truth for Place_Dot:', error);
+            });
+        }
+        
+        // Update prompt and input elements
+        puzzlePrompt.textContent = currentPuzzle.prompt || "Click to place a Dot at the end of the car's path";
+        
+        // Hide the input field and adjust the submit button
+        userAnswerInput.style.display = 'none';
+        submitBtn.textContent = 'Submit';
+        submitBtn.disabled = true; // Disabled until user places a dot
+        submitBtn.style.display = 'inline-block';
+        inputGroup.style.display = 'flex';
+    }
+    
+    /**
+     * Show the target area for the Place_Dot puzzle in debug mode
+     * @param {HTMLElement} container - The container element
+     * @param {Array} targetPosition - The target position [x, y]
+     * @param {number} tolerance - The tolerance radius in pixels
+     */
+    function showTargetDotArea(container, targetPosition, tolerance = 15) {
+        if (!DEBUG_MODE) return;
+        
+        // Remove any existing target visualization
+        const existingTarget = container.querySelector('.target-dot-area');
+        if (existingTarget) {
+            existingTarget.remove();
+        }
+        
+        // Get target coordinates
+        const [targetX, targetY] = targetPosition;
+        
+        // Create a target element - visualized as a circle
+        const targetArea = document.createElement('div');
+        targetArea.className = 'target-dot-area';
+        
+        // Calculate diameter based on tolerance
+        const diameter = tolerance * 2;
+        
+        // Style the target area
+        targetArea.style.position = 'absolute';
+        targetArea.style.left = `${targetX - tolerance}px`;
+        targetArea.style.top = `${targetY - tolerance}px`;
+        targetArea.style.width = `${diameter}px`;
+        targetArea.style.height = `${diameter}px`;
+        targetArea.style.borderRadius = '50%';
+        targetArea.style.border = '2px dashed green';
+        targetArea.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
+        targetArea.style.zIndex = '5';
+        targetArea.style.pointerEvents = 'none'; // Allow clicks to pass through
+        
+        // Add coordinates label
+        const coordsLabel = document.createElement('div');
+        coordsLabel.className = 'coords-label';
+        coordsLabel.textContent = `Target: (${targetX}, ${targetY}) ±${tolerance}px`;
+        coordsLabel.style.position = 'absolute';
+        coordsLabel.style.top = '-25px';
+        coordsLabel.style.left = '0';
+        coordsLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        coordsLabel.style.color = 'white';
+        coordsLabel.style.padding = '2px 5px';
+        coordsLabel.style.fontSize = '10px';
+        coordsLabel.style.borderRadius = '3px';
+        coordsLabel.style.whiteSpace = 'nowrap';
+        targetArea.appendChild(coordsLabel);
+        
+        // Add to the container
+        container.appendChild(targetArea);
+        
+        // Log the target details
+        console.log('Place_Dot target position:', { 
+            x: targetX, 
+            y: targetY,
+            tolerance: tolerance
         });
     }
 }); 
