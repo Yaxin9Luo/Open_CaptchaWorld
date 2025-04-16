@@ -588,3 +588,130 @@
 {"puzzle_type": "Geometry_Click", "puzzle_id": "dingxiang_000005.jpg", "user_answer": [161, 92], "correct_answer": {"area": [[130, 60], [185, 125]], "type": "circle"}, "correct": true, "timestamp": "2025-04-16T10:48:00.385Z"}
 {"puzzle_type": "Geometry_Click", "puzzle_id": "dingxiang_000005.jpg", "user_answer": [173, 82], "correct_answer": {"area": [[130, 60], [185, 125]], "type": "circle"}, "correct": true, "timestamp": "2025-04-16T10:48:07.225Z"}
 {"puzzle_type": "Place_Dot", "puzzle_id": "path2.png", "user_answer": [267, 443], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T10:51:32.038Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:27:41.830Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:28:08.079Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:28:32.554Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:28:38.492Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image1.jpg", "user_answer": [12, 13, 11, 6, 7, 8, 3, 2, 1, 0, 5], "correct_answer": [0, 1, 2, 3, 5, 6, 7, 8, 11, 12, 13], "correct": true, "timestamp": "2025-04-16T11:28:46.145Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:29:08.690Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:29:22.040Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example1.png", "user_answer": 0, "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:30:02.254Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:31:01.473Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example1.png", "user_answer": 0, "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:31:04.812Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:28.511Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:31.712Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:35.210Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:37.893Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:41.538Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:45.127Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:33:48.512Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:35:05.162Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:35:08.521Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:35:27.347Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:35:31.232Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:36:20.274Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": null, "timestamp": "2025-04-16T11:36:25.830Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:36:36.908Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:36:41.588Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:36:45.534Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 2, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:36:47.994Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:36:50.336Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:36:53.666Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:36:57.163Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 2, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:37:00.135Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:37:02.502Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:37:22.891Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:37:26.539Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:37:29.578Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:37:32.549Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [3, 0], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:38:58.363Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:39:02.008Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image1.png", "user_answer": [5], "correct_answer": [5], "correct": true, "timestamp": "2025-04-16T11:39:07.370Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image1.png", "user_answer": [4], "correct_answer": [5], "correct": false, "timestamp": "2025-04-16T11:39:10.904Z"}
+{"puzzle_type": "Path_Finder", "puzzle_id": "path1.JPG", "user_answer": 2, "correct_answer": 2, "correct": true, "timestamp": "2025-04-16T11:39:21.303Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 1, "correct_answer": "dog", "correct": true, "timestamp": "2025-04-16T11:39:25.170Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 0, "correct_answer": "dog", "correct": false, "timestamp": "2025-04-16T11:39:29.403Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 0, "correct_answer": "dog", "correct": false, "timestamp": "2025-04-16T11:40:20.054Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": null, "timestamp": "2025-04-16T11:40:22.687Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:26.023Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:40:29.293Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:33.304Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:35.669Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:38.022Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:40.769Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:40:44.219Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 2, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:40:46.828Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:47.083Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:48.598Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:48.720Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:49.002Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:49.288Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:49.423Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:49.587Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:49.723Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:49.872Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:50.009Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:50.172Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:50.336Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:50.473Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:50.922Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:40:54.086Z"}
+{"puzzle_type": "Path_Finder", "puzzle_id": "path1.JPG", "user_answer": 2, "correct_answer": 2, "correct": true, "timestamp": "2025-04-16T11:42:39.569Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo1.png", "user_answer": [0, 7], "correct_answer": [[0, 7], [3, 8]], "correct": true, "timestamp": "2025-04-16T11:42:45.697Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:44:51.419Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": [], "timestamp": "2025-04-16T11:44:54.503Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:45:36.286Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:45:39.537Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:45:42.643Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 2, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:45:45.935Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 3, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:45:49.512Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 4, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:45:52.617Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 5, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:45:56.323Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 6, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:45:59.052Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:46:01.528Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:46:03.927Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:46:20.787Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:46:23.869Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 3, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:46:27.416Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:46:29.861Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image1.jpg", "user_answer": [0, 5, 7, 2, 1, 6, 8, 3, 13, 12, 11], "correct_answer": [0, 1, 2, 3, 5, 6, 7, 8, 11, 12, 13], "correct": true, "timestamp": "2025-04-16T11:48:29.501Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:48:33.837Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:48:36.884Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image1.png", "user_answer": [5], "correct_answer": [5], "correct": true, "timestamp": "2025-04-16T11:48:42.839Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image1.png", "user_answer": [5], "correct_answer": [5], "correct": true, "timestamp": "2025-04-16T11:48:47.484Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example1.png", "user_answer": 0, "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:51:03.786Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example1.png", "user_answer": 0, "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:51:07.767Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:51:11.772Z"}
+{"puzzle_type": "Dice_Count", "puzzle_id": "dice10.png", "user_answer": "73", "correct_answer": 73, "correct": true, "timestamp": "2025-04-16T11:51:16.064Z"}
+{"puzzle_type": "Path_Finder", "puzzle_id": "path1.JPG", "user_answer": 2, "correct_answer": 2, "correct": true, "timestamp": "2025-04-16T11:51:21.667Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example1.png", "user_answer": 0, "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:51:25.301Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 0, "correct_answer": "dog", "correct": false, "timestamp": "2025-04-16T11:52:08.751Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:52:14.267Z"}
+{"puzzle_type": "Image_Recognition", "puzzle_id": "images1", "user_answer": [2, 5, 4, 1, 3, 7], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:52:20.142Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 1, "correct_answer": "dog", "correct": true, "timestamp": "2025-04-16T11:52:30.534Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path1.png", "user_answer": [190, 210], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:52:35.583Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo1.png", "user_answer": [3, 8], "correct_answer": [[0, 7], [3, 8]], "correct": true, "timestamp": "2025-04-16T11:52:43.593Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide1.png", "user_answer": [70.5, 63.5], "correct_answer": [75, 65], "correct": true, "timestamp": "2025-04-16T11:52:48.236Z"}
+{"puzzle_type": "Dice_Count", "puzzle_id": "dice10.png", "user_answer": "73", "correct_answer": 73, "correct": true, "timestamp": "2025-04-16T11:52:53.883Z"}
+{"puzzle_type": "Rotation_Match", "puzzle_id": "puzzle_cat_direction_4.json", "user_answer": 315, "correct_answer": 315, "correct": true, "timestamp": "2025-04-16T11:52:58.034Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:53:02.132Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image1.jpg", "user_answer": [7, 12, 13, 8, 6, 11, 5, 0, 1, 2, 3], "correct_answer": [0, 1, 2, 3, 5, 6, 7, 8, 11, 12, 13], "correct": true, "timestamp": "2025-04-16T11:53:09.450Z"}
+{"puzzle_type": "Geometry_Click", "puzzle_id": "dingxiang_000005.jpg", "user_answer": [148, 87], "correct_answer": {"area": [[130, 60], [185, 125]], "type": "circle"}, "correct": true, "timestamp": "2025-04-16T11:53:12.702Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:53:16.225Z"}
+{"puzzle_type": "Image_Recognition", "puzzle_id": "images1", "user_answer": [5, 4, 1, 2, 3, 7], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:53:22.102Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:53:27.158Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo1.png", "user_answer": [0, 7], "correct_answer": [[0, 7], [3, 8]], "correct": true, "timestamp": "2025-04-16T11:53:32.238Z"}
+{"puzzle_type": "Geometry_Click", "puzzle_id": "dingxiang_000005.jpg", "user_answer": [154, 88], "correct_answer": {"area": [[130, 60], [185, 125]], "type": "circle"}, "correct": true, "timestamp": "2025-04-16T11:53:35.305Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 1, "correct_answer": "dog", "correct": true, "timestamp": "2025-04-16T11:53:38.800Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo1.png", "user_answer": [3, 8], "correct_answer": [[0, 7], [3, 8]], "correct": true, "timestamp": "2025-04-16T11:53:43.637Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-16T11:53:47.482Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide1.png", "user_answer": [74.5, 63.5], "correct_answer": [75, 65], "correct": true, "timestamp": "2025-04-16T11:53:51.983Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 1, "correct_answer": "dog", "correct": true, "timestamp": "2025-04-16T11:53:55.282Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image1.png", "user_answer": [5], "correct_answer": [5], "correct": true, "timestamp": "2025-04-16T11:53:59.465Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-04-16T11:54:03.160Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [3, 0], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-04-16T11:54:07.059Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path2.png", "user_answer": [267, 436], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:54:19.065Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path1.png", "user_answer": [180, 211], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:54:23.282Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path2.png", "user_answer": [396, 456], "correct_answer": null, "correct": false, "timestamp": "2025-04-16T11:54:26.898Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path2.png", "user_answer": [270, 449], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:54:31.000Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path2.png", "user_answer": [260, 447], "correct_answer": null, "correct": true, "timestamp": "2025-04-16T11:54:35.032Z"}

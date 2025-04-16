@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedCells = []; // Track selected cells for Unusual_Detection
     let bingoSelectedCells = []; // Track selected cells for Bingo swap
     let selectedAnimalIndex = -1; // Track selected animal index for Select_Animal
+    // Add debug type tracking variable 
+    let debugPuzzleType = null;
 
     // Event listeners
     submitBtn.addEventListener('click', submitAnswer);
@@ -38,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add click event handler directly to the puzzle image
     puzzleImage.addEventListener('click', handleImageClick);
+
+    // Add debug mode selector
+    setupDebugModeSelector();
 
     // Functions
     function handleImageClick(e) {
@@ -1075,6 +1080,124 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
+    // Function to set up the debug mode selector
+    function setupDebugModeSelector() {
+        // Create the debug selector container
+        const debugContainer = document.createElement('div');
+        debugContainer.className = 'debug-selector';
+        debugContainer.style.marginTop = '10px';
+        debugContainer.style.marginBottom = '10px';
+        debugContainer.style.padding = '10px';
+        debugContainer.style.backgroundColor = '#f0f0f0';
+        debugContainer.style.borderRadius = '4px';
+        debugContainer.style.display = 'flex';
+        debugContainer.style.alignItems = 'center';
+        debugContainer.style.justifyContent = 'center';
+        debugContainer.style.flexWrap = 'wrap';
+        
+        // Create a label
+        const label = document.createElement('label');
+        label.htmlFor = 'debug-type-selector';
+        label.textContent = 'Puzzle Type: ';
+        label.style.marginRight = '10px';
+        label.style.fontWeight = 'bold';
+        
+        // Create the select element
+        const select = document.createElement('select');
+        select.id = 'debug-type-selector';
+        select.style.padding = '5px';
+        select.style.marginRight = '10px';
+        
+        // Default option - random puzzles
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Random (All Types)';
+        select.appendChild(defaultOption);
+        
+        // Fetch available CAPTCHA types from the API
+        fetch('/api/types')
+            .then(response => response.json())
+            .then(data => {
+                if (data.types && data.types.length > 0) {
+                    // Add options for each CAPTCHA type
+                    data.types.forEach(type => {
+                        const option = document.createElement('option');
+                        option.value = type;
+                        option.textContent = type;
+                        select.appendChild(option);
+                    });
+                    
+                    // Check if there's a debug type in URL parameters
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const typeParam = urlParams.get('type');
+                    if (typeParam) {
+                        select.value = typeParam;
+                        debugPuzzleType = typeParam;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching CAPTCHA types:', error);
+            });
+        
+        // Create apply button
+        const applyBtn = document.createElement('button');
+        applyBtn.textContent = 'Apply';
+        applyBtn.style.padding = '5px 10px';
+        applyBtn.style.backgroundColor = '#4CAF50';
+        applyBtn.style.color = 'white';
+        applyBtn.style.border = 'none';
+        applyBtn.style.borderRadius = '4px';
+        applyBtn.style.cursor = 'pointer';
+        
+        // Add event listener to the button
+        applyBtn.addEventListener('click', () => {
+            debugPuzzleType = select.value;
+            // Update URL parameter
+            const url = new URL(window.location);
+            if (debugPuzzleType) {
+                url.searchParams.set('type', debugPuzzleType);
+                // Show the debug indicator
+                const debugIndicator = document.getElementById('debug-indicator');
+                const debugTypeDisplay = document.getElementById('debug-type-display');
+                if (debugIndicator && debugTypeDisplay) {
+                    debugTypeDisplay.textContent = debugPuzzleType;
+                    debugIndicator.style.display = 'block';
+                }
+            } else {
+                url.searchParams.delete('type');
+                // Hide the debug indicator
+                const debugIndicator = document.getElementById('debug-indicator');
+                if (debugIndicator) {
+                    debugIndicator.style.display = 'none';
+                }
+            }
+            window.history.pushState({}, '', url);
+            
+            // Load a new puzzle with the selected type
+            loadNewPuzzle();
+        });
+        
+        // Initialize the debug indicator if there's a type parameter
+        if (debugPuzzleType) {
+            const debugIndicator = document.getElementById('debug-indicator');
+            const debugTypeDisplay = document.getElementById('debug-type-display');
+            if (debugIndicator && debugTypeDisplay) {
+                debugTypeDisplay.textContent = debugPuzzleType;
+                debugIndicator.style.display = 'block';
+            }
+        }
+        
+        // Add elements to container
+        debugContainer.appendChild(label);
+        debugContainer.appendChild(select);
+        debugContainer.appendChild(applyBtn);
+        
+        // Add container to the benchmark stats section
+        const benchmarkStats = document.querySelector('.benchmark-stats');
+        benchmarkStats.parentNode.insertBefore(debugContainer, benchmarkStats.nextSibling);
+    }
+
     function loadNewPuzzle() {
         // Reset state
         clickCoordinates = null;
@@ -1153,6 +1276,12 @@ document.addEventListener('DOMContentLoaded', () => {
             existingObjectMatchSubmit.remove();
         }
         
+        // Remove any connect icon controls and submit buttons
+        const existingConnectIconSubmit = document.querySelector('.connect-icon-submit');
+        if (existingConnectIconSubmit) {
+            existingConnectIconSubmit.remove();
+        }
+        
         // Reset the puzzle prompt and image
         puzzlePrompt.textContent = 'Loading puzzle...';
         resultMessage.textContent = '';
@@ -1165,8 +1294,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset input field display
         userAnswerInput.style.display = 'block';
         
+        // Construct URL with debug type parameter if set
+        let url = '/api/get_puzzle?random=true';
+        if (debugPuzzleType) {
+            url = `/api/get_puzzle?debug_type=${encodeURIComponent(debugPuzzleType)}`;
+        }
+        
         // Get a random puzzle from any available type
-        fetch('/api/get_puzzle?random=true')
+        fetch(url)
             .then(response => response.json())
             .then(data => {
                 console.log("Received puzzle data:", data);
@@ -1377,6 +1512,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Set up place dot interface
                     setupPlaceDot();
+                } else if (data.input_type === 'connect_icon') {
+                    // Setup for Connect_icon CAPTCHAs
+                    inputGroup.style.display = 'none';
+                    puzzleImage.style.display = 'none';
+                    puzzleImageContainer.style.display = 'block';
+                    
+                    // Update prompt
+                    if (data.prompt) {
+                        puzzlePrompt.textContent = data.prompt;
+                    } else {
+                        puzzlePrompt.textContent = "Using the arrows, connect the same two icons with the dotted line as shown on the left.";
+                    }
+                    
+                    // Set up connect icon interface
+                    setupConnectIcon();
                 } else {
                     // Default for text-based CAPTCHAs
                     puzzleImage.src = data.image_path;
@@ -1532,9 +1682,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             answerData.answer = clickCoordinates;
+        } else if (currentPuzzle.input_type === 'connect_icon') {
+            // For connect_icon, send the current option index
+            answerData.answer = parseInt(userAnswerInput.value) || 0;
         } else {
             // For text/number inputs, use the input value
-            answerData.answer = userAnswerInput.value;
+            answerData.answer = userAnswerInput.value.trim();
         }
         
         // Send answer to server for verification
@@ -2494,6 +2647,185 @@ document.addEventListener('DOMContentLoaded', () => {
             x: targetX, 
             y: targetY,
             tolerance: tolerance
+        });
+    }
+
+    // Function to set up connect icon interface
+    function setupConnectIcon() {
+        // Clear the puzzle image container
+        puzzleImageContainer.innerHTML = '';
+        
+        // Create a layout container for the two-column layout
+        const layoutContainer = document.createElement('div');
+        layoutContainer.className = 'connect-icon-layout';
+        layoutContainer.style.display = 'flex';
+        layoutContainer.style.justifyContent = 'space-between';
+        
+        // Create container for reference image
+        const refContainer = document.createElement('div');
+        refContainer.className = 'reference-image-container';
+        refContainer.style.flex = '1';
+        refContainer.style.marginRight = '10px';
+        refContainer.style.textAlign = 'center';
+        
+        // Add "Match This!" label above reference image
+        const matchLabel = document.createElement('div');
+        matchLabel.className = 'match-label';
+        matchLabel.textContent = 'Match This!';
+        matchLabel.style.backgroundColor = 'black';
+        matchLabel.style.color = 'white';
+        matchLabel.style.padding = '2px 5px';
+        matchLabel.style.marginBottom = '5px';
+        matchLabel.style.fontSize = '12px';
+        refContainer.appendChild(matchLabel);
+        
+        // Add reference image
+        const refImg = document.createElement('img');
+        refImg.id = 'connect-reference-image';
+        refImg.src = currentPuzzle.reference_image;
+        refImg.alt = 'Reference image';
+        refImg.style.maxWidth = '100%';
+        refImg.style.border = '1px solid #ccc';
+        refContainer.appendChild(refImg);
+        
+        // Container for option images with arrows
+        const optionContainer = document.createElement('div');
+        optionContainer.className = 'connect-option-container';
+        optionContainer.style.flex = '1';
+        optionContainer.style.position = 'relative';
+        
+        // Create option image display
+        const optionImgContainer = document.createElement('div');
+        optionImgContainer.className = 'option-image-container';
+        optionImgContainer.style.textAlign = 'center';
+        
+        // Create option image
+        const optionImg = document.createElement('img');
+        optionImg.id = 'connect-option-image';
+        optionImg.src = currentPuzzle.option_images[0]; // Start with the first option
+        optionImg.alt = 'Option image';
+        optionImg.style.maxWidth = '100%';
+        optionImg.style.border = '1px solid #ccc';
+        optionImgContainer.appendChild(optionImg);
+        optionContainer.appendChild(optionImgContainer);
+        
+        // Add arrow navigation
+        const arrowsContainer = document.createElement('div');
+        arrowsContainer.className = 'connect-arrows-container';
+        arrowsContainer.style.display = 'flex';
+        arrowsContainer.style.justifyContent = 'center';
+        arrowsContainer.style.marginTop = '10px';
+        
+        // Left arrow
+        const leftArrow = document.createElement('button');
+        leftArrow.className = 'arrow-btn left-arrow';
+        leftArrow.innerHTML = '&#8592;'; // Left arrow character
+        leftArrow.setAttribute('aria-label', 'Previous option');
+        leftArrow.style.margin = '0 10px';
+        leftArrow.style.padding = '5px 15px';
+        leftArrow.style.fontSize = '20px';
+        leftArrow.style.backgroundColor = '#f0f0f0';
+        leftArrow.style.border = '1px solid #ccc';
+        leftArrow.style.borderRadius = '4px';
+        leftArrow.style.cursor = 'pointer';
+        
+        // Right arrow
+        const rightArrow = document.createElement('button');
+        rightArrow.className = 'arrow-btn right-arrow';
+        rightArrow.innerHTML = '&#8594;'; // Right arrow character
+        rightArrow.setAttribute('aria-label', 'Next option');
+        rightArrow.style.margin = '0 10px';
+        rightArrow.style.padding = '5px 15px';
+        rightArrow.style.fontSize = '20px';
+        rightArrow.style.backgroundColor = '#f0f0f0';
+        rightArrow.style.border = '1px solid #ccc';
+        rightArrow.style.borderRadius = '4px';
+        rightArrow.style.cursor = 'pointer';
+        
+        arrowsContainer.appendChild(leftArrow);
+        arrowsContainer.appendChild(rightArrow);
+        optionContainer.appendChild(arrowsContainer);
+        
+        // Add pagination dots
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'pagination-dots';
+        dotsContainer.style.display = 'flex';
+        dotsContainer.style.justifyContent = 'center';
+        dotsContainer.style.marginTop = '10px';
+        
+        // Create dots based on the number of options
+        for (let i = 0; i < currentPuzzle.option_images.length; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'pagination-dot';
+            dot.style.height = '10px';
+            dot.style.width = '10px';
+            dot.style.margin = '0 5px';
+            dot.style.borderRadius = '50%';
+            dot.style.backgroundColor = i === 0 ? '#4CAF50' : '#ccc'; // Highlight first dot
+            dotsContainer.appendChild(dot);
+        }
+        
+        optionContainer.appendChild(dotsContainer);
+        
+        // Add all containers to the layout
+        layoutContainer.appendChild(refContainer);
+        layoutContainer.appendChild(optionContainer);
+        puzzleImageContainer.appendChild(layoutContainer);
+        
+        // Add a submit button
+        const submitSection = document.createElement('div');
+        submitSection.className = 'connect-icon-submit';
+        submitSection.style.textAlign = 'center';
+        submitSection.style.marginTop = '15px';
+        
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Submit';
+        submitBtn.className = 'submit-connect';
+        submitBtn.style.padding = '10px 20px';
+        submitBtn.style.backgroundColor = '#4CAF50';
+        submitBtn.style.color = 'white';
+        submitBtn.style.border = 'none';
+        submitBtn.style.borderRadius = '4px';
+        submitBtn.style.fontSize = '16px';
+        submitBtn.style.cursor = 'pointer';
+        submitBtn.addEventListener('click', submitAnswer);
+        submitSection.appendChild(submitBtn);
+        
+        // Add to puzzle container
+        puzzleImageContainer.appendChild(submitSection);
+        
+        // Set up current option tracking
+        let currentOptionIndex = 0;
+        
+        // Initialize the answer input with the current index
+        userAnswerInput.value = currentOptionIndex.toString();
+        
+        // Function to update the option image
+        function updateConnectOptionImage() {
+            const optionImg = document.getElementById('connect-option-image');
+            if (optionImg) {
+                optionImg.src = currentPuzzle.option_images[currentOptionIndex];
+            }
+            
+            // Update dots to highlight current option
+            const dots = document.querySelectorAll('.pagination-dot');
+            dots.forEach((dot, index) => {
+                dot.style.backgroundColor = index === currentOptionIndex ? '#4CAF50' : '#ccc';
+            });
+            
+            // Update the answer input with the current index
+            userAnswerInput.value = currentOptionIndex.toString();
+        }
+        
+        // Event listeners for arrows
+        leftArrow.addEventListener('click', () => {
+            currentOptionIndex = (currentOptionIndex - 1 + currentPuzzle.option_images.length) % currentPuzzle.option_images.length;
+            updateConnectOptionImage();
+        });
+        
+        rightArrow.addEventListener('click', () => {
+            currentOptionIndex = (currentOptionIndex + 1) % currentPuzzle.option_images.length;
+            updateConnectOptionImage();
         });
     }
 }); 

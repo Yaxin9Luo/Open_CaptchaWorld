@@ -44,7 +44,11 @@ def get_puzzle():
     if not captcha_types:
         return jsonify({'error': 'No CAPTCHA types found'}), 404
     
-    if is_random:
+    # Check if we're in debug mode for a specific type
+    debug_type = request.args.get('debug_type')
+    if debug_type and debug_type in captcha_types:
+        puzzle_type = debug_type
+    elif is_random:
         # Select a random CAPTCHA type
         puzzle_type = random.choice(captcha_types)
     else:
@@ -95,6 +99,8 @@ def get_puzzle():
         prompt = ground_truth[selected_puzzle].get("prompt", "Use the arrows to move the duck to the spot indicated by the cross")
     elif puzzle_type == "Place_Dot":
         prompt = ground_truth[selected_puzzle].get("prompt", "Click to place a Dot at the end of the car's path")
+    elif puzzle_type == "Connect_icon":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Using the arrows, connect the same two icons with the dotted line as shown on the left.")
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -130,6 +136,8 @@ def get_puzzle():
         input_type = "image_matching"
     elif puzzle_type == "Place_Dot":
         input_type = "place_dot"
+    elif puzzle_type == "Connect_icon":
+        input_type = "connect_icon"
     
     # For Rotation_Match, include additional data needed for the interface
     additional_data = {}
@@ -323,6 +331,26 @@ def get_puzzle():
         
         if not reference_image or not options:
             return jsonify({'error': f'Invalid path finder data: {selected_puzzle}'}), 500
+        
+        # Format paths for these images
+        ref_path = f'/captcha_data/{puzzle_type}/{reference_image}'
+        option_paths = [f'/captcha_data/{puzzle_type}/{img}' for img in options]
+        
+        additional_data = {
+            "reference_image": ref_path,
+            "option_images": option_paths,
+            "current_option_index": 0,
+            "correct_option_index": correct_option
+        }
+    # For Connect_icon, include the reference image and options
+    elif puzzle_type == "Connect_icon":
+        # Get the reference image and option images
+        reference_image = ground_truth[selected_puzzle].get("reference_image")
+        options = ground_truth[selected_puzzle].get("options", [])
+        correct_option = ground_truth[selected_puzzle].get("correct_option", 0)
+        
+        if not reference_image or not options:
+            return jsonify({'error': f'Invalid connect icons data: {selected_puzzle}'}), 500
         
         # Format paths for these images
         ref_path = f'/captcha_data/{puzzle_type}/{reference_image}'
@@ -666,6 +694,21 @@ def check_answer():
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Path_Finder'}), 400
     
+    elif puzzle_type == 'Connect_icon':
+        # For Connect_icon, check if the selected option index matches the correct one
+        try:
+            # Get the correct option index from ground truth
+            correct_index = ground_truth[puzzle_id].get('correct_option')
+            
+            # User answer should be the selected option index
+            user_index = int(user_answer)
+            
+            # Check if indices match
+            is_correct = user_index == correct_index
+            correct_answer_info = correct_index
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Connect_icon'}), 400
+    
     else:
         # For other types, compare as strings (case insensitive)
         correct_answer = ground_truth[puzzle_id].get('answer')
@@ -682,6 +725,8 @@ def check_answer():
     elif puzzle_type == 'Coordinates':
         answer_key = 'correct_option_index'
     elif puzzle_type == 'Path_Finder':
+        answer_key = 'correct_option'
+    elif puzzle_type == 'Connect_icon':
         answer_key = 'correct_option'
     else:
         answer_key = 'answer'

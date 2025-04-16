@@ -1,0 +1,10 @@
+{
+  "puzzle1.json": {
+    "reference_image": "reference1.png",
+    "options": ["image1.png", "image2.png", "image3.png", "image4.png", "image5.png", "image6.png", "image7.png"],
+    "correct_option": 0,
+    "prompt": "Using the arrows, connect the same two icons with the dotted line as shown on the left.",
+    "description": "Connect icons puzzle requiring matching the dotted line connection pattern",
+    "answer": 0
+  }
+} 
