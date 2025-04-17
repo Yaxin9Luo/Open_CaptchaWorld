@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputGroup = document.querySelector('.input-group');
 
     // Debug mode - set to true to show ground truth areas
-    const DEBUG_MODE = true;
+    const DEBUG_MODE = false;
 
     // Tracking state
     let currentPuzzle = null;
@@ -64,10 +64,125 @@ document.addEventListener('DOMContentLoaded', () => {
             // Log for debugging
             console.log('Click received:', { x, y, target: e.target.id });
             
+            // Special handling for Misleading_Click to show if click is in avoid area
+            if (currentPuzzle.puzzle_type === 'Misleading_Click' && currentPuzzle.avoid_area) {
+                const { x: areaX, y: areaY, width: areaWidth, height: areaHeight } = currentPuzzle.avoid_area;
+                
+                // Check if click is within the avoid area
+                const inAvoidArea = (
+                    areaX <= x && x <= areaX + areaWidth &&
+                    areaY <= y && y <= areaY + areaHeight
+                );
+                
+                if (inAvoidArea) {
+                    console.log('Click is inside the avoid area! This is incorrect.');
+                    
+                    // Add a visual indicator
+                    const marker = document.querySelector('.click-marker');
+                    if (marker) {
+                        marker.style.borderColor = 'red';
+                        marker.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+                    }
+                } else {
+                    console.log('Click is outside the avoid area! This is correct.');
+                    
+                    // Add a visual indicator
+                    const marker = document.querySelector('.click-marker');
+                    if (marker) {
+                        marker.style.borderColor = 'green';
+                        marker.style.backgroundColor = 'rgba(0, 255, 0, 0.7)';
+                    }
+                }
+            }
+            // Special handling for Pick_Area to show if click is in the target area
+            else if (currentPuzzle.puzzle_type === 'Pick_Area') {
+                // Get the ground truth data to validate the click
+                fetch('/api/get_ground_truth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        puzzle_type: currentPuzzle.puzzle_type,
+                        puzzle_id: currentPuzzle.puzzle_id
+                    })
+                })
+                .then(response => response.json())
+                .then(gtData => {
+                    if (gtData.answer && gtData.answer.area) {
+                        // Extract area boundaries from the ground truth
+                        const [[minX, minY], [maxX, maxY]] = gtData.answer.area;
+                        
+                        // Basic rectangular check
+                        const inRectArea = (minX <= x && x <= maxX && minY <= y && y <= maxY);
+                        
+                        // For more accurate curve detection:
+                        let inPolygonArea = false;
+                        if (gtData.answer.polygon) {
+                            // If we have a polygon definition for the curved area
+                            inPolygonArea = pointInPolygon(x, y, gtData.answer.polygon);
+                        }
+                        
+                        // Determine if the click is in the target area
+                        // Use polygon if available, otherwise fall back to rectangular check
+                        const inArea = gtData.answer.polygon ? inPolygonArea : inRectArea;
+                        
+                        // Get the marker element
+                        const marker = document.querySelector('.click-marker');
+                        if (marker) {
+                            if (inArea) {
+                                console.log('Click is inside the target area! This is correct.');
+                                marker.style.borderColor = 'green';
+                                marker.style.backgroundColor = 'rgba(0, 255, 0, 0.7)';
+                                
+                                // Add a success message
+                                const successMsg = document.createElement('div');
+                                successMsg.className = 'success-msg';
+                                successMsg.textContent = 'In largest area!';
+                                successMsg.style.position = 'absolute';
+                                successMsg.style.top = '-25px';
+                                successMsg.style.left = '50%';
+                                successMsg.style.transform = 'translateX(-50%)';
+                                successMsg.style.backgroundColor = 'rgba(0, 128, 0, 0.9)';
+                                successMsg.style.color = 'white';
+                                successMsg.style.padding = '3px 8px';
+                                successMsg.style.borderRadius = '3px';
+                                successMsg.style.fontSize = '12px';
+                                successMsg.style.fontWeight = 'bold';
+                                marker.appendChild(successMsg);
+                            } else {
+                                console.log('Click is outside the target area! This is incorrect.');
+                                marker.style.borderColor = 'red';
+                                marker.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+                                
+                                // Add an error message
+                                const errorMsg = document.createElement('div');
+                                errorMsg.className = 'error-msg';
+                                errorMsg.textContent = 'Not in largest area!';
+                                errorMsg.style.position = 'absolute';
+                                errorMsg.style.top = '-25px';
+                                errorMsg.style.left = '50%';
+                                errorMsg.style.transform = 'translateX(-50%)';
+                                errorMsg.style.backgroundColor = 'rgba(255, 0, 0, 0.9)';
+                                errorMsg.style.color = 'white';
+                                errorMsg.style.padding = '3px 8px';
+                                errorMsg.style.borderRadius = '3px';
+                                errorMsg.style.fontSize = '12px';
+                                errorMsg.style.fontWeight = 'bold';
+                                marker.appendChild(errorMsg);
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error validating click for Pick_Area:', error);
+                });
+            }
+            
             // Auto-submit after click
             setTimeout(() => {
                 submitAnswer();
-            }, 300); // Small delay to allow user to see their click
+            }, 500); // Increase delay slightly to allow for fetch response
         }
     }
 
@@ -586,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add this new function to show the ground truth area
     function showGroundTruthArea(answer) {
-        if (!DEBUG_MODE || !answer || !answer.area) return;
+        if (!DEBUG_MODE) return;
         
         // Remove any existing debug areas
         const existingArea = document.querySelector('.debug-area');
@@ -594,47 +709,98 @@ document.addEventListener('DOMContentLoaded', () => {
             existingArea.remove();
         }
         
-        // Get the area boundaries
-        const [[x1, y1], [x2, y2]] = answer.area;
-        
         // Create and style the debug area element
         const debugArea = document.createElement('div');
         debugArea.className = 'debug-area';
         debugArea.style.position = 'absolute';
-        debugArea.style.left = `${x1}px`;
-        debugArea.style.top = `${y1}px`;
-        debugArea.style.width = `${x2 - x1}px`;
-        debugArea.style.height = `${y2 - y1}px`;
-        debugArea.style.border = '2px dashed yellow';
-        debugArea.style.backgroundColor = 'rgba(255, 255, 0, 0.2)';
         debugArea.style.pointerEvents = 'none'; // Allow clicks to pass through
         debugArea.style.zIndex = '5';
         
-        // Add coordinates label
-        const coordsLabel = document.createElement('div');
-        coordsLabel.className = 'coords-label';
-        coordsLabel.textContent = `TL: (${x1},${y1}) BR: (${x2},${y2})`;
-        coordsLabel.style.position = 'absolute';
-        coordsLabel.style.bottom = '0';
-        coordsLabel.style.right = '0';
-        coordsLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        coordsLabel.style.color = 'white';
-        coordsLabel.style.padding = '2px 5px';
-        coordsLabel.style.fontSize = '10px';
-        coordsLabel.style.borderRadius = '3px';
-        debugArea.appendChild(coordsLabel);
+        if (answer && answer.area) {
+            // For standard area format (geometry_click, etc.)
+            const [[x1, y1], [x2, y2]] = answer.area;
+            
+            debugArea.style.left = `${x1}px`;
+            debugArea.style.top = `${y1}px`;
+            debugArea.style.width = `${x2 - x1}px`;
+            debugArea.style.height = `${y2 - y1}px`;
+            debugArea.style.border = '2px dashed yellow';
+            debugArea.style.backgroundColor = 'rgba(255, 255, 0, 0.2)';
+            
+            // Add coordinates label
+            const coordsLabel = document.createElement('div');
+            coordsLabel.className = 'coords-label';
+            coordsLabel.textContent = `TL: (${x1},${y1}) BR: (${x2},${y2})`;
+            coordsLabel.style.position = 'absolute';
+            coordsLabel.style.bottom = '0';
+            coordsLabel.style.right = '0';
+            coordsLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            coordsLabel.style.color = 'white';
+            coordsLabel.style.padding = '2px 5px';
+            coordsLabel.style.fontSize = '10px';
+            coordsLabel.style.borderRadius = '3px';
+            debugArea.appendChild(coordsLabel);
+            
+            // Log the area details
+            console.log('Ground truth area:', { 
+                topLeft: [x1, y1], 
+                bottomRight: [x2, y2], 
+                width: x2 - x1, 
+                height: y2 - y1,
+                type: answer.type
+            });
+        } else if (answer && answer.avoid_area) {
+            // For Misleading_Click avoid_area format
+            const { x, y, width, height } = answer.avoid_area;
+            
+            debugArea.style.left = `${x}px`;
+            debugArea.style.top = `${y}px`;
+            debugArea.style.width = `${width}px`;
+            debugArea.style.height = `${height}px`;
+            debugArea.style.border = '3px dashed red';
+            debugArea.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+            
+            // Add coordinates label
+            const coordsLabel = document.createElement('div');
+            coordsLabel.className = 'coords-label';
+            coordsLabel.textContent = `Avoid Area: (${x},${y}) ${width}x${height}`;
+            coordsLabel.style.position = 'absolute';
+            coordsLabel.style.bottom = '0';
+            coordsLabel.style.right = '0';
+            coordsLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            coordsLabel.style.color = 'white';
+            coordsLabel.style.padding = '2px 5px';
+            coordsLabel.style.fontSize = '10px';
+            coordsLabel.style.borderRadius = '3px';
+            debugArea.appendChild(coordsLabel);
+            
+            // Add a "DO NOT CLICK HERE" sign in the middle of the area
+            const warningSign = document.createElement('div');
+            warningSign.className = 'warning-sign';
+            warningSign.textContent = 'DO NOT CLICK HERE';
+            warningSign.style.position = 'absolute';
+            warningSign.style.top = '50%';
+            warningSign.style.left = '50%';
+            warningSign.style.transform = 'translate(-50%, -50%)';
+            warningSign.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            warningSign.style.color = '#ff5555';
+            warningSign.style.padding = '5px 10px';
+            warningSign.style.fontSize = '12px';
+            warningSign.style.fontWeight = 'bold';
+            warningSign.style.borderRadius = '3px';
+            warningSign.style.whiteSpace = 'nowrap';
+            warningSign.style.zIndex = '10';
+            debugArea.appendChild(warningSign);
+            
+            // Log the area details
+            console.log('Avoid area:', { x, y, width, height });
+        } else {
+            // If we don't have a valid format, don't show anything
+            return;
+        }
         
         // Add to the image container
         puzzleImageContainer.appendChild(debugArea);
-        
-        // Log the area details
-        console.log('Ground truth area:', { 
-            topLeft: [x1, y1], 
-            bottomRight: [x2, y2], 
-            width: x2 - x1, 
-            height: y2 - y1,
-            type: answer.type
-        });
     }
 
     function showClickMarker(x, y) {
@@ -670,6 +836,46 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Log for debugging
         console.log('Marker placed at:', { x, y });
+        
+        // Check if this is a Misleading_Click puzzle and we're in debug mode
+        if (DEBUG_MODE && currentPuzzle && currentPuzzle.puzzle_type === 'Misleading_Click' && currentPuzzle.avoid_area) {
+            // Get the avoid area
+            const { x: areaX, y: areaY, width: areaWidth, height: areaHeight } = currentPuzzle.avoid_area;
+            
+            // Check if click is within the avoid area
+            const inAvoidArea = (
+                areaX <= x && x <= areaX + areaWidth &&
+                areaY <= y && y <= areaY + areaHeight
+            );
+            
+            // Add status indicator
+            const statusIndicator = document.createElement('div');
+            statusIndicator.className = 'click-status';
+            statusIndicator.style.position = 'absolute';
+            statusIndicator.style.top = '40px';
+            statusIndicator.style.left = '20px';
+            statusIndicator.style.padding = '3px 6px';
+            statusIndicator.style.borderRadius = '3px';
+            statusIndicator.style.fontSize = '10px';
+            statusIndicator.style.fontWeight = 'bold';
+            
+            if (inAvoidArea) {
+                statusIndicator.textContent = 'INSIDE AVOID AREA - WRONG';
+                statusIndicator.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+                statusIndicator.style.color = 'white';
+                marker.style.borderColor = 'red';
+            } else {
+                statusIndicator.textContent = 'OUTSIDE AVOID AREA - CORRECT';
+                statusIndicator.style.backgroundColor = 'rgba(0, 255, 0, 0.8)';
+                statusIndicator.style.color = 'black';
+                marker.style.borderColor = 'green';
+            }
+            
+            marker.appendChild(statusIndicator);
+            
+            // Log result
+            console.log('Click check:', { inAvoidArea, message: inAvoidArea ? 'INSIDE avoid area (incorrect)' : 'OUTSIDE avoid area (correct)' });
+        }
     }
 
     // Function to set up unusual detection grid
@@ -1282,6 +1488,12 @@ document.addEventListener('DOMContentLoaded', () => {
             existingConnectIconSubmit.remove();
         }
         
+        // Remove any hold button components
+        const existingHoldButton = document.querySelector('.hold-button-container');
+        if (existingHoldButton) {
+            existingHoldButton.remove();
+        }
+        
         // Reset the puzzle prompt and image
         puzzlePrompt.textContent = 'Loading puzzle...';
         resultMessage.textContent = '';
@@ -1312,45 +1524,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Configure input based on puzzle type
                 if (data.input_type === 'click') {
-                    // Setup for click-based CAPTCHAs
+                    // Setup for click-based CAPTCHAs (Geometry_Click, Misleading_Click, Pick_Area)
                     puzzleImage.src = data.image_path;
                     inputGroup.style.display = 'none';
                     puzzleImage.style.cursor = 'pointer';
                     puzzleImage.classList.add('clickable');
+                    
+                    // Add puzzle image back to container
+                    if (puzzleImageContainer.innerHTML === '') {
+                        puzzleImageContainer.appendChild(puzzleImage);
+                    }
+                    
                     puzzleImageContainer.style.display = 'block';
                     puzzleImage.style.display = 'block';
                     
-                    // Add puzzle image back to container
-                    puzzleImageContainer.appendChild(puzzleImage);
+                    // Reset click coordinates for new puzzle
+                    clickCoordinates = null;
                     
-                    // Update prompt after clearing
+                    // Update prompt text
                     if (data.prompt) {
                         puzzlePrompt.textContent = data.prompt;
+                    } else if (data.puzzle_type === 'Geometry_Click') {
+                        puzzlePrompt.textContent = "Click on the geometric shape";
+                    } else if (data.puzzle_type === 'Misleading_Click') {
+                        puzzlePrompt.textContent = "Click the image to continue";
+                        
+                        // Make sure avoid_area is stored in currentPuzzle object
+                        if (data.avoid_area) {
+                            currentPuzzle.avoid_area = data.avoid_area;
+                            console.log('Loaded avoid_area:', data.avoid_area);
+                        }
+                    } else if (data.puzzle_type === 'Pick_Area') {
+                        puzzlePrompt.textContent = "Click on the largest area outlined by the dotted line";
                     }
                     
-                    // In debug mode, fetch the ground truth to show the area
-                    if (DEBUG_MODE) {
-                        // We need to get the correct answer to display the debug area
-                        fetch('/api/get_ground_truth', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                puzzle_type: data.puzzle_type,
-                                puzzle_id: data.puzzle_id
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(gtData => {
-                            if (gtData.answer) {
-                                showGroundTruthArea(gtData.answer);
+                    // For debugging, when image loads, show the target areas
+                    puzzleImage.onload = () => {
+                        if (DEBUG_MODE) {
+                            // Show ground truth area differently based on puzzle type
+                            if (data.puzzle_type === 'Pick_Area') {
+                                showPickAreaTargets(puzzleImageContainer);
+                            } else if (data.puzzle_type === 'Geometry_Click') {
+                                showGroundTruthArea(puzzleImageContainer);
+                            } else if (data.puzzle_type === 'Misleading_Click') {
+                                // For misleading click, show the area to avoid
+                                if (data.avoid_area) {
+                                    showMisleadingClickArea(puzzleImageContainer, data.avoid_area);
+                                }
                             }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching ground truth:', error);
-                        });
-                    }
+                        }
+                    };
                 } else if (data.input_type === 'rotation') {
                     // Setup for rotation-based CAPTCHAs
                     inputGroup.style.display = 'none';
@@ -1469,6 +1692,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (data.input_type === 'dart_count') {
                     // Hide standard input display but keep it for value storage
                     userAnswerInput.style.display = 'none';
+                    inputGroup.style.display = 'none';
+                    puzzleImage.style.display = 'none';
+                    puzzleImageContainer.style.display = 'block';
+                    
+                    // Update prompt for the dart count puzzle
+                    if (data.prompt) {
+                        puzzlePrompt.textContent = data.prompt;
+                    } else {
+                        puzzlePrompt.textContent = "Use the arrows to find the darts that add up to the target number.";
+                    }
+                    
+                    // Debug log
+                    console.log('Setting up Dart Count puzzle with data:', data);
                     
                     // Setup dart count interface
                     setupDartCount();
@@ -1527,6 +1763,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Set up connect icon interface
                     setupConnectIcon();
+                } else if (data.input_type === 'click_order') {
+                    // Setup for Click_Order CAPTCHAs
+                    inputGroup.style.display = 'none';
+                    puzzleImage.style.display = 'none';
+                    puzzleImageContainer.style.display = 'block';
+                    
+                    // Update prompt
+                    if (data.prompt) {
+                        puzzlePrompt.textContent = data.prompt;
+                    } else {
+                        puzzlePrompt.textContent = "Click the icons in order as shown in the reference image.";
+                    }
+                    
+                    // Set up click order interface
+                    setupClickOrder();
+                } else if (data.input_type === 'hold_button') {
+                    // Setup for Hold_Button CAPTCHAs
+                    inputGroup.style.display = 'flex';
+                    puzzleImage.style.display = 'none';
+                    puzzleImageContainer.style.display = 'block';
+                    
+                    // Update prompt
+                    if (data.prompt) {
+                        puzzlePrompt.textContent = data.prompt;
+                    } else {
+                        puzzlePrompt.textContent = "Hold the button until it finishes loading.";
+                    }
+                    
+                    // Set up hold button interface
+                    setupHoldButton();
+                    
+                    // Ensure input field and submit button are visible
+                    userAnswerInput.style.display = 'block';
+                    submitBtn.style.display = 'inline-block';
                 } else {
                     // Default for text-based CAPTCHAs
                     puzzleImage.src = data.image_path;
@@ -1685,6 +1955,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (currentPuzzle.input_type === 'connect_icon') {
             // For connect_icon, send the current option index
             answerData.answer = parseInt(userAnswerInput.value) || 0;
+        } else if (currentPuzzle.input_type === 'hold_button') {
+            // For hold button, get the elapsed time from the input field
+            answerData.answer = parseFloat(userAnswerInput.value) || 0;
         } else {
             // For text/number inputs, use the input value
             answerData.answer = userAnswerInput.value.trim();
@@ -2826,6 +3099,899 @@ document.addEventListener('DOMContentLoaded', () => {
         rightArrow.addEventListener('click', () => {
             currentOptionIndex = (currentOptionIndex + 1) % currentPuzzle.option_images.length;
             updateConnectOptionImage();
+        });
+    }
+    
+    // Function to set up Click Order interface
+    function setupClickOrder() {
+        // Clear the puzzle image container
+        puzzleImageContainer.innerHTML = '';
+        
+        // Create a container for the layout
+        const layoutContainer = document.createElement('div');
+        layoutContainer.className = 'click-order-layout';
+        layoutContainer.style.display = 'flex';
+        layoutContainer.style.flexDirection = 'column';
+        layoutContainer.style.alignItems = 'center';
+        
+        // Create a container for the main image
+        const mainImageContainer = document.createElement('div');
+        mainImageContainer.className = 'main-image-container';
+        mainImageContainer.style.position = 'relative';
+        mainImageContainer.style.marginBottom = '20px';
+        mainImageContainer.style.width = '100%';
+        
+        // Add main image
+        const mainImg = document.createElement('img');
+        mainImg.id = 'click-order-main-image';
+        mainImg.src = currentPuzzle.image_path;
+        mainImg.alt = 'Click the icons in order';
+        mainImg.style.maxWidth = '100%';
+        mainImg.style.border = '1px solid #ccc';
+        mainImageContainer.appendChild(mainImg);
+        
+        // Create a container for the order reference image
+        const orderImageContainer = document.createElement('div');
+        orderImageContainer.className = 'order-image-container';
+        orderImageContainer.style.textAlign = 'center';
+        orderImageContainer.style.marginBottom = '20px';
+        
+        // Add "Order Reference" label
+        const orderLabel = document.createElement('div');
+        orderLabel.className = 'order-label';
+        orderLabel.textContent = 'Click icons in this order:';
+        orderLabel.style.backgroundColor = 'black';
+        orderLabel.style.color = 'white';
+        orderLabel.style.padding = '5px';
+        orderLabel.style.marginBottom = '5px';
+        orderLabel.style.fontSize = '14px';
+        orderImageContainer.appendChild(orderLabel);
+        
+        // Add order reference image
+        const orderImg = document.createElement('img');
+        orderImg.id = 'click-order-reference-image';
+        orderImg.src = currentPuzzle.order_image;
+        orderImg.alt = 'Reference order';
+        orderImg.style.maxWidth = '100%';
+        orderImg.style.border = '1px solid #ccc';
+        orderImageContainer.appendChild(orderImg);
+        
+        // Add click markers container to show user clicks
+        const markersContainer = document.createElement('div');
+        markersContainer.className = 'click-markers-container';
+        markersContainer.style.position = 'absolute';
+        markersContainer.style.top = '0';
+        markersContainer.style.left = '0';
+        markersContainer.style.width = '100%';
+        markersContainer.style.height = '100%';
+        markersContainer.style.pointerEvents = 'none'; // Don't block clicks
+        mainImageContainer.appendChild(markersContainer);
+        
+        // Track user clicks
+        let userClicks = [];
+        
+        // Add click indicator
+        const clickIndicator = document.createElement('div');
+        clickIndicator.className = 'click-indicator';
+        clickIndicator.style.marginTop = '10px';
+        clickIndicator.style.fontSize = '16px';
+        clickIndicator.textContent = 'Clicks: 0';
+        
+        // Add reset button
+        const resetButton = document.createElement('button');
+        resetButton.textContent = 'Reset Clicks';
+        resetButton.className = 'reset-clicks-btn';
+        resetButton.style.padding = '8px 15px';
+        resetButton.style.backgroundColor = '#f44336';
+        resetButton.style.color = 'white';
+        resetButton.style.border = 'none';
+        resetButton.style.borderRadius = '4px';
+        resetButton.style.marginRight = '10px';
+        resetButton.style.cursor = 'pointer';
+        
+        // Add click event handler for the main image
+        mainImg.addEventListener('click', function(e) {
+            // Get click coordinates relative to the image
+            const rect = e.target.getBoundingClientRect();
+            const x = Math.round(e.clientX - rect.left);
+            const y = Math.round(e.clientY - rect.top);
+            
+            // Add click to the array
+            userClicks.push([x, y]);
+            
+            // Show click marker
+            addClickMarker(x, y, userClicks.length, markersContainer);
+            
+            // Update click indicator
+            clickIndicator.textContent = `Clicks: ${userClicks.length}`;
+            
+            // Enable the dedicated submit button if at least one click has been made
+            clickOrderSubmitBtn.disabled = false;
+            
+            // Log for debugging
+            console.log(`Click ${userClicks.length} at:`, { x, y });
+        });
+        
+        // Event listener for reset button
+        resetButton.addEventListener('click', function() {
+            // Clear user clicks
+            userClicks = [];
+            
+            // Clear markers
+            markersContainer.innerHTML = '';
+            
+            // Update click indicator
+            clickIndicator.textContent = 'Clicks: 0';
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+        });
+        
+        // Add components to layout
+        layoutContainer.appendChild(orderImageContainer);
+        layoutContainer.appendChild(mainImageContainer);
+        
+        // Add controls container
+        const controlsContainer = document.createElement('div');
+        controlsContainer.className = 'controls-container';
+        controlsContainer.style.display = 'flex';
+        controlsContainer.style.justifyContent = 'center';
+        controlsContainer.style.alignItems = 'center';
+        controlsContainer.style.marginTop = '15px';
+        
+        // Add controls to container
+        controlsContainer.appendChild(resetButton);
+        controlsContainer.appendChild(clickIndicator);
+        
+        // Add controls to layout
+        layoutContainer.appendChild(controlsContainer);
+        
+        // Create a dedicated submit button for the Click Order puzzle
+        const clickOrderSubmitBtn = document.createElement('button');
+        clickOrderSubmitBtn.textContent = 'Submit Order';
+        clickOrderSubmitBtn.className = 'click-order-submit-btn';
+        clickOrderSubmitBtn.style.padding = '10px 20px';
+        clickOrderSubmitBtn.style.backgroundColor = '#4CAF50';
+        clickOrderSubmitBtn.style.color = 'white';
+        clickOrderSubmitBtn.style.border = 'none';
+        clickOrderSubmitBtn.style.borderRadius = '4px';
+        clickOrderSubmitBtn.style.marginTop = '15px';
+        clickOrderSubmitBtn.style.cursor = 'pointer';
+        clickOrderSubmitBtn.style.fontSize = '16px';
+        clickOrderSubmitBtn.disabled = true; // Disabled until clicks are made
+        
+        // Add submit button to layout
+        layoutContainer.appendChild(clickOrderSubmitBtn);
+        
+        // Add layout to puzzle container
+        puzzleImageContainer.appendChild(layoutContainer);
+        
+        // Hide the original input field and submit button
+        userAnswerInput.style.display = 'none';
+        submitBtn.style.display = 'none';
+        inputGroup.style.display = 'none';
+        
+        // Enable the dedicated submit button when clicks are made
+        mainImg.addEventListener('click', function() {
+            if (userClicks.length > 0) {
+                clickOrderSubmitBtn.disabled = false;
+            }
+        });
+        
+        // Reset button should disable submit button
+        resetButton.addEventListener('click', function() {
+            clickOrderSubmitBtn.disabled = true;
+        });
+        
+        // Add event listener to the dedicated submit button
+        clickOrderSubmitBtn.addEventListener('click', function() {
+            // Set the clicks as the answer
+            userAnswerInput.value = JSON.stringify(userClicks);
+            
+            // Send the data to the server
+            fetch('/api/check_answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    puzzle_type: currentPuzzle.puzzle_type,
+                    puzzle_id: currentPuzzle.puzzle_id,
+                    answer: userClicks
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update stats
+                benchmarkStats.total++;
+                if (data.correct) {
+                    benchmarkStats.correct++;
+                    resultMessage.textContent = 'Correct!';
+                    resultMessage.className = 'result-message correct';
+                } else {
+                    resultMessage.textContent = 'Incorrect.';
+                    resultMessage.className = 'result-message incorrect';
+                }
+                
+                updateStats();
+                
+                // Record benchmark result
+                recordBenchmarkResult({
+                    puzzle_type: currentPuzzle.puzzle_type,
+                    puzzle_id: currentPuzzle.puzzle_id,
+                    user_answer: userClicks,
+                    correct_answer: data.correct_answer,
+                    correct: data.correct
+                });
+                
+                // Disable the submit button
+                clickOrderSubmitBtn.disabled = true;
+                
+                // Load a new puzzle after a delay
+                setTimeout(loadNewPuzzle, 2000);
+            })
+            .catch(error => {
+                console.error('Error checking answer:', error);
+                resultMessage.textContent = 'Error checking answer. Please try again.';
+                resultMessage.className = 'result-message incorrect';
+                // Re-enable the submit button on error
+                clickOrderSubmitBtn.disabled = false;
+            });
+        });
+        
+        // In debug mode, show the correct click positions
+        if (DEBUG_MODE) {
+            showClickOrderAnswerPositions(mainImageContainer);
+        }
+    }
+    
+    // Function to add a numbered click marker
+    function addClickMarker(x, y, number, container) {
+        const marker = document.createElement('div');
+        marker.className = 'click-marker';
+        marker.style.position = 'absolute';
+        marker.style.left = `${x - 15}px`;
+        marker.style.top = `${y - 15}px`;
+        marker.style.width = '30px';
+        marker.style.height = '30px';
+        marker.style.borderRadius = '50%';
+        marker.style.backgroundColor = 'rgba(255, 0, 0, 0.6)';
+        marker.style.border = '2px solid white';
+        marker.style.color = 'white';
+        marker.style.fontWeight = 'bold';
+        marker.style.display = 'flex';
+        marker.style.justifyContent = 'center';
+        marker.style.alignItems = 'center';
+        marker.style.fontSize = '14px';
+        marker.style.zIndex = '100';
+        marker.style.pointerEvents = 'none'; // Don't block future clicks
+        marker.textContent = number.toString();
+        
+        container.appendChild(marker);
+    }
+    
+    // Function to show correct answer positions in debug mode
+    function showClickOrderAnswerPositions(container) {
+        fetch('/api/get_ground_truth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                puzzle_type: currentPuzzle.puzzle_type,
+                puzzle_id: currentPuzzle.puzzle_id
+            })
+        })
+        .then(response => response.json())
+        .then(gtData => {
+            if (gtData.answer && Array.isArray(gtData.answer)) {
+                const correctPositions = gtData.answer;
+                const tolerance = currentPuzzle.tolerance || 20;
+                
+                // Create a debug layer
+                const debugLayer = document.createElement('div');
+                debugLayer.className = 'debug-layer';
+                debugLayer.style.position = 'absolute';
+                debugLayer.style.top = '0';
+                debugLayer.style.left = '0';
+                debugLayer.style.width = '100%';
+                debugLayer.style.height = '100%';
+                debugLayer.style.pointerEvents = 'none';
+                
+                // Add correct position indicators
+                correctPositions.forEach((pos, index) => {
+                    const [x, y] = pos;
+                    
+                    // Create circle for tolerance area
+                    const toleranceCircle = document.createElement('div');
+                    toleranceCircle.className = 'tolerance-circle';
+                    toleranceCircle.style.position = 'absolute';
+                    toleranceCircle.style.left = `${x - tolerance}px`;
+                    toleranceCircle.style.top = `${y - tolerance}px`;
+                    toleranceCircle.style.width = `${tolerance * 2}px`;
+                    toleranceCircle.style.height = `${tolerance * 2}px`;
+                    toleranceCircle.style.borderRadius = '50%';
+                    toleranceCircle.style.border = '2px dashed green';
+                    toleranceCircle.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
+                    
+                    // Create label with position number
+                    const posLabel = document.createElement('div');
+                    posLabel.className = 'position-label';
+                    posLabel.style.position = 'absolute';
+                    posLabel.style.left = `${x}px`;
+                    posLabel.style.top = `${y - 20}px`;
+                    posLabel.style.transform = 'translate(-50%, -50%)';
+                    posLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                    posLabel.style.color = 'white';
+                    posLabel.style.padding = '2px 5px';
+                    posLabel.style.borderRadius = '3px';
+                    posLabel.style.fontSize = '10px';
+                    posLabel.textContent = `${index + 1}: (${x}, ${y})`;
+                    
+                    debugLayer.appendChild(toleranceCircle);
+                    debugLayer.appendChild(posLabel);
+                });
+                
+                container.appendChild(debugLayer);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching ground truth for Click_Order:', error);
+        });
+    }
+    
+    // Function to setup the Hold Button CAPTCHA
+    function setupHoldButton() {
+        // Clear the puzzle image container first
+        puzzleImageContainer.innerHTML = '';
+        
+        // Create a container for the button
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'hold-button-container';
+        buttonContainer.style.position = 'relative';
+        buttonContainer.style.width = '100%';
+        buttonContainer.style.maxWidth = '400px';
+        buttonContainer.style.margin = '0 auto';
+        buttonContainer.style.textAlign = 'center';
+        
+        // If the CAPTCHA has an image, show it above the button
+        if (currentPuzzle.image_path) {
+            const imageElement = document.createElement('img');
+            imageElement.src = currentPuzzle.image_path;
+            imageElement.alt = 'Hold Button CAPTCHA';
+            imageElement.style.display = 'block';
+            imageElement.style.width = '100%';
+            imageElement.style.maxWidth = '400px';
+            imageElement.style.margin = '0 auto 20px';
+            imageElement.style.borderRadius = '8px';
+            buttonContainer.appendChild(imageElement);
+        }
+        
+        // Create button element
+        const button = document.createElement('div');
+        button.className = 'hold-button';
+        button.style.position = 'relative';
+        button.style.width = '100%';
+        button.style.height = 'auto';
+        button.style.cursor = 'pointer';
+        button.style.userSelect = 'none';
+        button.style.borderRadius = '50px';
+        button.style.border = '3px solid #333';
+        button.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        button.style.backgroundColor = '#f8f8f8';
+        button.style.padding = '30px 0';
+        button.style.fontSize = '28px';
+        button.style.fontWeight = 'bold';
+        button.style.color = '#333';
+        button.style.textAlign = 'center';
+        button.style.transition = 'background-color 0.3s';
+        button.textContent = 'HOLD';
+        
+        // Create progress bar
+        const progressBar = document.createElement('div');
+        progressBar.className = 'hold-progress';
+        progressBar.style.position = 'absolute';
+        progressBar.style.left = '0';
+        progressBar.style.bottom = '0';
+        progressBar.style.height = '8px';
+        progressBar.style.width = '0%';
+        progressBar.style.backgroundColor = '#4CAF50';
+        progressBar.style.transition = 'width 0.1s linear';
+        progressBar.style.borderRadius = '0 0 50px 50px';
+        
+        // Get hold time from data
+        const requiredHoldTime = currentPuzzle.hold_time || 3; // Default to 3 seconds
+        
+        // Variables to track holding
+        let isHolding = false;
+        let holdStartTime = 0;
+        let holdTimer = null;
+        let completed = false;
+        let currentHoldTime = 0;
+        
+        // Add event listeners for hold detection
+        button.addEventListener('mousedown', startHolding);
+        button.addEventListener('touchstart', startHolding);
+        document.addEventListener('mouseup', stopHolding);
+        document.addEventListener('touchend', stopHolding);
+        
+        function startHolding(e) {
+            if (completed) return;
+            
+            // Prevent default behaviors for touch
+            if (e.type === 'touchstart') {
+                e.preventDefault();
+            }
+            
+            isHolding = true;
+            holdStartTime = Date.now();
+            button.style.backgroundColor = '#e0e0e0';
+            
+            // Start progress animation
+            holdTimer = setInterval(() => {
+                if (!isHolding) return;
+                
+                const elapsedTime = (Date.now() - holdStartTime) / 1000; // in seconds
+                currentHoldTime = elapsedTime;
+                
+                // Update progress bar
+                const progress = Math.min((elapsedTime / requiredHoldTime) * 100, 100);
+                progressBar.style.width = `${progress}%`;
+                
+                // Check if hold is complete
+                if (elapsedTime >= requiredHoldTime && !completed) {
+                    completeHold();
+                }
+            }, 100); // Update every 100ms
+        }
+        
+        function stopHolding() {
+            if (!isHolding || completed) return;
+            
+            isHolding = false;
+            button.style.backgroundColor = '#f8f8f8';
+            
+            // Reset progress if not completed
+            if (!completed) {
+                progressBar.style.width = '0%';
+                clearInterval(holdTimer);
+            }
+        }
+        
+        function completeHold() {
+            completed = true;
+            clearInterval(holdTimer);
+            
+            // Change button appearance
+            button.style.backgroundColor = '#4CAF50';
+            button.style.color = 'white';
+            button.textContent = 'COMPLETED';
+            
+            // Set the user answer to the current hold time
+            userAnswerInput.value = currentHoldTime.toFixed(2);
+            
+            // Enable submit button
+            submitBtn.disabled = false;
+            resultMessage.textContent = "Button hold completed! Click 'Submit' to continue.";
+            resultMessage.className = 'result-message instruction';
+        }
+        
+        // Add the progress bar to button
+        button.appendChild(progressBar);
+        
+        // Add button to container
+        buttonContainer.appendChild(button);
+        
+        // Add to puzzle container
+        puzzleImageContainer.appendChild(buttonContainer);
+        
+        // Reset and clear input field
+        userAnswerInput.value = '';
+        submitBtn.disabled = true;  // Disable submit button until hold is complete
+    }
+
+    // Function to show dotted areas in debug mode for Pick_Area
+    function showPickAreaTargets(container) {
+        if (!DEBUG_MODE || !currentPuzzle) return;
+        
+        // Fetch ground truth data to show the correct area
+        fetch('/api/get_ground_truth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                puzzle_type: currentPuzzle.puzzle_type,
+                puzzle_id: currentPuzzle.puzzle_id
+            })
+        })
+        .then(response => response.json())
+        .then(gtData => {
+            if (gtData.answer && gtData.answer.area) {
+                // Get the area from ground truth
+                const areaCoords = gtData.answer.area;
+                const areaType = gtData.answer.type || 'largest region';
+                
+                // Create a marker for the area
+                const areaMarker = document.createElement('div');
+                areaMarker.className = 'area-marker debug-marker';
+                areaMarker.style.position = 'absolute';
+                areaMarker.style.border = '3px dashed #ff3333';
+                // Use a more transparent background to show the underlying dotted lines
+                areaMarker.style.backgroundColor = 'rgba(255, 51, 51, 0.15)';
+                areaMarker.style.zIndex = '999';
+                // Add border radius to better represent curved areas
+                areaMarker.style.borderRadius = '25%';
+                
+                // Set position and size
+                const [topLeft, bottomRight] = areaCoords;
+                const [minX, minY] = topLeft;
+                const [maxX, maxY] = bottomRight;
+                
+                areaMarker.style.left = `${minX}px`;
+                areaMarker.style.top = `${minY}px`;
+                areaMarker.style.width = `${maxX - minX}px`;
+                areaMarker.style.height = `${maxY - minY}px`;
+                
+                // Add a label that better explains what to do
+                const label = document.createElement('div');
+                label.className = 'debug-label';
+                label.style.position = 'absolute';
+                label.style.top = '5px';
+                label.style.left = '50%';
+                label.style.transform = 'translateX(-50%)';
+                label.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                label.style.color = 'white';
+                label.style.padding = '5px 10px';
+                label.style.fontSize = '14px';
+                label.style.fontWeight = 'bold';
+                label.style.borderRadius = '3px';
+                label.style.whiteSpace = 'nowrap';
+                label.style.textAlign = 'center';
+                label.textContent = `${areaType}: (${minX},${minY}) to (${maxX},${maxY})`;
+                
+                areaMarker.appendChild(label);
+                
+                // Add a note to explain that the actual area follows the dotted lines
+                const note = document.createElement('div');
+                note.className = 'area-note';
+                note.style.position = 'absolute';
+                note.style.bottom = '10px';
+                note.style.left = '50%';
+                note.style.transform = 'translateX(-50%)';
+                note.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                note.style.color = 'white';
+                note.style.padding = '5px 10px';
+                note.style.fontSize = '12px';
+                note.style.borderRadius = '3px';
+                note.style.maxWidth = '90%';
+                note.style.textAlign = 'center';
+                note.textContent = 'Follow the dotted white lines to identify the actual area';
+                
+                areaMarker.appendChild(note);
+                container.appendChild(areaMarker);
+                
+                // Create indicators to highlight the dotted lines
+                // This is a simplistic approach; ideally we would trace the actual dotted lines
+                highlightDottedLines(container, areaCoords);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching ground truth for Pick_Area:', error);
+        });
+    }
+    
+    // Function to highlight the dotted lines that define the area
+    function highlightDottedLines(container, areaCoords) {
+        const [topLeft, bottomRight] = areaCoords;
+        const [minX, minY] = topLeft;
+        const [maxX, maxY] = bottomRight;
+        
+        // Create a canvas element to draw over the image
+        const canvas = document.createElement('canvas');
+        canvas.className = 'dotted-line-highlight';
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.pointerEvents = 'none'; // Don't interfere with clicks
+        canvas.style.zIndex = '998'; // Just below the area marker
+        
+        // Wait for the image to load to get the correct dimensions
+        const img = container.querySelector('img');
+        if (!img) return;
+        
+        if (img.complete) {
+            setupCanvas();
+        } else {
+            img.onload = setupCanvas;
+        }
+        
+        function setupCanvas() {
+            canvas.width = img.clientWidth;
+            canvas.height = img.clientHeight;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([5, 5]); // Create a dashed line effect
+            
+            // Draw a path that approximates the dotted lines
+            // This is just a rough approximation - would need image processing to trace actual lines
+            ctx.beginPath();
+            
+            // Top line
+            ctx.moveTo(minX, minY);
+            ctx.lineTo(maxX, minY);
+            
+            // Right line
+            ctx.moveTo(maxX, minY);
+            ctx.lineTo(maxX, maxY);
+            
+            // Bottom line
+            ctx.moveTo(maxX, maxY);
+            ctx.lineTo(minX, maxY);
+            
+            // Left line
+            ctx.moveTo(minX, maxY);
+            ctx.lineTo(minX, minY);
+            
+            ctx.stroke();
+            
+            container.appendChild(canvas);
+        }
+    }
+
+    // Function to show the area to avoid for Misleading_Click puzzles
+    function showMisleadingClickArea(container, avoidArea) {
+        if (!DEBUG_MODE || !avoidArea) return;
+        
+        // Create a marker for the area to avoid
+        const areaMarker = document.createElement('div');
+        areaMarker.className = 'avoid-area-marker debug-marker';
+        areaMarker.style.position = 'absolute';
+        areaMarker.style.border = '3px dashed red';
+        areaMarker.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+        areaMarker.style.zIndex = '999';
+        
+        // Set position and size
+        const { x, y, width, height } = avoidArea;
+        areaMarker.style.left = `${x}px`;
+        areaMarker.style.top = `${y}px`;
+        areaMarker.style.width = `${width}px`;
+        areaMarker.style.height = `${height}px`;
+        
+        // Add a label
+        const label = document.createElement('div');
+        label.className = 'debug-label';
+        label.style.position = 'absolute';
+        label.style.top = '-20px';
+        label.style.left = '0';
+        label.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        label.style.color = 'white';
+        label.style.padding = '2px 5px';
+        label.style.fontSize = '12px';
+        label.style.borderRadius = '3px';
+        label.textContent = `DO NOT CLICK IN THIS AREA: (${x},${y}) ${width}x${height}`;
+        
+        // Add a warning sign in the middle
+        const warningSign = document.createElement('div');
+        warningSign.className = 'warning-sign';
+        warningSign.textContent = 'DO NOT CLICK HERE';
+        warningSign.style.position = 'absolute';
+        warningSign.style.top = '50%';
+        warningSign.style.left = '50%';
+        warningSign.style.transform = 'translate(-50%, -50%)';
+        warningSign.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        warningSign.style.color = '#ff5555';
+        warningSign.style.padding = '5px 10px';
+        warningSign.style.fontSize = '14px';
+        warningSign.style.fontWeight = 'bold';
+        warningSign.style.borderRadius = '3px';
+        warningSign.style.whiteSpace = 'nowrap';
+        warningSign.style.zIndex = '10';
+        
+        areaMarker.appendChild(label);
+        areaMarker.appendChild(warningSign);
+        container.appendChild(areaMarker);
+        
+        console.log('Misleading Click area to avoid:', avoidArea);
+    }
+
+    /**
+     * Checks if a point is inside a polygon defined by an array of points
+     * Uses ray-casting algorithm
+     * @param {number} x - X coordinate of the point to check
+     * @param {number} y - Y coordinate of the point to check
+     * @param {array} polygon - Array of points defining the polygon [[x1,y1], [x2,y2], ...]
+     * @returns {boolean} True if the point is inside the polygon
+     */
+    function pointInPolygon(x, y, polygon) {
+        if (!polygon || polygon.length < 3) return false;
+
+        let inside = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            const xi = polygon[i][0], yi = polygon[i][1];
+            const xj = polygon[j][0], yj = polygon[j][1];
+            
+            const intersect = ((yi > y) != (yj > y)) &&
+                (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+        }
+        
+        return inside;
+    }
+
+    /**
+     * Sets up the Dart Count interface with reference number and dart images
+     */
+    function setupDartCount() {
+        // Clear the puzzle image container
+        puzzleImageContainer.innerHTML = '';
+        
+        // Create container for the dart count interface
+        const dartContainer = document.createElement('div');
+        dartContainer.className = 'dart-count-container';
+        
+        // Create a horizontal layout
+        const horizontalLayout = document.createElement('div');
+        horizontalLayout.className = 'dart-count-horizontal-layout';
+        
+        // Create reference container (shows the target number)
+        const referenceContainer = document.createElement('div');
+        referenceContainer.className = 'dart-count-reference';
+        
+        // Add reference image - check all possible locations for data
+        const referenceImage = document.createElement('img');
+        if (currentPuzzle.additional_data && currentPuzzle.additional_data.reference_image) {
+            referenceImage.src = currentPuzzle.additional_data.reference_image;
+        } else if (currentPuzzle.reference_image) {
+            referenceImage.src = currentPuzzle.reference_image;
+        } else {
+            console.error('Reference image not found for Dart Count puzzle');
+        }
+        referenceImage.alt = 'Target Number';
+        referenceImage.className = 'dart-count-reference-img';
+        referenceContainer.appendChild(referenceImage);
+        
+        // Add reference caption
+        const referenceCaption = document.createElement('div');
+        referenceCaption.className = 'dart-count-caption';
+        referenceCaption.textContent = 'Find sum of darts equal to this';
+        referenceContainer.appendChild(referenceCaption);
+        
+        // Create options container
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'dart-count-options';
+        
+        // Get option images from all possible locations
+        let optionImages = [];
+        if (currentPuzzle.additional_data && currentPuzzle.additional_data.option_images) {
+            optionImages = currentPuzzle.additional_data.option_images;
+        } else if (currentPuzzle.option_images) {
+            optionImages = currentPuzzle.option_images;
+        } else {
+            console.error('Option images not found for Dart Count puzzle');
+            optionImages = [];
+        }
+        
+        // Add option image
+        const optionImage = document.createElement('img');
+        if (optionImages.length > 0) {
+            optionImage.src = optionImages[0]; // Start with first option
+        }
+        optionImage.alt = 'Dart Option';
+        optionImage.className = 'dart-count-option-img';
+        optionsContainer.appendChild(optionImage);
+        
+        // Create navigation controls
+        const controlsContainer = document.createElement('div');
+        controlsContainer.className = 'dart-count-controls';
+        
+        // Left arrow
+        const leftArrow = document.createElement('button');
+        leftArrow.innerHTML = '&larr;';
+        leftArrow.className = 'dart-count-arrow left-arrow';
+        leftArrow.addEventListener('click', () => updateDartOption(-1));
+        
+        // Right arrow
+        const rightArrow = document.createElement('button');
+        rightArrow.innerHTML = '&rarr;';
+        rightArrow.className = 'dart-count-arrow right-arrow';
+        rightArrow.addEventListener('click', () => updateDartOption(1));
+        
+        // Add arrows to controls
+        controlsContainer.appendChild(leftArrow);
+        controlsContainer.appendChild(rightArrow);
+        
+        // Add controls to options container
+        optionsContainer.appendChild(controlsContainer);
+        
+        // Add reference and options to horizontal layout
+        horizontalLayout.appendChild(referenceContainer);
+        horizontalLayout.appendChild(optionsContainer);
+        
+        // Add horizontal layout to main container
+        dartContainer.appendChild(horizontalLayout);
+        
+        // Add option indicators (dots)
+        const indicators = document.createElement('div');
+        indicators.className = 'dart-count-indicators';
+        
+        const numOptions = optionImages.length;
+        for (let i = 0; i < numOptions; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'dart-count-dot';
+            if (i === 0) {
+                dot.classList.add('active');
+            }
+            indicators.appendChild(dot);
+        }
+        
+        // Add indicators to main container
+        dartContainer.appendChild(indicators);
+        
+        // Add submit button
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Submit';
+        submitBtn.className = 'dart-count-submit';
+        submitBtn.addEventListener('click', submitAnswer);
+        
+        // Add containers to puzzle image container
+        puzzleImageContainer.appendChild(dartContainer);
+        puzzleImageContainer.appendChild(submitBtn);
+        
+        // Store current index in the hidden input for submission
+        userAnswerInput.value = '0';
+        
+        // Log all available data for debugging
+        console.log('Dart Count puzzle data:', currentPuzzle);
+    }
+    
+    /**
+     * Update the displayed dart option image based on navigation direction
+     * @param {number} direction - Direction to navigate (-1 for left, 1 for right)
+     */
+    function updateDartOption(direction) {
+        const optionImage = document.querySelector('.dart-count-option-img');
+        const dots = document.querySelectorAll('.dart-count-dot');
+        
+        // Get option images from all possible locations
+        let optionImages = [];
+        if (currentPuzzle.additional_data && currentPuzzle.additional_data.option_images) {
+            optionImages = currentPuzzle.additional_data.option_images;
+        } else if (currentPuzzle.option_images) {
+            optionImages = currentPuzzle.option_images;
+        } else {
+            console.error('Option images not found for Dart Count puzzle');
+            return;
+        }
+        
+        // Get current index from input field
+        let currentIndex = parseInt(userAnswerInput.value) || 0;
+        const numOptions = optionImages.length;
+        
+        // Calculate new index with wrap-around
+        let newIndex = (currentIndex + direction + numOptions) % numOptions;
+        
+        // Update the option image
+        optionImage.src = optionImages[newIndex];
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            if (index === newIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+        
+        // Store selected answer for submission
+        userAnswerInput.value = newIndex.toString();
+        
+        // Log for debugging
+        console.log('Updated dart option:', {
+            index: newIndex,
+            src: optionImage.src
         });
     }
 }); 

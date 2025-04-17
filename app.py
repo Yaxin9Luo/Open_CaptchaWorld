@@ -101,6 +101,14 @@ def get_puzzle():
         prompt = ground_truth[selected_puzzle].get("prompt", "Click to place a Dot at the end of the car's path")
     elif puzzle_type == "Connect_icon":
         prompt = ground_truth[selected_puzzle].get("prompt", "Using the arrows, connect the same two icons with the dotted line as shown on the left.")
+    elif puzzle_type == "Click_Order":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Click the icons in order as shown in the reference image.")
+    elif puzzle_type == "Hold_Button":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Hold the button until it finishes loading.")
+    elif puzzle_type == "Misleading_Click":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Click the image to continue.")
+    elif puzzle_type == "Pick_Area":
+        prompt = ground_truth[selected_puzzle].get("prompt", "Click on the largest area outlined by the dotted line")
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -138,6 +146,14 @@ def get_puzzle():
         input_type = "place_dot"
     elif puzzle_type == "Connect_icon":
         input_type = "connect_icon"
+    elif puzzle_type == "Click_Order":
+        input_type = "click_order"
+    elif puzzle_type == "Hold_Button":
+        input_type = "hold_button"
+    elif puzzle_type == "Misleading_Click":
+        input_type = "click"
+    elif puzzle_type == "Pick_Area":
+        input_type = "click"
     
     # For Rotation_Match, include additional data needed for the interface
     additional_data = {}
@@ -362,6 +378,37 @@ def get_puzzle():
             "current_option_index": 0,
             "correct_option_index": correct_option
         }
+    # For Click_Order, include the order image path
+    elif puzzle_type == "Click_Order":
+        # Get the order image from ground truth
+        order_image = ground_truth[selected_puzzle].get("order_image")
+        
+        if not order_image:
+            return jsonify({'error': f'Invalid click order data: {selected_puzzle}'}), 500
+        
+        # Format path for the order image
+        order_path = f'/captcha_data/{puzzle_type}/{order_image}'
+        
+        additional_data = {
+            "order_image": order_path,
+            "tolerance": ground_truth[selected_puzzle].get("tolerance", 20)
+        }
+    # For Hold_Button, include the hold time
+    elif puzzle_type == "Hold_Button":
+        # Get the required hold time from ground truth
+        hold_time = ground_truth[selected_puzzle].get("hold_time", 3)  # Default to 3 seconds if not specified
+        
+        additional_data = {
+            "hold_time": hold_time
+        }
+    # For Misleading_Click, include the area to avoid
+    elif puzzle_type == "Misleading_Click":
+        # Get the area to avoid from ground truth
+        avoid_area = ground_truth[selected_puzzle].get("avoid_area", {"x": 0, "y": 0, "width": 0, "height": 0})
+        
+        additional_data = {
+            "avoid_area": avoid_area
+        }
     else:
         prompt = ground_truth[selected_puzzle].get("prompt", "Solve the CAPTCHA puzzle")
     
@@ -406,6 +453,15 @@ def get_ground_truth():
                 'tolerance': puzzle_data.get('tolerance', 15)
             },
             'question': puzzle_data.get('question'),
+            'description': puzzle_data.get('description')
+        })
+    # For Misleading_Click puzzles, ensure avoid_area is included in the answer
+    elif puzzle_type == 'Misleading_Click':
+        return jsonify({
+            'answer': {
+                'avoid_area': puzzle_data.get('avoid_area', {"x": 0, "y": 0, "width": 0, "height": 0})
+            },
+            'prompt': puzzle_data.get('prompt'),
             'description': puzzle_data.get('description')
         })
     
@@ -709,6 +765,112 @@ def check_answer():
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Connect_icon'}), 400
     
+    elif puzzle_type == 'Click_Order':
+        # For Click_Order, check if the clicked positions match the expected order
+        try:
+            # Get the correct coordinates and tolerance from ground truth
+            correct_positions = ground_truth[puzzle_id].get('answer', [])
+            tolerance = ground_truth[puzzle_id].get('tolerance', 20)  # Default tolerance of 20 pixels
+            
+            # User answer should be a list of clicked positions in order
+            user_positions = user_answer
+            
+            # Check if the number of clicks matches
+            if len(user_positions) != len(correct_positions):
+                is_correct = False
+            else:
+                # Check each position with tolerance
+                is_correct = True
+                for i, (user_pos, correct_pos) in enumerate(zip(user_positions, correct_positions)):
+                    user_x, user_y = user_pos
+                    correct_x, correct_y = correct_pos
+                    
+                    # Calculate distance
+                    distance = ((user_x - correct_x) ** 2 + (user_y - correct_y) ** 2) ** 0.5
+                    
+                    # If any position is outside tolerance, the answer is incorrect
+                    if distance > tolerance:
+                        is_correct = False
+                        break
+            
+            correct_answer_info = correct_positions
+        except (ValueError, TypeError, KeyError):
+            return jsonify({'error': 'Invalid answer format for Click_Order'}), 400
+    
+    elif puzzle_type == 'Hold_Button':
+        # For Hold_Button, check if the hold time is within the allowed range
+        try:
+            # Get the required hold time from ground truth
+            hold_time = ground_truth[puzzle_id].get("hold_time", 3)  # Default to 3 seconds if not specified
+            
+            # User answer should be a number representing the hold time in seconds
+            user_hold_time = float(user_answer)
+            
+            # Check if the hold time is within the allowed range
+            is_correct = hold_time >= user_hold_time >= 0
+            correct_answer_info = hold_time
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid answer format for Hold_Button'}), 400
+    
+    elif puzzle_type == 'Misleading_Click':
+        # For Misleading_Click, check if the click is NOT within the area to avoid
+        try:
+            # Get the area to avoid from ground truth
+            avoid_area = ground_truth[puzzle_id].get("avoid_area", {"x": 0, "y": 0, "width": 0, "height": 0})
+            
+            # Extract coordinates from user's answer (click position)
+            user_x, user_y = user_answer
+            
+            # Check if click is outside the area to avoid
+            area_x = avoid_area["x"]
+            area_y = avoid_area["y"]
+            area_width = avoid_area["width"]
+            area_height = avoid_area["height"]
+            
+            # Click should be outside the avoid area to be correct
+            is_inside_avoid_area = (
+                area_x <= user_x <= area_x + area_width and 
+                area_y <= user_y <= area_y + area_height
+            )
+            
+            # User is correct if they clicked outside the avoid area
+            is_correct = not is_inside_avoid_area
+            correct_answer_info = "Click outside the red bear area"
+        except (ValueError, TypeError, KeyError):
+            return jsonify({'error': 'Invalid answer format for Misleading_Click'}), 400
+    
+    elif puzzle_type == 'Pick_Area':
+        # For Pick_Area, check if click is within the correct area
+        try:
+            # Get the area boundaries from ground truth
+            correct_answer = ground_truth[puzzle_id].get('answer')
+            
+            # Extract coordinates
+            user_x, user_y = user_answer
+            
+            # Check if the correct area is defined
+            if isinstance(correct_answer, dict) and 'area' in correct_answer:
+                # Get area coordinates (top-left and bottom-right corners)
+                top_left, bottom_right = correct_answer['area']
+                min_x, min_y = top_left
+                max_x, max_y = bottom_right
+                
+                # Check if click is within the defined area
+                is_correct = (min_x <= user_x <= max_x) and (min_y <= user_y <= max_y)
+                
+                # Return the area type as part of the correct answer
+                area_type = correct_answer.get('type', 'largest region')
+                correct_answer_info = {
+                    'type': area_type,
+                    'area': correct_answer['area']
+                }
+            else:
+                # Fall back if area is not properly defined
+                is_correct = False
+                correct_answer_info = correct_answer
+        except (ValueError, TypeError, KeyError):
+            return jsonify({'error': 'Invalid answer format for Pick_Area'}), 400
+    
     else:
         # For other types, compare as strings (case insensitive)
         correct_answer = ground_truth[puzzle_id].get('answer')
@@ -728,6 +890,14 @@ def check_answer():
         answer_key = 'correct_option'
     elif puzzle_type == 'Connect_icon':
         answer_key = 'correct_option'
+    elif puzzle_type == 'Click_Order':
+        answer_key = 'answer'
+    elif puzzle_type == 'Hold_Button':
+        answer_key = 'hold_time'
+    elif puzzle_type == 'Misleading_Click':
+        answer_key = 'answer'
+    elif puzzle_type == 'Pick_Area':
+        answer_key = 'answer'
     else:
         answer_key = 'answer'
     

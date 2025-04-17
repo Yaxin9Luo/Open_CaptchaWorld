@@ -1,0 +1,8 @@
+{
+  "image1.png": {
+    "answer": "completed",
+    "prompt": "Hold the button until it finishes loading.",
+    "description": "Hold Button CAPTCHA requiring user to press and hold until loading completes",
+    "hold_time": 3
+  }
+} 

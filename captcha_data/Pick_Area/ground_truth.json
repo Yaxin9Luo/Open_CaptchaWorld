@@ -1,0 +1,10 @@
+{
+  "image1.png": {
+    "answer": {
+      "area": [[10, 150], [280, 490]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  }
+} 
