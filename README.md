@@ -311,7 +311,7 @@ We're continuously working to improve Open CaptchaWorld. Here's what's on our ro
 - [x] Add 20 types of Modern Captcha puzzles for Web Agents
 - [x] TestBed for evaluating and data collecting
 - [x] Web Interface for Open CaptchaWorld
-- [x] Make Open CaptchaWorld More easy to use
+- [x] Make Open CaptchaWorld More easy to use, can just deploy locally and add address to prompt
 - [ ] Add more CAPTCHA puzzle types to cover a wider range of visual reasoning challenges
 - [ ] Increase the number of puzzles in each CAPTCHA type to ensure comprehensive testing
 - [ ] Explore parametric approaches for CAPTCHA-solving agents
