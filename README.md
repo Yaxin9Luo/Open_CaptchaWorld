@@ -23,8 +23,9 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
 - [🎬 Demo](#-demo)
 - [🎯 Motivation & Contributions](#-motivation--contributions)
 - [✨ Features](#-features)
-- [🏗 System Architecture](#-system-architecture)
+- [🏗 Project Structure](#-system-architecture)
 - [🧩 CAPTCHA Types](#-captcha-types)
+- [📊 Benchmark Results](#-benchmark-results)
 - [🚀 Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -36,7 +37,6 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
 - [🔧 Extending the System](#-extending-the-system)
   - [Adding New CAPTCHA Types](#adding-new-captcha-types)
   - [Adding New Puzzles](#adding-new-puzzles)
-- [📊 Benchmark Results](#-benchmark-results)
 - [🗺️ Roadmap](#-roadmap)
 - [👥 Contributing](#-contributing)
 - [📄 License](#-license)
@@ -160,6 +160,19 @@ Open CaptchaWorld includes 20 distinct CAPTCHA types, each testing different vis
 20. **Pick_Area**: Select a specific area in an image
 
 Each type has its own directory in `captcha_data/` containing puzzle images and a `ground_truth.json` file with solutions.
+
+## 📊 Benchmark Results
+
+The system records benchmark results in `benchmark_results.json` with each entry containing:
+- Puzzle type
+- Puzzle ID
+- User's answer
+- Correct answer
+- Boolean indicating correctness
+- Timestamp
+
+This data can be used to analyze performance across different puzzle types and track improvement over time.
+
 
 ## 🚀 Getting Started
 
@@ -292,19 +305,6 @@ Or use the `rotate_images.py` utility for rotation puzzles:
 ```bash
 python rotate_images.py set reference.png object.png 90 --output-dir captcha_data/Rotation_Match
 ```
-
-## 📊 Benchmark Results
-
-The system records benchmark results in `benchmark_results.json` with each entry containing:
-- Puzzle type
-- Puzzle ID
-- User's answer
-- Correct answer
-- Boolean indicating correctness
-- Timestamp
-
-This data can be used to analyze performance across different puzzle types and track improvement over time.
-
 ## 🗺️ Future Plan
 
 We're continuously working to improve Open CaptchaWorld. Here's what's on our roadmap:
