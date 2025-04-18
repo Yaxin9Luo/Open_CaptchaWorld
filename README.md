@@ -67,12 +67,10 @@ https://github.com/user-attachments/assets/c3b8ccca-a817-45f7-967a-64566cb32f26
 This video demonstrates a human solving various CAPTCHA types including all 20 types of our captchas. It shows how users can interact with these puzzles and how the system validates their responses.
 
 ### Demo 2: Browser Use Agent Solving Demo (LLM is gpt-4.1-2025-04-14)
-<div align="center">
-  <video width="600" controls>
-    <source src="path/to/demo2.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+
+
+https://github.com/user-attachments/assets/3f8f9a9c-8071-47cb-a864-dd0bd5b3b95c
+
 
 This video showcases LLM Web Agents to solve all our 20 types of captchas. 
 
