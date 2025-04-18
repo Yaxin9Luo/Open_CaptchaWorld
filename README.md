@@ -3,7 +3,7 @@
 <div align="center">
   
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Python](https://img.shields.io/badge/python-3.6%2B-blue)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Flask](https://img.shields.io/badge/flask-2.0.1-green)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 
@@ -60,14 +60,14 @@ Watch these demonstration videos to see Open CaptchaWorld in action:
 
 <div align="center">
   <video width="600" controls>
-    <source src="path/to/demo1.mp4" type="video/mp4">
+    <source src="./assets/Human_Demo.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 This video demonstrates a human solving various CAPTCHA types including Dice Count, Geometry Click, and Rotation Match. It shows how users can interact with these puzzles and how the system validates their responses.
 
-### Demo 2: Browser Use Agent Solving Demo (LLM is o3-2025-04-16)
+### Demo 2: Browser Use Agent Solving Demo (LLM is gpt-4.1-2025-04-14)
 <div align="center">
   <video width="600" controls>
     <source src="path/to/demo2.mp4" type="video/mp4">
