@@ -60,6 +60,10 @@ Watch these demonstration videos to see Open CaptchaWorld in action:
 
 
 
+https://github.com/user-attachments/assets/c3b8ccca-a817-45f7-967a-64566cb32f26
+
+
+
 This video demonstrates a human solving various CAPTCHA types including all 20 types of our captchas. It shows how users can interact with these puzzles and how the system validates their responses.
 
 ### Demo 2: Browser Use Agent Solving Demo (LLM is gpt-4.1-2025-04-14)
