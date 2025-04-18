@@ -308,22 +308,15 @@ python rotate_images.py set reference.png object.png 90 --output-dir captcha_dat
 ## 🗺️ Future Plan
 
 We're continuously working to improve Open CaptchaWorld. Here's what's on our roadmap:
-- [ ] Provide Benchmark includes simple web agent baselines(With Different LLM backbones) and some Web Agent system
-
-
+- [x] Add 20 types of Modern Captcha puzzles for Web Agents
+- [x] TestBed for evaluating and data collecting
+- [x] Web Interface for Open CaptchaWorld
+- [x] Make Open CaptchaWorld More easy to use
 - [ ] Add more CAPTCHA puzzle types to cover a wider range of visual reasoning challenges
 - [ ] Increase the number of puzzles in each CAPTCHA type to ensure comprehensive testing
-- [ ] Create documentation for each CAPTCHA type with implementation details
-
-
 - [ ] Explore parametric approaches for CAPTCHA-solving agents
 - [ ] Investigate non-parametric methods for solving complex visual puzzles
-- [ ] Develop evaluation metrics specifically designed for CAPTCHA-solving performance
 
-
-- [ ] Create ensemble system combining CAPTCHA-solving agents with general Web Agents
-- [ ] Enable seamless navigation through CAPTCHA-protected websites
-- [ ] Establish Open CaptchaWorld as the standard benchmark for LLM Web Agents
 
 As we complete each item, we'll mark the corresponding checkbox to track our progress. We welcome collaboration on any of these initiatives. If you're interested in contributing to a specific roadmap item, please check our issues page or contact the project maintainers.
 
