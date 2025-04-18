@@ -70,7 +70,7 @@ def get_puzzle():
     
     # Get the appropriate question prompt based on puzzle type
     if puzzle_type == "Dice_Count":
-        prompt = ground_truth[selected_puzzle].get('prompt', "Calculate and enter the sum of all numbers visible on the dice")
+        prompt = ground_truth[selected_puzzle].get('prompt', "Sum up the numbers on all the dice")
     elif puzzle_type == "Geometry_Click":
         prompt = ground_truth[selected_puzzle].get("question", "Click on the geometric shape")
     elif puzzle_type == "Rotation_Match":

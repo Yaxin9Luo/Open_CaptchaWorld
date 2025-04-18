@@ -1,6 +1,7 @@
 {
   "dice10.png": {
     "sum": 73,
+    "prompt": "Sum up the numbers on all the dice",
     "description": "Contains multiple dice with numbers that sum to 73"
   }    
 }

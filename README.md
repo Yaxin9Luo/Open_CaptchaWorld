@@ -58,14 +58,9 @@ Watch these demonstration videos to see Open CaptchaWorld in action:
 
 ### Demo 1: Human Solving Demo
 
-<div align="center">
-  <video width="600" controls>
-    <source src="./assets/Human_Demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
 
-This video demonstrates a human solving various CAPTCHA types including Dice Count, Geometry Click, and Rotation Match. It shows how users can interact with these puzzles and how the system validates their responses.
+
+This video demonstrates a human solving various CAPTCHA types including all 20 types of our captchas. It shows how users can interact with these puzzles and how the system validates their responses.
 
 ### Demo 2: Browser Use Agent Solving Demo (LLM is gpt-4.1-2025-04-14)
 <div align="center">
@@ -75,7 +70,8 @@ This video demonstrates a human solving various CAPTCHA types including Dice Cou
   </video>
 </div>
 
-This video showcases LLM Web Agents tackling complex CAPTCHA types such as Image Recognition, Bingo, and Click Order. It highlights the interactive elements and how the platform handles multi-step puzzle solving.
+This video showcases LLM Web Agents to solve all our 20 types of captchas. 
+
 ## 🎯 Motivation & Contributions
 
 ### Why We Built Open CaptchaWorld
