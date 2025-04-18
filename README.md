@@ -56,7 +56,7 @@ The system includes a variety of CAPTCHA types ranging from basic (count dice) t
 
 Watch these demonstration videos to see Open CaptchaWorld in action:
 
-### Demo 1: Human Solving 
+### Demo 1: Human Solving Demo
 
 <div align="center">
   <video width="600" controls>
@@ -67,8 +67,7 @@ Watch these demonstration videos to see Open CaptchaWorld in action:
 
 This video demonstrates a human solving various CAPTCHA types including Dice Count, Geometry Click, and Rotation Match. It shows how users can interact with these puzzles and how the system validates their responses.
 
-### Demo 2: Advanced Interactive CAPTCHAs
-
+### Demo 2: Browser Use Agent Solving Demo (LLM is o3-2025-04-16)
 <div align="center">
   <video width="600" controls>
     <source src="path/to/demo2.mp4" type="video/mp4">
