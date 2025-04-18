@@ -308,6 +308,7 @@ python rotate_images.py set reference.png object.png 90 --output-dir captcha_dat
 ## 🗺️ Future Plan
 
 We're continuously working to improve Open CaptchaWorld. Here's what's on our roadmap:
+- [ ] Provide Benchmark includes simple web agent baselines(With Different LLM backbones) and some Web Agent system
 
 
 - [ ] Add more CAPTCHA puzzle types to cover a wider range of visual reasoning challenges
