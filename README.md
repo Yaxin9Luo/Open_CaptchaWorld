@@ -134,29 +134,6 @@ Open CaptchaWorld/
     └── index.html            # Main application page
 ```
 
-### Dependencies
-
-#### Backend
-- **Flask (v2.0.1)**: Web framework for the application
-- **Werkzeug (v2.0.2)**: WSGI utility library
-- **Flask-CORS (v3.0.10)**: Cross-Origin Resource Sharing extension
-- **Pillow (v9.4.0)**: Image processing library
-
-#### Frontend
-- Pure JavaScript (no external frameworks)
-- CSS for styling
-
-### Data Flow
-
-![Data Flow](https://github.com/username/CAPTCHAs/raw/main/static/data_flow.png)
-
-1. **Puzzle Request**: Frontend requests a puzzle from the server
-2. **Puzzle Selection**: Server selects a puzzle and sends metadata
-3. **UI Rendering**: Frontend renders the appropriate interface
-4. **User/Agent Interaction**: User or AI agent interacts with puzzle
-5. **Answer Submission**: Answer is submitted to the server
-6. **Verification**: Server checks the answer against ground truth
-7. **Result & Metrics**: Results are displayed and metrics recorded
 
 ## 🧩 CAPTCHA Types
 
