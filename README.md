@@ -108,9 +108,8 @@ By making Open CaptchaWorld available to the research community, we aim to accel
 - **CLI Management**: Tools for managing CAPTCHA puzzles and types
 - **Extensible Architecture**: Easy addition of new puzzle types
 
-## 🏗 System Architecture
+## 🏗 Project Structure
 
-### Project Structure
 
 ```
 Open CaptchaWorld/
