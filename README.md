@@ -37,6 +37,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
   - [Adding New CAPTCHA Types](#adding-new-captcha-types)
   - [Adding New Puzzles](#adding-new-puzzles)
 - [Benchmark Results](#-benchmark-results)
+- [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
 - [License](#-license)
 
@@ -330,6 +331,27 @@ The system records benchmark results in `benchmark_results.json` with each entry
 - Timestamp
 
 This data can be used to analyze performance across different puzzle types and track improvement over time.
+
+## 🗺️ Roadmap
+
+We have ambitious plans to continue developing Open CaptchaWorld and expanding its capabilities. Here's what we're working on for future releases:
+
+### Short-term Goals
+
+- **Expand CAPTCHA Collection**: Add more CAPTCHA puzzle types to cover a wider range of visual reasoning challenges.
+- **Increase Dataset Size**: Build a larger collection of puzzles for each CAPTCHA type to ensure comprehensive testing and reduce overfitting.
+
+### Medium-term Goals
+
+- **Parametric CAPTCHA Solving**: Explore parametric approaches for CAPTCHA-solving agents, improving their ability to generalize across different puzzle types.
+- **Non-Parametric CAPTCHA Solving**: Investigate non-parametric methods for solving complex visual puzzles that may be more effective for certain CAPTCHA types.
+
+### Long-term Vision
+
+- **Integrated Web Agent System**: Develop an ensemble system that combines CAPTCHA-solving agents with general Web Agents to create more robust real-world applications.
+- **Real-World Web Navigation**: Enable seamless navigation through CAPTCHA-protected websites for practical applications.
+
+We welcome collaboration on any of these initiatives. If you're interested in contributing to a specific roadmap item, please check our issues page or contact the project maintainers.
 
 ## 👥 Contributing
 
