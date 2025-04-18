@@ -332,23 +332,20 @@ The system records benchmark results in `benchmark_results.json` with each entry
 
 This data can be used to analyze performance across different puzzle types and track improvement over time.
 
-## 🗺️ Roadmap
+## 🗺️ Future Plan
 
 We're continuously working to improve Open CaptchaWorld. Here's what's on our roadmap:
 
-### Short-term Goals
 
 - [ ] Add more CAPTCHA puzzle types to cover a wider range of visual reasoning challenges
 - [ ] Increase the number of puzzles in each CAPTCHA type to ensure comprehensive testing
 - [ ] Create documentation for each CAPTCHA type with implementation details
 
-### Medium-term Goals
 
 - [ ] Explore parametric approaches for CAPTCHA-solving agents
 - [ ] Investigate non-parametric methods for solving complex visual puzzles
 - [ ] Develop evaluation metrics specifically designed for CAPTCHA-solving performance
 
-### Long-term Vision
 
 - [ ] Create ensemble system combining CAPTCHA-solving agents with general Web Agents
 - [ ] Enable seamless navigation through CAPTCHA-protected websites
