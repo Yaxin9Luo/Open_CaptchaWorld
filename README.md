@@ -20,8 +20,8 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
-- [Motivation & Contributions](#-motivation--contributions)
 - [Demo](#-demo)
+- [Motivation & Contributions](#-motivation--contributions)
 - [Features](#-features)
 - [System Architecture](#-system-architecture)
 - [CAPTCHA Types](#-captcha-types)
@@ -51,30 +51,6 @@ Open CaptchaWorld enables systematic evaluation of multimodal AI capabilities th
 
 The system includes a variety of CAPTCHA types ranging from basic (count dice) to complex (rotate objects to match reference direction), providing a comprehensive assessment of AI visual reasoning capabilities.
 
-## 🎯 Motivation & Contributions
-
-### Why We Built Open CaptchaWorld
-
-Modern web interfaces increasingly rely on CAPTCHA systems to differentiate between human users and automated systems. This presents a significant challenge for LLM Web Agents attempting to navigate and interact with the real world:
-
-1. **Real-World Deployment Barrier:** Web Agents frequently get stuck on websites that include CAPTCHA tests, significantly slowing down their deployment for everyday real-world usage. Without the ability to solve these challenges, LLM Web Agents cannot fully realize their potential as digital assistants.
-
-2. **Outdated Evaluation Methods:** Many traditional CAPTCHAs can now be easily solved by specialized detection and classification models, making them poor benchmarks for evaluating the complete reasoning, visual understanding, and interaction capabilities of modern Web Agents.
-
-### Our Contributions
-
-Open CaptchaWorld addresses these challenges through several key contributions:
-
-1. **Comprehensive CAPTCHA Collection:** We have collected and implemented an extensive set of modern CAPTCHA types specifically designed to test the multi-modal reasoning capabilities required by Web Agents.
-
-2. **First Open-Source Benchmark:** To our knowledge, this is the first open-sourced CAPTCHA benchmark and dataset specifically tailored for Web Agents, providing a standardized environment for researchers and developers.
-
-3. **Training Data Generation:** Beyond evaluation, Open CaptchaWorld serves as a platform for generating high-quality training data that can improve Web Agents' ability to handle CAPTCHA challenges.
-
-4. **Real-World Simulation:** Our platform closely emulates actual web interfaces, enabling more realistic testing of Web Agents' capabilities to navigate websites protected by CAPTCHA mechanisms.
-
-By making Open CaptchaWorld available to the research community, we aim to accelerate progress in developing more capable, adaptable, and useful Web Agents that can seamlessly interact with today's web interfaces.
-
 ## 🎬 Demo
 
 Watch these demonstration videos to see Open CaptchaWorld in action:
@@ -100,6 +76,30 @@ This video demonstrates a human solving various CAPTCHA types including Dice Cou
 </div>
 
 This video showcases LLM Web Agents tackling complex CAPTCHA types such as Image Recognition, Bingo, and Click Order. It highlights the interactive elements and how the platform handles multi-step puzzle solving.
+## 🎯 Motivation & Contributions
+
+### Why We Built Open CaptchaWorld
+
+Modern web interfaces increasingly rely on CAPTCHA systems to differentiate between human users and automated systems. This presents a significant challenge for LLM Web Agents attempting to navigate and interact with the real world:
+
+1. **Real-World Deployment Barrier:** Web Agents frequently get stuck on websites that include CAPTCHA tests, significantly slowing down their deployment for everyday real-world usage. Without the ability to solve these challenges, LLM Web Agents cannot fully realize their potential as digital assistants.
+
+2. **Outdated Evaluation Methods:** Many traditional CAPTCHAs can now be easily solved by specialized detection and classification models, making them poor benchmarks for evaluating the complete reasoning, visual understanding, and interaction capabilities of modern Web Agents.
+
+### Our Contributions
+
+Open CaptchaWorld addresses these challenges through several key contributions:
+
+1. **Comprehensive CAPTCHA Collection:** We have collected and implemented an extensive set of modern CAPTCHA types specifically designed to test the multi-modal reasoning capabilities required by Web Agents.
+
+2. **First Open-Source Benchmark:** To our knowledge, this is the first open-sourced CAPTCHA benchmark and dataset specifically tailored for Web Agents, providing a standardized environment for researchers and developers.
+
+3. **Training Data Generation:** Beyond evaluation, Open CaptchaWorld serves as a platform for generating high-quality training data that can improve Web Agents' ability to handle CAPTCHA challenges.
+
+4. **Real-World Simulation:** Our platform closely emulates actual web interfaces, enabling more realistic testing of Web Agents' capabilities to navigate websites protected by CAPTCHA mechanisms.
+
+By making Open CaptchaWorld available to the research community, we aim to accelerate progress in developing more capable, adaptable, and useful Web Agents that can seamlessly interact with today's web interfaces.
+
 
 ## ✨ Features
 
