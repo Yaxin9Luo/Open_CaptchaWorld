@@ -23,7 +23,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
 - [🎬 Demo](#-demo)
 - [🎯 Motivation & Contributions](#-motivation--contributions)
 - [✨ Features](#-features)
-- [🏗 Project Structure](#-system-architecture)
+- [🏗 Project Structure](#-project-structure)
 - [🧩 CAPTCHA Types](#-captcha-types)
 - [📊 Benchmark Results](#-benchmark-results)
 - [🚀 Getting Started](#-getting-started)
