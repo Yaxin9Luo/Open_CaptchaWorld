@@ -1,4 +1,49 @@
 {
+  "dice1.png": {
+    "sum": 85,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 85"
+  },
+  "dice2.png": {
+    "sum": 67,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 67"
+  },
+  "dice3.png": {
+    "sum": 69,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 69"
+  },
+  "dice4.png": {
+    "sum": 73,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 73"
+  },
+  "dice5.png": {
+    "sum": 69,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 69"
+  },
+  "dice6.png": {
+    "sum": 38,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 38"
+  },
+  "dice7.png": {
+    "sum": 44,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 44"
+  },
+  "dice8.png": {
+    "sum": 79,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 79"
+  },
+  "dice9.png": {
+    "sum": 48,
+    "prompt": "Sum up the numbers on all the dice",
+    "description": "Contains multiple dice with numbers that sum to 48"
+  },
   "dice10.png": {
     "sum": 73,
     "prompt": "Sum up the numbers on all the dice",
