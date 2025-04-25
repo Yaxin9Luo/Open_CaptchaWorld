@@ -113,3 +113,8 @@
 {"puzzle_type": "Path_Finder", "puzzle_id": "path7.JPG", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-24T08:58:31.191Z"}
 {"puzzle_type": "Path_Finder", "puzzle_id": "path6.JPG", "user_answer": 0, "correct_answer": 2, "correct": false, "timestamp": "2025-04-24T08:58:46.057Z"}
 {"puzzle_type": "Path_Finder", "puzzle_id": "path8.JPG", "user_answer": 4, "correct_answer": 2, "correct": false, "timestamp": "2025-04-24T08:59:04.189Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path2.png", "user_answer": [269, 443], "correct_answer": null, "correct": true, "timestamp": "2025-04-25T05:53:01.515Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle1.json", "user_answer": 1, "correct_answer": 0, "correct": false, "timestamp": "2025-04-25T05:53:34.696Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 3, "correct_answer": 3, "correct": true, "timestamp": "2025-04-25T06:03:02.503Z"}
+{"puzzle_type": "Pick_Area", "puzzle_id": "image1.png", "user_answer": [169, 233], "correct_answer": {"area": [[10, 150], [280, 490]], "type": "largest region"}, "correct": true, "timestamp": "2025-04-25T06:03:18.773Z"}
+{"puzzle_type": "Dart_Count", "puzzle_id": "dart_puzzle_1.json", "user_answer": 11, "correct_answer": null, "correct": true, "timestamp": "2025-04-25T06:03:25.805Z"}

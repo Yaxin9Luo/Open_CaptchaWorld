@@ -890,3 +890,39 @@ h1 {
         width: 100%;
     }
 }
+
+/* Difficulty stars styling */
+.difficulty-stars {
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.difficulty-stars .star {
+    color: #FFD700; /* Yellow color for stars */
+    font-size: 24px; /* Increased size */
+    margin-right: 5px; /* Increased spacing */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Added shadow for better visibility */
+}
+
+.puzzle-difficulty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 16px; /* Increased text size */
+    font-weight: bold; /* Made text bold */
+    color: #333;
+    background-color: #f8f8f8; /* Light background */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.puzzle-difficulty span {
+    margin-right: 5px;
+}

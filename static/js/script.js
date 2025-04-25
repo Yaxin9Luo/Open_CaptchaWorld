@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const puzzlePrompt = document.getElementById('puzzle-prompt');
     const puzzleContainer = document.getElementById('puzzle-container');
     const inputGroup = document.querySelector('.input-group');
+    const difficultyStars = document.getElementById('difficulty-stars');
 
     // Debug mode - set to true to show ground truth areas
     const DEBUG_MODE = false;
@@ -29,7 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedAnimalIndex = -1; // Track selected animal index for Select_Animal
     // Add debug type tracking variable 
     let debugPuzzleType = null;
-
+    
+    // Initialize difficulty stars with default value (to show something immediately)
+    displayDifficultyStars('Dice_Count');
+    
     // Event listeners
     submitBtn.addEventListener('click', submitAnswer);
     userAnswerInput.addEventListener('keypress', (e) => {
@@ -1518,6 +1522,16 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 console.log("Received puzzle data:", data);
                 currentPuzzle = data;
+                
+                // Update the puzzle prompt
+                if (data.prompt) {
+                    puzzlePrompt.textContent = data.prompt;
+                } else if (data.puzzle_type === 'Dice_Count') {
+                    puzzlePrompt.textContent = "Sum up the numbers on all the dice";
+                }
+                
+                // Important: Always display difficulty stars based on puzzle type
+                displayDifficultyStars(data.puzzle_type);
                 
                 // Reset container
                 puzzleImageContainer.innerHTML = '';
@@ -3993,5 +4007,275 @@ document.addEventListener('DOMContentLoaded', () => {
             index: newIndex,
             src: optionImage.src
         });
+    }
+
+    /**
+     * Display difficulty stars based on CAPTCHA type
+     * @param {string} puzzleType - The type of CAPTCHA puzzle
+     */
+    function displayDifficultyStars(puzzleType) {
+        const difficultyRatings = {
+            'Dice_Count': 1,
+            'Geometry_Click': 1,
+            'Rotation_Match': 3,
+            'Slide_Puzzle': 2,
+            'Unusual_Detection': 3,
+            'Image_Recognition': 2,
+            'Bingo': 4,
+            'Image_Matching': 2,
+            'Patch_Select': 3,
+            'Dart_Count': 3,
+            'Object_Match': 2,
+            'Select_Animal': 1,
+            'Coordinates': 3,
+            'Path_Finder': 3,
+            'Place_Dot': 2,
+            'Connect_icon': 3,
+            'Click_Order': 4,
+            'Hold_Button': 2,
+            'Misleading_Click': 4,
+            'Pick_Area': 5,
+        };
+
+        const difficulty = difficultyRatings[puzzleType] || 1;
+        const starsContainer = document.getElementById('difficulty-stars');
+        
+        // Safety check to ensure the container exists
+        if (!starsContainer) {
+            console.error('Stars container not found!');
+            return;
+        }
+        
+        // Clear the container
+        starsContainer.innerHTML = '';
+
+        // Create and append stars
+        for (let i = 0; i < 5; i++) {
+            const star = document.createElement('span');
+            star.className = 'star';
+            star.innerHTML = i < difficulty ? '★' : '☆'; // Filled or empty star
+            starsContainer.appendChild(star);
+        }
+        
+        // Log for debugging
+        console.log(`Displayed ${difficulty} stars for puzzle type: ${puzzleType}`);
+    }
+
+    // Function to get a new puzzle
+    function getPuzzle(callback) {
+        let queryParams = '';
+        
+        // Check if debug mode is active and add the debug_type parameter if it is
+        if (DEBUG_MODE && DEBUG_TYPE) {
+            queryParams = `?debug_type=${encodeURIComponent(DEBUG_TYPE)}`;
+        }
+        
+        fetch('/api/get_puzzle' + queryParams)
+            .then(response => response.json())
+            .then(data => {
+                currentPuzzle = data;
+                
+                // Log the data for debugging
+                console.log('Puzzle data:', data);
+                
+                // Set the prompt and update debug information
+                const promptElement = document.getElementById('puzzle-prompt');
+                promptElement.textContent = data.prompt;
+                
+                // Display difficulty stars based on puzzle type
+                displayDifficultyStars(data.puzzle_type);
+                
+                // Update debug indicator if in debug mode
+                const debugIndicator = document.getElementById('debug-indicator');
+                const debugTypeDisplay = document.getElementById('debug-type-display');
+                
+                if (DEBUG_MODE && DEBUG_TYPE) {
+                    debugIndicator.style.display = 'block';
+                    debugTypeDisplay.textContent = DEBUG_TYPE;
+                } else {
+                    debugIndicator.style.display = 'none';
+                }
+                
+                // Handle different input types
+                const imageContainer = document.getElementById('puzzle-image-container');
+                const userAnswerInput = document.getElementById('user-answer');
+                const submitBtn = document.getElementById('submit-answer');
+                
+                // Reset the input field and enable submit button
+                userAnswerInput.value = '';
+                submitBtn.disabled = false;
+                
+                // Clear any previous result message
+                const resultMessage = document.getElementById('result-message');
+                resultMessage.textContent = '';
+                resultMessage.className = 'result-message';
+                
+                // Clear the puzzle image container
+                imageContainer.innerHTML = '';
+                
+                // Set up UI based on input type
+                if (data.input_type === 'number') {
+                    // For numeric input (e.g., Dice_Count)
+                    userAnswerInput.type = 'number';
+                    userAnswerInput.placeholder = 'Enter number';
+                    userAnswerInput.style.display = 'block';
+                    submitBtn.style.display = 'block';
+                    
+                    // Load the image
+                    const img = document.createElement('img');
+                    img.src = data.image_path;
+                    img.alt = 'CAPTCHA Puzzle';
+                    img.id = 'puzzle-image';
+                    img.onload = function() {
+                        imageContainer.appendChild(img);
+                    };
+                } else if (data.input_type === 'click') {
+                    // For click-based puzzles (Geometry_Click, Place_Dot, etc.)
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    
+                    // Load the image and set up click handler
+                    const img = document.createElement('img');
+                    img.src = data.image_path;
+                    img.alt = 'CAPTCHA Puzzle';
+                    img.id = 'puzzle-image';
+                    img.onclick = handleImageClick;
+                    
+                    img.onload = function() {
+                        imageContainer.appendChild(img);
+                        
+                        // For Misleading_Click, show the area to avoid in debug mode
+                        if (data.puzzle_type === 'Misleading_Click' && DEBUG_MODE) {
+                            showMisleadingClickArea(imageContainer, data.avoid_area);
+                        }
+                        
+                        // For Pick_Area, show the target areas in debug mode
+                        if (data.puzzle_type === 'Pick_Area' && DEBUG_MODE) {
+                            showPickAreaTargets(imageContainer);
+                        }
+                    };
+                } else if (data.input_type === 'rotation') {
+                    // For rotation puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up rotation controls
+                    setupRotationControls();
+                } else if (data.input_type === 'slide') {
+                    // For slide puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up slide puzzle
+                    setupSlidePuzzle();
+                } else if (data.input_type === 'multiselect') {
+                    // For multiple selection puzzles (Unusual_Detection)
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up grid for unusual detection
+                    setupUnusualDetectionGrid();
+                } else if (data.input_type === 'bingo_swap') {
+                    // For bingo swap puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up bingo swap interface
+                    setupBingoSwap();
+                } else if (data.input_type === 'image_grid') {
+                    // For image grid puzzles (Image_Recognition)
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up image recognition grid
+                    setupImageRecognition();
+                } else if (data.input_type === 'image_matching') {
+                    // For image matching puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up image matching interface
+                    setupImageMatching();
+                } else if (data.input_type === 'patch_select') {
+                    // For patch select puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up patch select grid
+                    setupPatchSelectGrid();
+                } else if (data.input_type === 'dart_count') {
+                    // For dart count puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    
+                    // Set up dart count interface
+                    setupDartCount();
+                } else if (data.input_type === 'object_match') {
+                    // For object match puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up object match interface
+                    setupObjectMatch();
+                } else if (data.input_type === 'select_animal') {
+                    // For animal selection puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up animal selection grid
+                    setupSelectAnimalGrid();
+                } else if (data.input_type === 'place_dot') {
+                    // For place dot puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    
+                    // Set up place dot interface
+                    setupPlaceDot();
+                } else if (data.input_type === 'connect_icon') {
+                    // For connect icon puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up connect icon interface
+                    setupConnectIcon();
+                } else if (data.input_type === 'click_order') {
+                    // For click order puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up click order interface
+                    setupClickOrder();
+                } else if (data.input_type === 'hold_button') {
+                    // For hold button puzzles
+                    userAnswerInput.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                    
+                    // Set up hold button interface
+                    setupHoldButton();
+                } else {
+                    // Default to text input for other types
+                    userAnswerInput.type = 'text';
+                    userAnswerInput.placeholder = 'Your answer';
+                    userAnswerInput.style.display = 'block';
+                    submitBtn.style.display = 'block';
+                    
+                    // Load the image
+                    const img = document.createElement('img');
+                    img.src = data.image_path;
+                    img.alt = 'CAPTCHA Puzzle';
+                    img.id = 'puzzle-image';
+                    img.onload = function() {
+                        imageContainer.appendChild(img);
+                    };
+                }
+                
+                // Call the callback if provided
+                if (callback && typeof callback === 'function') {
+                    callback();
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching puzzle:', error);
+            });
     }
 }); 

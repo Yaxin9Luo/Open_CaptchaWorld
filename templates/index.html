@@ -53,7 +53,10 @@
             <span>Correct: <span id="correct-count">0</span></span>
             <span>Accuracy: <span id="accuracy">0%</span></span>
         </div>
-
+        <div class="puzzle-difficulty" style="margin-bottom: 15px;">
+            <span>Difficulty:</span>
+            <div class="difficulty-stars" id="difficulty-stars"></div>
+        </div>
         <div class="puzzle-container" id="puzzle-container">
             <div class="puzzle-image-wrapper">
                 <div class="puzzle-image-container">
@@ -70,6 +73,23 @@
             </div>
         </div>
     </div>
+    
+    <!-- Inline script for immediate star display -->
+    <script>
+        // Display placeholder stars immediately before main script loads
+        window.onload = function() {
+            const starsContainer = document.getElementById('difficulty-stars');
+            if (starsContainer) {
+                starsContainer.innerHTML = '';
+                for (let i = 0; i < 5; i++) {
+                    const star = document.createElement('span');
+                    star.className = 'star';
+                    star.innerHTML = i < 3 ? '★' : '☆'; // Default to 3 stars
+                    starsContainer.appendChild(star);
+                }
+            }
+        };
+    </script>
     
     <script src="/static/js/script.js"></script>
 </body>
