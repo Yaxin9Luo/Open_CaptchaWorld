@@ -56,23 +56,10 @@ The system includes a variety of CAPTCHA types ranging from basic (count dice) t
 
 Watch these demonstration videos to see Open CaptchaWorld in action:
 
-### Demo 1: Human Solving Demo
+### Demo : Human vs Agent Solving Demo
 
+https://github.com/user-attachments/assets/ef4188b8-d896-45c9-9193-41117d476bc5
 
-
-https://github.com/user-attachments/assets/c3b8ccca-a817-45f7-967a-64566cb32f26
-
-
-
-This video demonstrates a human solving various CAPTCHA types including all 20 types of our captchas. It shows how users can interact with these puzzles and how the system validates their responses.
-
-### Demo 2: Browser Use Agent Solving Demo (LLM is gpt-4.1-2025-04-14)
-
-
-https://github.com/user-attachments/assets/3f8f9a9c-8071-47cb-a864-dd0bd5b3b95c
-
-
-This video showcases LLM Web Agents to solve all our 20 types of captchas. 
 
 ## 🎯 Motivation & Contributions
 
