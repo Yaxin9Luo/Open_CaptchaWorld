@@ -16,7 +16,7 @@ A comprehensive web-based platform for testing and benchmarking Multimodal LLM W
 Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite for LLM Web Agents"**. Below are some examples from our Open CaptchaWorld.
 
 <div align="center">
-  <img src="./assets/captcha_example.png" alt="CAPTCHA Demo" width="600px">
+  <img src="./assets/captcha_example.png" alt="CAPTCHA Demo" width="800px">
 </div>
 
 ## 📰 News
