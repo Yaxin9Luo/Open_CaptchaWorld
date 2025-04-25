@@ -9,13 +9,19 @@
 
 </div>
 
+
+
 A comprehensive web-based platform for testing and benchmarking Multimodal LLM Web Agents on CAPTCHA-style puzzles. This project provides an environment to evaluate how artificial intelligence systems perform on a variety of visual puzzles resembling CAPTCHAs (Completely Automated Public Turing tests to tell Computers and Humans Apart). 
 
-Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite for LLM Web Agents"**
+Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite for LLM Web Agents"**. Below are some examples from our Open CaptchaWorld.
 
 <div align="center">
-  <img src="https://github.com/username/CAPTCHAs/raw/main/static/captcha_demo.gif" alt="CAPTCHA Demo" width="600px">
+  <img src="./assets/captcha_example.png" alt="CAPTCHA Demo" width="600px">
 </div>
+
+## 📰 News
+
+* [2025-04-25] ✅ We have released the preview version of Open CaptchaWorld implementation.
 
 ## 📋 Table of Contents
 
