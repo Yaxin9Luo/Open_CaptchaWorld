@@ -58,7 +58,10 @@ Watch these demonstration videos to see Open CaptchaWorld in action:
 
 ### Demo : Human vs Agent Solving Demo
 
-https://github.com/user-attachments/assets/ef4188b8-d896-45c9-9193-41117d476bc5
+
+
+https://github.com/user-attachments/assets/c1f2edb1-ba9a-403d-9076-706014c0c750
+
 
 
 ## 🎯 Motivation & Contributions
