@@ -11,5 +11,53 @@
       "vertical": [0, 3, 6],
       "horizontal": [6, 7, 8]
     }
+  },
+  "bingo2.png": {
+    "answer": [
+      [4, 7]
+    ],
+    "prompt": "Please click two images to exchange their position to line up the same images to a line, you can only exchange the images once.",
+    "description": "Bingo puzzle with animal emojis",
+    "grid_size": [3, 3],
+    "solution_line": {
+      "horizontal": [3, 4, 5]
+    }
+  },
+  "bingo3.png": {
+    "answer": [
+      [0, 1],
+      [7, 8]
+    ],
+    "prompt": "Please click two images to exchange their position to line up the same images to a line, you can only exchange the images once.",
+    "description": "Bingo puzzle with animal emojis",
+    "grid_size": [3, 3],
+    "solution_line": {
+      "vertical": [1, 4, 7],
+      "diagonal": [0, 4, 8]
+    }
+  },
+  "bingo4.png": {
+    "answer": [
+      [1, 7]
+    ],
+    "prompt": "Please click two images to exchange their position to line up the same images to a line, you can only exchange the images once.",
+    "description": "Bingo puzzle with animal emojis",
+    "grid_size": [3, 3],
+    "solution_line": {
+      "horizontal": [0, 1, 2]
+    }
+  },
+  "bingo5.png": {
+    "answer": [
+      [4, 7],
+      [0, 6]
+    ],
+    "prompt": "Please click two images to exchange their position to line up the same images to a line, you can only exchange the images once.",
+    "description": "Bingo puzzle with animal emojis",
+    "grid_size": [3, 3],
+    "solution_line": {
+      "diagonal": [0, 4, 8],
+      "horizontal": [6, 7, 8]
+    }
   }
 } 
