@@ -1861,6 +1861,85 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // Function to create fireworks effect for correct answers
+    function createFireworks() {
+        // Create container for fireworks
+        const fireworksContainer = document.createElement('div');
+        fireworksContainer.className = 'fireworks-container';
+        document.body.appendChild(fireworksContainer);
+        
+        // Create happy face animation
+        const happyFaceContainer = document.createElement('div');
+        happyFaceContainer.className = 'happy-face-container';
+        happyFaceContainer.textContent = '😄';
+        happyFaceContainer.style.zIndex = '10000'; // Ensure it's above everything
+        document.body.appendChild(happyFaceContainer);
+        
+        // Create multiple fireworks at random positions
+        const colors = [
+            '#FF0000', '#00FF00', '#0000FF', '#FFFF00', 
+            '#FF00FF', '#00FFFF', '#FFA500', '#FF4500',
+            '#FFD700', '#32CD32', '#8A2BE2', '#FF69B4'
+        ];
+        
+        // Create more fireworks (150 instead of 100)
+        for (let i = 0; i < 150; i++) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            
+            // Random position - spread across the screen, with more concentration near center
+            const centerBias = Math.random() > 0.7; // 30% chance to be centered
+            const x = centerBias 
+                ? window.innerWidth/2 + (Math.random() - 0.5) * window.innerWidth/2
+                : Math.random() * window.innerWidth;
+            const y = centerBias
+                ? window.innerHeight/2 + (Math.random() - 0.5) * window.innerHeight/2
+                : Math.random() * window.innerHeight;
+            
+            // Random color
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random size (larger particles)
+            const size = 5 + Math.random() * 8;
+            
+            // Random delay and duration
+            const delay = Math.random() * 1.5;
+            const duration = 0.8 + Math.random() * 1.2;
+            
+            // Apply styles
+            firework.style.left = `${x}px`;
+            firework.style.top = `${y}px`;
+            firework.style.backgroundColor = color;
+            firework.style.width = `${size}px`;
+            firework.style.height = `${size}px`;
+            firework.style.animationDelay = `${delay}s`;
+            firework.style.animationDuration = `${duration}s`;
+            
+            // Add to container
+            fireworksContainer.appendChild(firework);
+        }
+        
+        // Remove containers after animation completes
+        setTimeout(() => {
+            fireworksContainer.remove();
+            happyFaceContainer.remove();
+        }, 3500);
+    }
+    
+    // Function to create sad face effect for incorrect answers
+    function createSadFace() {
+        // Create container for sad face
+        const sadFaceContainer = document.createElement('div');
+        sadFaceContainer.className = 'sad-face-container';
+        sadFaceContainer.textContent = '😢';
+        document.body.appendChild(sadFaceContainer);
+        
+        // Remove container after animation completes
+        setTimeout(() => {
+            sadFaceContainer.remove();
+        }, 2000);
+    }
+
     function submitAnswer() {
         // Don't submit if there's no input for number/text input types
         if ((currentPuzzle.input_type === 'number' || currentPuzzle.input_type === 'text') && 
@@ -1993,10 +2072,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 benchmarkStats.correct++;
                 resultMessage.textContent = 'Correct!';
                 resultMessage.className = 'result-message correct';
+                
+                // Create fireworks effect for correct answer
+                createFireworks();
             } else {
                 // Just show "Incorrect" without revealing the correct answer
                 resultMessage.textContent = 'Incorrect.';
                 resultMessage.className = 'result-message incorrect';
+                
+                // Create sad face effect for incorrect answer
+                createSadFace();
             }
             
             updateStats();
