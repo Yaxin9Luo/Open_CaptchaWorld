@@ -38,7 +38,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
   - [Running the Application](#running-the-application)
 - [📝 Usage](#-usage)
   - [Web Interface](#web-interface)
-- [🗺️ Future Plan](#-future-plan)
+- [🗺️ Future Plan](#future-plan)
 - [👥 Contributing](#-contributing)
 - [📄 License](#-license)
 
