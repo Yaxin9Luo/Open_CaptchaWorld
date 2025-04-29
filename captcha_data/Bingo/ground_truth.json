@@ -59,16 +59,5 @@
       "diagonal": [0, 4, 8],
       "horizontal": [6, 7, 8]
     }
-  },
-  "bingo6.png": {
-    "answer": [
-      [5, 2]
-    ],
-    "prompt": "Please click two images to exchange their position to line up the same images to a line, you can only exchange the images once.",
-    "description": "Bingo puzzle with animal emojis",
-    "grid_size": [3, 3],
-    "solution_line": {
-      "horizontal": [0, 1, 2]
-    }
   }
 } 
