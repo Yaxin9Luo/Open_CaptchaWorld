@@ -38,12 +38,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
   - [Running the Application](#running-the-application)
 - [📝 Usage](#-usage)
   - [Web Interface](#web-interface)
-  - [API Endpoints](#api-endpoints)
-  - [Managing CAPTCHAs](#managing-captchas)
-- [🔧 Extending the System](#-extending-the-system)
-  - [Adding New CAPTCHA Types](#adding-new-captcha-types)
-  - [Adding New Puzzles](#adding-new-puzzles)
-- [🗺️ Roadmap](#-roadmap)
+- [🗺️ Future Plan](#-future-plan)
 - [👥 Contributing](#-contributing)
 - [📄 License](#-license)
 
