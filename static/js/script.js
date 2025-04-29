@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const difficultyStars = document.getElementById('difficulty-stars');
 
     // Debug mode - set to true to show ground truth areas
-    const DEBUG_MODE = false;
+    const DEBUG_MODE = true;
 
     // Tracking state
     let currentPuzzle = null;

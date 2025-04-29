@@ -262,3 +262,13 @@
 {"puzzle_type": "Bingo", "puzzle_id": "bingo1.png", "user_answer": [0, 8], "correct_answer": [[0, 7], [3, 8]], "correct": false, "timestamp": "2025-04-25T09:16:41.794Z"}
 {"puzzle_type": "Bingo", "puzzle_id": "bingo5.png", "user_answer": [7, 5], "correct_answer": [[4, 7], [0, 6]], "correct": false, "timestamp": "2025-04-25T09:16:53.362Z"}
 {"puzzle_type": "Bingo", "puzzle_id": "bingo4.png", "user_answer": [0, 5], "correct_answer": [[1, 7]], "correct": false, "timestamp": "2025-04-25T09:17:05.041Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide1.png", "user_answer": [74.5, 63.5], "correct_answer": [75, 65], "correct": true, "timestamp": "2025-04-29T17:18:29.264Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide1.png", "user_answer": [73.5, 63.5], "correct_answer": [75, 65], "correct": true, "timestamp": "2025-04-29T17:18:39.177Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide1.png", "user_answer": [75.5, 65.5], "correct_answer": [75, 65], "correct": true, "timestamp": "2025-04-29T17:18:53.103Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide1.png", "user_answer": [74.5, 61.5], "correct_answer": [75, 65], "correct": true, "timestamp": "2025-04-29T17:19:22.218Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo4.png", "user_answer": [1, 7], "correct_answer": [[1, 7]], "correct": true, "timestamp": "2025-04-29T17:28:47.471Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo2.png", "user_answer": [7, 4], "correct_answer": [[4, 7]], "correct": true, "timestamp": "2025-04-29T17:31:22.889Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo3.png", "user_answer": [0, 1], "correct_answer": [[0, 1], [7, 8]], "correct": true, "timestamp": "2025-04-29T17:31:38.612Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo2.png", "user_answer": [4, 7], "correct_answer": [[4, 7]], "correct": true, "timestamp": "2025-04-29T17:31:45.066Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo2.png", "user_answer": [7, 4], "correct_answer": [[4, 7]], "correct": true, "timestamp": "2025-04-29T17:32:46.192Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo3.png", "user_answer": [0, 1], "correct_answer": [[0, 1], [7, 8]], "correct": true, "timestamp": "2025-04-29T17:34:00.274Z"}
