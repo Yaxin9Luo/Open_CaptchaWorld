@@ -38,7 +38,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Test Suite fo
   - [Running the Application](#running-the-application)
 - [📝 Usage](#-usage)
   - [Web Interface](#web-interface)
-- [🗺️ Future Plan](#future-plan)
+- [🗺️ Future Plan](#️-future-plan)
 - [👥 Contributing](#-contributing)
 - [📄 License](#-license)
 
@@ -214,7 +214,7 @@ The web interface allows interaction with the CAPTCHA puzzles:
 
 ## 🗺️ Future Plan
 
-We're continuously working to improve Open CaptchaWorld. Here's what's on our roadmap:
+We're continuously working to improve Open CaptchaWorld. Here's what's on our future plan:
 - [x] Add 20 types of Modern Captcha puzzles for Web Agents
 - [x] TestBed for evaluating and data collecting
 - [x] Web Interface for Open CaptchaWorld
