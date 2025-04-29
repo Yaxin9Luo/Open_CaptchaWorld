@@ -213,94 +213,10 @@ The web interface allows interaction with the CAPTCHA puzzles:
 
 1. Navigate to `http://localhost:5001`
 2. A random CAPTCHA puzzle will be displayed
-3. Read the instructions and solve the puzzle
-4. Submit your answer
-5. The system will verify your answer and display the result
-6. A new puzzle will be automatically loaded
+3. Add the server address to your agent's prompt
+4. Aha! Just need to wait for your agents to solve the puzzles
 
-### API Endpoints
 
-The platform provides the following API endpoints:
-
-- **GET /** - Serves the main web interface
-- **GET /captcha_data/<captcha_type>/<filename>** - Serves CAPTCHA images
-- **GET /api/get_puzzle** - Returns a random CAPTCHA puzzle
-  - Optional query params: `type`, `random`, `debug_type`
-- **POST /api/check_answer** - Validates user answers
-  ```json
-  {
-    "puzzle_type": "Dice_Count",
-    "puzzle_id": "dice10.png",
-    "answer": 73
-  }
-  ```
-- **POST /api/get_ground_truth** - Returns ground truth data for debugging
-- **POST /api/benchmark_results** - Records benchmark results
-- **GET /api/types** - Lists available CAPTCHA types
-
-### Managing CAPTCHAs
-
-The `manage_captchas.py` script provides a CLI for managing CAPTCHA data:
-
-List all CAPTCHA types:
-```bash
-python manage_captchas.py list-types
-```
-
-Add a new CAPTCHA type:
-```bash
-python manage_captchas.py add-type Emoji_Match
-```
-
-Add a new puzzle:
-```bash
-python manage_captchas.py add-puzzle Dice_Count path/to/image.png 42
-```
-
-List puzzles for a specific type:
-```bash
-python manage_captchas.py list-puzzles Dice_Count
-```
-
-## 🔧 Extending the System
-
-### Adding New CAPTCHA Types
-
-1. Create a new directory under `captcha_data/`
-   ```bash
-   mkdir captcha_data/New_Type
-   ```
-
-2. Add puzzle images to the directory
-
-3. Create a `ground_truth.json` file with solutions:
-   ```json
-   {
-     "puzzle1.png": {
-       "answer": "solution",
-       "description": "Puzzle description"
-     }
-   }
-   ```
-
-4. Add handling logic in `app.py`:
-   - Add prompt generation in `get_puzzle()`
-   - Add input type determination
-   - Add answer validation in `check_answer()`
-
-5. Add frontend rendering logic in `script.js`
-
-### Adding New Puzzles
-
-Use the CLI tool:
-```bash
-python manage_captchas.py add-puzzle <type_name> <image_path> <answer> --description "Optional description"
-```
-
-Or use the `rotate_images.py` utility for rotation puzzles:
-```bash
-python rotate_images.py set reference.png object.png 90 --output-dir captcha_data/Rotation_Match
-```
 ## 🗺️ Future Plan
 
 We're continuously working to improve Open CaptchaWorld. Here's what's on our roadmap:

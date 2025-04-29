@@ -5,6 +5,13 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
+# Dictionary to track which puzzles have been shown for each CAPTCHA type
+seen_puzzles = {}
+# List to track recently used CAPTCHA types to avoid repetition
+recent_types = []
+# How many types to remember before allowing repetition
+MAX_RECENT_TYPES = 5
+
 # Load ground truth data for a specific type
 def load_ground_truth(captcha_type):
     path = os.path.join('captcha_data', captcha_type, 'ground_truth.json')
@@ -36,6 +43,8 @@ def serve_captcha_subdir(captcha_type, subdir, filename):
 
 @app.route('/api/get_puzzle', methods=['GET'])
 def get_puzzle():
+    global recent_types
+    
     # Check if we should return a random puzzle from any type
     is_random = request.args.get('random', 'false').lower() == 'true'
     
@@ -49,8 +58,20 @@ def get_puzzle():
     if debug_type and debug_type in captcha_types:
         puzzle_type = debug_type
     elif is_random:
-        # Select a random CAPTCHA type
-        puzzle_type = random.choice(captcha_types)
+        # Select a random CAPTCHA type, avoiding recently used types if possible
+        available_types = [t for t in captcha_types if t not in recent_types]
+        
+        # If all types have been used recently, reset the tracking
+        if not available_types:
+            recent_types = []
+            available_types = captcha_types
+        
+        puzzle_type = random.choice(available_types)
+        
+        # Add to recent types and maintain maximum length
+        recent_types.append(puzzle_type)
+        if len(recent_types) > MAX_RECENT_TYPES:
+            recent_types.pop(0)
     else:
         # Get puzzle type from query parameter
         puzzle_type = request.args.get('type', 'Dice_Count')
@@ -65,8 +86,23 @@ def get_puzzle():
     
     puzzle_files = list(ground_truth.keys())
     
-    # Select a random puzzle
-    selected_puzzle = random.choice(puzzle_files)
+    # Select a random puzzle, avoiding repetition if possible
+    if puzzle_type not in seen_puzzles:
+        seen_puzzles[puzzle_type] = set()
+    
+    # Get unseen puzzles
+    unseen_puzzles = [p for p in puzzle_files if p not in seen_puzzles[puzzle_type]]
+    
+    # If all puzzles have been seen, reset the tracking
+    if not unseen_puzzles:
+        seen_puzzles[puzzle_type] = set()
+        unseen_puzzles = puzzle_files
+    
+    # Select a random puzzle from unseen ones
+    selected_puzzle = random.choice(unseen_puzzles)
+    
+    # Mark this puzzle as seen
+    seen_puzzles[puzzle_type].add(selected_puzzle)
     
     # Get the appropriate question prompt based on puzzle type
     if puzzle_type == "Dice_Count":
