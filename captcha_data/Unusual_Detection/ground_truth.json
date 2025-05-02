@@ -5,5 +5,68 @@
     "answer": [0, 3],
     "grid_size": [2, 3],
     "tolerance": 5
+  },
+  "unusual2.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [0, 3],
+    "grid_size": [2, 3],
+    "tolerance": 5
+  },
+  "unusual3.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [3],
+    "grid_size": [2, 3],
+    "tolerance": 5
+  },
+  "unusual4.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [0,1,2,3,4],
+    "grid_size": [2, 3],
+    "tolerance": 5
+  },
+  "unusual5.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [0,2],
+    "grid_size": [2, 3],
+    "tolerance": 5
+  },
+  "unusual6.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [0,2,3,4,5],
+    "grid_size": [2, 3],
+    "tolerance": 5
+  },
+  "unusual7.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [2],
+    "grid_size": [2, 3],
+    "tolerance": 5
+  },
+  "unusual8.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [2],
+    "grid_size": [2, 5],
+    "tolerance": 5
+  },
+  "unusual9.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [2],
+    "grid_size": [0, 2],
+    "tolerance": 5
+  },
+  "unusual10.png": {
+    "prompt": "Select the animal with the wrong head",
+    "description": "Grid of animal images where some have mismatched heads/bodies",
+    "answer": [2,3],
+    "grid_size": [0, 2],
+    "tolerance": 5
   }
 }

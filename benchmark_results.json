@@ -31,3 +31,9 @@
 {"puzzle_type": "Select_Animal", "puzzle_id": "image10.png", "user_answer": [4], "correct_answer": [4], "correct": true, "timestamp": "2025-05-02T14:31:52.922Z"}
 {"puzzle_type": "Select_Animal", "puzzle_id": "image7.png", "user_answer": [0], "correct_answer": [0], "correct": true, "timestamp": "2025-05-02T14:31:57.079Z"}
 {"puzzle_type": "Select_Animal", "puzzle_id": "image3.png", "user_answer": [1], "correct_answer": [1], "correct": true, "timestamp": "2025-05-02T14:32:02.181Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual4.png", "user_answer": [0, 1, 2, 3, 4], "correct_answer": [0, 1, 2, 3, 4], "correct": true, "timestamp": "2025-05-02T14:58:50.239Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual2.png", "user_answer": [0, 3], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-05-02T14:58:56.252Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [0], "correct_answer": [0, 3], "correct": false, "timestamp": "2025-05-02T14:59:02.672Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual3.png", "user_answer": [3], "correct_answer": [3], "correct": true, "timestamp": "2025-05-02T14:59:07.547Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual1.png", "user_answer": [3, 0], "correct_answer": [0, 3], "correct": true, "timestamp": "2025-05-02T14:59:12.634Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual4.png", "user_answer": [1, 2, 4, 3, 0], "correct_answer": [0, 1, 2, 3, 4], "correct": true, "timestamp": "2025-05-02T14:59:19.083Z"}
