@@ -27,3 +27,7 @@
 {"puzzle_type": "Select_Animal", "puzzle_id": "image2.png", "user_answer": [4], "correct_answer": [4], "correct": true, "timestamp": "2025-05-02T10:45:31.642Z"}
 {"puzzle_type": "Select_Animal", "puzzle_id": "image5.png", "user_answer": [0], "correct_answer": [0], "correct": true, "timestamp": "2025-05-02T10:59:37.618Z"}
 {"puzzle_type": "Select_Animal", "puzzle_id": "image6.png", "user_answer": [5], "correct_answer": [5], "correct": true, "timestamp": "2025-05-02T10:59:43.817Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image9.png", "user_answer": [4], "correct_answer": [4], "correct": true, "timestamp": "2025-05-02T14:31:49.445Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image10.png", "user_answer": [4], "correct_answer": [4], "correct": true, "timestamp": "2025-05-02T14:31:52.922Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image7.png", "user_answer": [0], "correct_answer": [0], "correct": true, "timestamp": "2025-05-02T14:31:57.079Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image3.png", "user_answer": [1], "correct_answer": [1], "correct": true, "timestamp": "2025-05-02T14:32:02.181Z"}

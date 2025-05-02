@@ -3,6 +3,10 @@
 "image3.png": {"target_object": "flamingo", "grid_size": [2, 3], "correct_patches": [1], "prompt": "Pick a flamingo", "description": "A grid of 2x3 images containing different animals on buildings"},
 "image4.png": {"target_object": "tiger", "grid_size": [2, 3], "correct_patches": [2], "prompt": "Pick a tiger", "description": "A grid of 2x3 images containing different animals on buildings"},
 "image5.png": {"target_object": "robot", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick a robot", "description": "A grid of 2x3 images containing different animals on buildings"},
-"image6.png": {"target_object": "star", "grid_size": [2, 3], "correct_patches": [5], "prompt": "Pick a star", "description": "A grid of 2x3 images containing different animals on buildings"}
+"image6.png": {"target_object": "star", "grid_size": [2, 3], "correct_patches": [5], "prompt": "Pick a star", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image7.png": {"target_object": "panda", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick a panda", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image8.png": {"target_object": "squirrel", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a squirrel", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image9.png": {"target_object": "penguin", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a penguin", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image10.png": {"target_object": "frog", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a frog", "description": "A grid of 2x3 images containing different animals on buildings"}
 }
 
