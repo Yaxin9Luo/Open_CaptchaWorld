@@ -4,6 +4,69 @@
     "grid_size": [5, 5],
     "correct_patches": [0,1,2,3,5,6,7,8,11,12,13],
     "prompt": "Select all squares with moon",
-    "description": "A grid of 5x5 patches containing a motorcycle in the bottom right corner"
+    "description": "A grid of 5x5 patches containing a moon"
+  },
+  "image2.jpg": {
+    "target_object": "butterfly",
+    "grid_size": [5, 5],
+    "correct_patches": [5,6,7,10,11,12,15,16],
+    "prompt": "Select all squares with butterfly",
+    "description": "A grid of 5x5 patches containing a butterfly"
+  },
+  "image3.jpg": {
+    "target_object": "hourglass",
+    "grid_size": [5, 5],
+    "correct_patches": [7,12,17],
+    "prompt": "Select all squares with hourglass",
+    "description": "A grid of 5x5 patches containing a hourglass"
+  },
+  "image4.jpg": {
+    "target_object": "bird",
+    "grid_size": [5, 5],
+    "correct_patches": [3,6,7,8,12,13,14,18,19],
+    "prompt": "Select all squares with bird",
+    "description": "A grid of 5x5 patches containing a bird"
+  },
+  "image5.jpg": {
+    "target_object": "dragonfly",
+    "grid_size": [5, 5],
+    "correct_patches": [0,1,5,6],
+    "prompt": "Select all squares with dragonfly",
+    "description": "A grid of 5x5 patches containing a dragonfly"
+  },
+  "image6.jpg": {
+    "target_object": "Red-crowned crane",
+    "grid_size": [5, 5],
+    "correct_patches": [0,1,2,3,4,5,6,7,8,9,11,12,13,14,16,18],
+    "prompt": "Select all squares with Red-crowned crane (a bird)",
+    "description": "A grid of 5x5 patches containing a Red-crowned crane"
+  },
+  "image7.jpg": {
+    "target_object": "house",
+    "grid_size": [5, 5],
+    "correct_patches": [12,13,17],
+    "prompt": "Select all squares with house",
+    "description": "A grid of 5x5 patches containing a house"
+  },
+  "image8.jpg": {
+    "target_object": "Maple leaf",
+    "grid_size": [5, 5],
+    "correct_patches": [16,17,21,22],
+    "prompt": "Select all squares with Maple leaf",
+    "description": "A grid of 5x5 patches containing a Maple leaf"
+  },
+  "image9.jpg": {
+    "target_object": "bench",
+    "grid_size": [5, 5],
+    "correct_patches": [16,17,18,21,22,23],
+    "prompt": "Select all squares with bench",
+    "description": "A grid of 5x5 patches containing a bench"
+  },
+  "image10.jpg": {
+    "target_object": "bridge",
+    "grid_size": [5, 5],
+    "correct_patches": [17,18,21,22,23],
+    "prompt": "Select all squares with bridge",
+    "description": "A grid of 5x5 patches containing a bridge"
   }
 }

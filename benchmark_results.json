@@ -43,3 +43,25 @@
 {"puzzle_type": "Rotation_Match", "puzzle_id": "puzzle_cat_direction_3.json", "user_answer": 270, "correct_answer": 270, "correct": true, "timestamp": "2025-05-02T16:25:03.295Z"}
 {"puzzle_type": "Rotation_Match", "puzzle_id": "puzzle_hungry_cat_direction_4.json", "user_answer": 315, "correct_answer": 315, "correct": true, "timestamp": "2025-05-02T16:25:07.300Z"}
 {"puzzle_type": "Rotation_Match", "puzzle_id": "puzzle_sad_cat_direction_4.json", "user_answer": 315, "correct_answer": 315, "correct": true, "timestamp": "2025-05-02T16:25:12.010Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path4.png", "user_answer": [300, 521], "correct_answer": null, "correct": true, "timestamp": "2025-05-02T16:31:56.306Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path5.png", "user_answer": [262, 514], "correct_answer": null, "correct": true, "timestamp": "2025-05-02T16:34:13.211Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image1.jpg", "user_answer": [0, 5, 1, 6, 11, 12, 7, 8, 13, 3, 2], "correct_answer": [0, 1, 2, 3, 5, 6, 7, 8, 11, 12, 13], "correct": true, "timestamp": "2025-05-02T16:51:16.695Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image2.jpg", "user_answer": [12, 11, 16, 15, 10, 5, 6, 7], "correct_answer": [5, 6, 7, 8, 9, 10, 13, 14], "correct": false, "timestamp": "2025-05-02T16:51:23.486Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image2.jpg", "user_answer": [5, 6, 7, 10, 11, 12, 15, 16], "correct_answer": [5, 6, 7, 10, 11, 12, 15, 16], "correct": true, "timestamp": "2025-05-02T16:52:09.461Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image3.jpg", "user_answer": [7, 12, 17], "correct_answer": [7, 12, 17], "correct": true, "timestamp": "2025-05-02T16:54:47.257Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image4.jpg", "user_answer": [6, 7, 8, 3, 13, 14, 12, 19, 18], "correct_answer": [3, 6, 7, 8, 12, 13, 14, 18, 19], "correct": true, "timestamp": "2025-05-02T16:56:52.533Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image3.jpg", "user_answer": [7, 12, 17], "correct_answer": [7, 12, 17], "correct": true, "timestamp": "2025-05-02T16:56:56.846Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image1.jpg", "user_answer": [7, 12, 13, 8, 6, 11, 5, 0, 1, 2, 3], "correct_answer": [0, 1, 2, 3, 5, 6, 7, 8, 11, 12, 13], "correct": true, "timestamp": "2025-05-02T16:57:03.246Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path7.png", "user_answer": [519, 367], "correct_answer": null, "correct": true, "timestamp": "2025-05-02T17:00:06.966Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path8.png", "user_answer": [356, 472], "correct_answer": null, "correct": true, "timestamp": "2025-05-02T17:01:56.998Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path9.png", "user_answer": [421, 358], "correct_answer": null, "correct": true, "timestamp": "2025-05-02T17:03:51.204Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path10.png", "user_answer": [290, 239], "correct_answer": null, "correct": true, "timestamp": "2025-05-02T17:05:17.014Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image5.jpg", "user_answer": [1, 6, 5, 0], "correct_answer": [0, 1, 5, 6], "correct": true, "timestamp": "2025-05-02T17:08:09.062Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image6.jpg", "user_answer": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 16, 18], "correct_answer": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 16, 18], "correct": true, "timestamp": "2025-05-02T17:11:50.834Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image7.jpg", "user_answer": [12, 17, 13], "correct_answer": [12, 13, 17], "correct": true, "timestamp": "2025-05-02T17:17:37.806Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image8.jpg", "user_answer": [16, 21, 22, 17], "correct_answer": [16, 17, 21, 22], "correct": true, "timestamp": "2025-05-02T17:19:29.811Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image9.jpg", "user_answer": [21, 22, 23, 18, 17, 16], "correct_answer": [16, 17, 18, 21, 22, 23], "correct": true, "timestamp": "2025-05-02T17:21:48.408Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image10.jpg", "user_answer": [17, 18, 21, 22, 23], "correct_answer": [16, 17, 21, 22, 23], "correct": false, "timestamp": "2025-05-02T17:23:13.352Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image10.jpg", "user_answer": [17, 18, 21, 22, 23], "correct_answer": [16, 17, 21, 22, 23], "correct": false, "timestamp": "2025-05-02T17:23:27.047Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image4.jpg", "user_answer": [], "correct_answer": [3, 6, 7, 8, 12, 13, 14, 18, 19], "correct": false, "timestamp": "2025-05-02T17:23:33.227Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image10.jpg", "user_answer": [17, 18, 21, 22, 23], "correct_answer": [17, 18, 21, 22, 23], "correct": true, "timestamp": "2025-05-02T17:23:41.136Z"}
