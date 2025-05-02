@@ -52,21 +52,21 @@
     "prompt": "Select the animal with the wrong head",
     "description": "Grid of animal images where some have mismatched heads/bodies",
     "answer": [2],
-    "grid_size": [2, 5],
+    "grid_size": [2, 3],
     "tolerance": 5
   },
   "unusual9.png": {
     "prompt": "Select the animal with the wrong head",
     "description": "Grid of animal images where some have mismatched heads/bodies",
     "answer": [2],
-    "grid_size": [0, 2],
+    "grid_size": [2, 3],
     "tolerance": 5
   },
   "unusual10.png": {
     "prompt": "Select the animal with the wrong head",
     "description": "Grid of animal images where some have mismatched heads/bodies",
     "answer": [2,3],
-    "grid_size": [0, 2],
+    "grid_size": [2, 3],
     "tolerance": 5
   }
 }
