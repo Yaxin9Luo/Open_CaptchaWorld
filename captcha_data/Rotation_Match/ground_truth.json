@@ -126,5 +126,69 @@
     "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
     "description": "Rotation puzzle requiring alignment of object with reference direction",
     "answer": 180
+  },
+  "puzzle_hungry_cat_direction_1.json": {
+    "reference_image": "direction_1.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 90,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 90
+  },
+  "puzzle_hungry_cat_direction_2.json": {
+    "reference_image": "direction_2.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 45,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 45
+  },
+  "puzzle_hungry_cat_direction_3.json": {
+    "reference_image": "direction_3.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 270,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 270
+  },
+  "puzzle_hungry_cat_direction_4.json": {
+    "reference_image": "direction_4.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 315,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 315
+  },
+  "puzzle_hungry_cat_direction_5.json": {
+    "reference_image": "direction_5.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 225,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 225
+  },
+  "puzzle_hungry_cat_direction_6.json": {
+    "reference_image": "direction_6.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 135,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 135
+  },
+  "puzzle_hungry_cat_direction_7.json": {
+    "reference_image": "direction_7.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 0,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 0
+  },
+  "puzzle_hungry_cat_direction_8.json": {
+    "reference_image": "direction_8.png",
+    "object_base_image": "hungry_cat.png",
+    "correct_angle": 180,
+    "prompt": "Use the arrows to rotate the object to face in the direction of the reference.",
+    "description": "Rotation puzzle requiring alignment of object with reference direction",
+    "answer": 180
   }
 }
