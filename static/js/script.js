@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         backgroundImg.src = currentPuzzle.background_image;
         backgroundImg.alt = 'Slide puzzle background';
         backgroundImg.style.width = '100%';
-        backgroundImg.style.height = 'auto';
+        backgroundImg.style.height = '100%';
         backgroundImg.style.display = 'block';
         backgroundContainer.appendChild(backgroundImg);
         
@@ -339,6 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sliderComponent.style.zIndex = '10';
         sliderComponent.style.userSelect = 'none';
         sliderComponent.style.touchAction = 'none';
+        sliderComponent.style.width = '50px'; 
         
         // Add component image
         const componentImg = document.createElement('img');
@@ -364,8 +365,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Load component image to get its dimensions
             componentImg.onload = () => {
-                const componentWidth = componentImg.width;
-                const componentHeight = componentImg.height;
+                const originalComponentWidth = componentImg.naturalWidth;
+                const originalComponentHeight = componentImg.naturalHeight;
+                
+                const componentWidth = containerWidth * 0.08;
+                
+                const aspectRatio = originalComponentWidth / originalComponentHeight;
+                const componentHeight = componentWidth / aspectRatio;
+                
+                sliderComponent.style.width = `${componentWidth}px`;
                 
                 // Initial position for the slider component - bottom right corner (far from typical target)
                 const initialLeft = containerWidth - componentWidth - 20;
