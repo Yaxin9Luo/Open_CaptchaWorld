@@ -10,5 +10,29 @@
     "tolerance": 40,
     "prompt": "Click the icons in order as shown in the reference image.",
     "description": "User needs to click the icons in the specified order shown in the reference image."
+  },
+  "image2.png": {
+    "answer": [
+      [520, 190],
+      [300, 100],
+      [120, 300],
+      [480, 300]
+    ],
+    "order_image": "order2.png",
+    "tolerance": 40,
+    "prompt": "Click the icons in order as shown in the reference image.",
+    "description": "User needs to click the icons in the specified order shown in the reference image."
+  },
+  "image3.png": {
+    "answer": [
+      [470, 100],
+      [325, 180],
+      [162, 100],
+      [190, 275]
+    ],
+    "order_image": "order3.png",
+    "tolerance": 40,
+    "prompt": "Click the icons in order as shown in the reference image.",
+    "description": "User needs to click the icons in the specified order shown in the reference image."
   }
 } 
