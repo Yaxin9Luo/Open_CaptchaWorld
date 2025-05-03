@@ -40,5 +40,33 @@
     "reference_image": "coordinate6.png",
     "option_images": ["jerry2.png", "jerry5.png", "jerry1.png","jerry3.png", "jerry6.png","jerry7.png", "jerry8.png"],
     "description": "Coordinate puzzle where user must select the image where Jerry is at the seat indicated in the left image"
+  },
+  "coordinate_sample7.png": {
+    "correct_option_index": 0,
+    "prompt": "Using the arrows, move Jerry to the indicated seat",
+    "reference_image": "coordinate7.png",
+    "option_images": ["jerry10.png", "jerry11.png", "jerry12.png","jerry13.png", "jerry6.png","jerry7.png", "jerry8.png"],
+    "description": "Coordinate puzzle where user must select the image where Jerry is at the seat indicated in the left image"
+  },
+  "coordinate_sample8.png": {
+    "correct_option_index": 2,
+    "prompt": "Using the arrows, move Jerry to the indicated seat",
+    "reference_image": "coordinate8.png",
+    "option_images": ["jerry10.png", "jerry11.png", "jerry12.png","jerry13.png", "jerry6.png","jerry7.png", "jerry8.png"],
+    "description": "Coordinate puzzle where user must select the image where Jerry is at the seat indicated in the left image"
+  },
+  "coordinate_sample9.png": {
+    "correct_option_index": 1,
+    "prompt": "Using the arrows, move Jerry to the indicated seat",
+    "reference_image": "coordinate9.png",
+    "option_images": ["jerry10.png", "jerry11.png", "jerry12.png","jerry13.png", "jerry6.png","jerry7.png", "jerry8.png"],
+    "description": "Coordinate puzzle where user must select the image where Jerry is at the seat indicated in the left image"
+  },
+  "coordinate_sample10.png": {
+    "correct_option_index": 3,
+    "prompt": "Using the arrows, move Jerry to the indicated seat",
+    "reference_image": "coordinate10.png",
+    "option_images": ["jerry10.png", "jerry11.png", "jerry12.png","jerry13.png", "jerry6.png","jerry7.png", "jerry8.png"],
+    "description": "Coordinate puzzle where user must select the image where Jerry is at the seat indicated in the left image"
   }
 }
