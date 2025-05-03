@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         backgroundImg.src = currentPuzzle.background_image;
         backgroundImg.alt = 'Slide puzzle background';
         backgroundImg.style.width = '100%';
-        backgroundImg.style.height = '100%';
+        backgroundImg.style.height = 'auto';
         backgroundImg.style.display = 'block';
         backgroundContainer.appendChild(backgroundImg);
         
@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const componentImg = document.createElement('img');
         componentImg.src = currentPuzzle.component_image;
         componentImg.alt = 'Slide component';
-        componentImg.style.width = '100%';
+        componentImg.style.width = '150%';
         componentImg.style.height = 'auto';
         componentImg.style.display = 'block';
         componentImg.draggable = false; // Prevent default dragging behavior
