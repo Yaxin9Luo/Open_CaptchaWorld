@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bingoSelectedCells = []; // Track selected cells for Bingo swap
     let selectedAnimalIndex = -1; // Track selected animal index for Select_Animal
     // Add debug type tracking variable 
-    let debugPuzzleType = null;
+    // let debugPuzzleType = null;
     
     // Initialize difficulty stars with default value (to show something immediately)
     displayDifficultyStars('Dice_Count');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     puzzleImage.addEventListener('click', handleImageClick);
 
     // Add debug mode selector
-    setupDebugModeSelector();
+    // setupDebugModeSelector();
 
     // Functions
     function handleImageClick(e) {
@@ -1301,6 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to set up the debug mode selector
+    /*
     function setupDebugModeSelector() {
         // Create the debug selector container
         const debugContainer = document.createElement('div');
@@ -1417,7 +1418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const benchmarkStats = document.querySelector('.benchmark-stats');
         benchmarkStats.parentNode.insertBefore(debugContainer, benchmarkStats.nextSibling);
     }
-
+    */
     function loadNewPuzzle() {
         // Reset state
         clickCoordinates = null;
@@ -1522,9 +1523,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Construct URL with debug type parameter if set
         let url = '/api/get_puzzle?mode=sequential';
-        if (debugPuzzleType) {
-            url = `/api/get_puzzle?debug_type=${encodeURIComponent(debugPuzzleType)}`;
-        }
+        // if (debugPuzzleType) {
+        //     url = `/api/get_puzzle?debug_type=${encodeURIComponent(debugPuzzleType)}`;
+        // }
         
         // Get a random puzzle from any available type
         fetch(url)
