@@ -132,3 +132,53 @@
 {"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide3.png", "user_answer": [362.5, 61.5], "correct_answer": [358, 62], "correct": true, "timestamp": "2025-05-03T10:23:03.839Z"}
 {"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide8.png", "user_answer": [401.5, 130.5], "correct_answer": [405, 132], "correct": true, "timestamp": "2025-05-03T10:23:08.947Z"}
 {"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide14.png", "user_answer": [90.5, 244.265625], "correct_answer": [85, 240], "correct": true, "timestamp": "2025-05-03T10:23:14.215Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 6, "correct_answer": 3, "correct": false, "timestamp": "2025-05-06T05:47:09.385Z"}
+{"puzzle_type": "Rotation_Match", "puzzle_id": "puzzle_hungry_cat_direction_2.json", "user_answer": 90, "correct_answer": 45, "correct": false, "timestamp": "2025-05-06T05:48:14.444Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image2.png", "user_answer": 0, "correct_answer": "dog", "correct": false, "timestamp": "2025-05-06T05:49:04.870Z"}
+{"puzzle_type": "Dice_Count", "puzzle_id": "dice3.png", "user_answer": "3", "correct_answer": 69, "correct": false, "timestamp": "2025-05-06T05:50:58.212Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 8, "correct_answer": 3, "correct": false, "timestamp": "2025-05-06T05:53:50.938Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle3.json", "user_answer": 2, "correct_answer": 4, "correct": false, "timestamp": "2025-05-06T05:55:38.206Z"}
+{"puzzle_type": "Dice_Count", "puzzle_id": "dice1.png", "user_answer": "5", "correct_answer": 85, "correct": false, "timestamp": "2025-05-08T06:15:17.428Z"}
+{"puzzle_type": "Geometry_Click", "puzzle_id": "dingxiang_000004.jpg", "user_answer": [56, 119], "correct_answer": {"area": [[35, 105], [75, 145]], "type": "circle"}, "correct": true, "timestamp": "2025-05-08T06:15:32.504Z"}
+{"puzzle_type": "Dice_Count", "puzzle_id": "dice2.png", "user_answer": "5", "correct_answer": 67, "correct": false, "timestamp": "2025-05-08T07:16:35.058Z"}
+{"puzzle_type": "Geometry_Click", "puzzle_id": "dingxiang_000002.jpg", "user_answer": [280, 86], "correct_answer": {"area": [[220, 65], [295, 115]], "type": "circle"}, "correct": true, "timestamp": "2025-05-08T07:16:40.880Z"}
+{"puzzle_type": "Rotation_Match", "puzzle_id": "puzzle_hungry_cat_direction_4.json", "user_answer": 225, "correct_answer": 315, "correct": false, "timestamp": "2025-05-08T07:16:49.940Z"}
+{"puzzle_type": "Slide_Puzzle", "puzzle_id": "slide10.png", "user_answer": [386.5, 218.4375], "correct_answer": [390, 220], "correct": true, "timestamp": "2025-05-08T07:17:01.225Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual6.png", "user_answer": [2, 3, 4, 5], "correct_answer": [0, 2, 3, 4, 5], "correct": false, "timestamp": "2025-05-08T07:20:42.931Z"}
+{"puzzle_type": "Image_Recognition", "puzzle_id": "images6", "user_answer": [4, 3, 1, 2, 8], "correct_answer": null, "correct": true, "timestamp": "2025-05-08T07:23:10.591Z"}
+{"puzzle_type": "Bingo", "puzzle_id": "bingo15.png", "user_answer": [2, 5], "correct_answer": [[2, 5]], "correct": true, "timestamp": "2025-05-08T07:23:52.223Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image6.png", "user_answer": 0, "correct_answer": "cat", "correct": true, "timestamp": "2025-05-08T07:25:10.824Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image8.jpg", "user_answer": [17, 16, 21, 22], "correct_answer": [16, 17, 21, 22], "correct": true, "timestamp": "2025-05-08T07:25:23.517Z"}
+{"puzzle_type": "Dart_Count", "puzzle_id": "dart_puzzle_5.json", "user_answer": 2, "correct_answer": null, "correct": true, "timestamp": "2025-05-08T07:25:34.393Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example6.png", "user_answer": 0, "correct_answer": null, "correct": true, "timestamp": "2025-05-08T07:27:55.781Z"}
+{"puzzle_type": "Select_Animal", "puzzle_id": "image5.png", "user_answer": [0], "correct_answer": [0], "correct": true, "timestamp": "2025-05-08T07:28:04.369Z"}
+{"puzzle_type": "Coordinates", "puzzle_id": "coordinate_sample9.png", "user_answer": 1, "correct_answer": 1, "correct": true, "timestamp": "2025-05-08T07:28:21.706Z"}
+{"puzzle_type": "Path_Finder", "puzzle_id": "path7.JPG", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-05-08T07:28:33.202Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path5.png", "user_answer": [268, 516], "correct_answer": null, "correct": true, "timestamp": "2025-05-08T07:28:49.053Z"}
+{"puzzle_type": "Click_Order", "puzzle_id": "image9.png", "user_answer": [[418, 63], [51, 161], [530, 100], [563, 331]], "correct_answer": [[422, 70], [55, 163], [535, 100], [562, 323]], "correct": true, "timestamp": "2025-05-08T07:29:28.575Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 3, "correct_answer": 3, "correct": true, "timestamp": "2025-05-08T07:30:31.979Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 3, "correct_answer": 3, "correct": true, "timestamp": "2025-05-08T07:31:30.003Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T07:44:24.865Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:01:00.028Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:06:31.102Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:08:56.402Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:11:20.824Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:16:02.567Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:20:51.714Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:23:18.966Z"}
+{"puzzle_type": "Unusual_Detection", "puzzle_id": "unusual4.png", "user_answer": [0], "correct_answer": [0, 1, 2, 3, 4], "correct": false, "timestamp": "2025-05-08T08:27:47.598Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:36:43.355Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:40:24.347Z"}
+{"puzzle_type": "Hold_Button", "puzzle_id": "image1.png", "user_answer": 0, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:43:00.944Z"}
+{"puzzle_type": "Coordinates", "puzzle_id": "coordinate_sample7.png", "user_answer": 5, "correct_answer": 0, "correct": false, "timestamp": "2025-05-08T08:48:29.381Z"}
+{"puzzle_type": "Coordinates", "puzzle_id": "coordinate_sample3.png", "user_answer": 2, "correct_answer": 1, "correct": false, "timestamp": "2025-05-08T08:51:03.352Z"}
+{"puzzle_type": "Coordinates", "puzzle_id": "coordinate_sample5.png", "user_answer": 4, "correct_answer": 3, "correct": false, "timestamp": "2025-05-08T08:52:17.000Z"}
+{"puzzle_type": "Coordinates", "puzzle_id": "coordinate_sample1.png", "user_answer": 0, "correct_answer": 4, "correct": false, "timestamp": "2025-05-08T08:53:06.576Z"}
+{"puzzle_type": "Image_Matching", "puzzle_id": "ground_image7.png", "user_answer": 4, "correct_answer": "fox", "correct": true, "timestamp": "2025-05-08T09:04:07.371Z"}
+{"puzzle_type": "Patch_Select", "puzzle_id": "image7.jpg", "user_answer": [], "correct_answer": [12, 13, 17], "correct": false, "timestamp": "2025-05-08T09:06:21.159Z"}
+{"puzzle_type": "Object_Match", "puzzle_id": "example4.png", "user_answer": 4, "correct_answer": null, "correct": false, "timestamp": "2025-05-08T09:10:10.482Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle5.json", "user_answer": 4, "correct_answer": 2, "correct": false, "timestamp": "2025-05-08T09:18:24.555Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle6.json", "user_answer": 5, "correct_answer": 0, "correct": false, "timestamp": "2025-05-08T09:31:02.572Z"}
+{"puzzle_type": "Path_Finder", "puzzle_id": "path4.JPG", "user_answer": 0, "correct_answer": 0, "correct": true, "timestamp": "2025-05-08T09:34:35.356Z"}
+{"puzzle_type": "Place_Dot", "puzzle_id": "path10.png", "user_answer": [300, 299], "correct_answer": null, "correct": false, "timestamp": "2025-05-08T09:37:46.823Z"}
+{"puzzle_type": "Connect_icon", "puzzle_id": "puzzle3.json", "user_answer": 2, "correct_answer": 4, "correct": false, "timestamp": "2025-05-08T09:41:53.444Z"}

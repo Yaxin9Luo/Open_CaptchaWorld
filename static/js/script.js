@@ -1,3 +1,5 @@
+let puzzleStartTime = null;
+
 document.addEventListener('DOMContentLoaded', () => {
     // DOM elements
     const submitBtn = document.getElementById('submit-answer');
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const difficultyStars = document.getElementById('difficulty-stars');
 
     // Debug mode - set to true to show ground truth areas
-    const DEBUG_MODE = true;
+    const DEBUG_MODE = false;
 
     // Tracking state
     let currentPuzzle = null;
@@ -1519,7 +1521,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userAnswerInput.style.display = 'block';
         
         // Construct URL with debug type parameter if set
-        let url = '/api/get_puzzle?random=true';
+        let url = '/api/get_puzzle?mode=sequential';
         if (debugPuzzleType) {
             url = `/api/get_puzzle?debug_type=${encodeURIComponent(debugPuzzleType)}`;
         }
@@ -2059,6 +2061,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (currentPuzzle.input_type === 'hold_button') {
             // For hold button, get the elapsed time from the input field
             answerData.answer = parseFloat(userAnswerInput.value) || 0;
+            answerData.elapsed_time = ((Date.now() - puzzleStartTime) / 1000).toFixed(2);
         } else {
             // For text/number inputs, use the input value
             answerData.answer = userAnswerInput.value.trim();
@@ -3549,6 +3552,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Function to setup the Hold Button CAPTCHA
     function setupHoldButton() {
+        // record the start time
+        puzzleStartTime = Date.now();
         // Clear the puzzle image container first
         puzzleImageContainer.innerHTML = '';
         
@@ -3694,7 +3699,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Reset and clear input field
         userAnswerInput.value = '';
-        submitBtn.disabled = true;  // Disable submit button until hold is complete
+        userAnswerInput.style.display = 'none';
+        submitBtn.disabled = false;  // Disable submit button until hold is complete
     }
 
     // Function to show dotted areas in debug mode for Pick_Area

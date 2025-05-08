@@ -12,6 +12,30 @@ recent_types = []
 # How many types to remember before allowing repetition
 MAX_RECENT_TYPES = 5
 
+PUZZLE_TYPE_SEQUENCE = [
+    'Dice_Count',
+    'Geometry_Click',
+    'Rotation_Match',
+    'Slide_Puzzle',
+    'Unusual_Detection',
+    'Image_Recognition',
+    'Bingo',
+    'Image_Matching',
+    'Patch_Select',
+    'Dart_Count',
+    'Object_Match',
+    'Select_Animal',
+    'Coordinates',
+    'Path_Finder',
+    'Place_Dot',
+    'Connect_icon',
+    'Click_Order',
+    'Hold_Button',
+    'Misleading_Click',
+    'Pick_Area'
+]
+sequential_index = 0
+
 # Load ground truth data for a specific type
 def load_ground_truth(captcha_type):
     path = os.path.join('captcha_data', captcha_type, 'ground_truth.json')
@@ -55,8 +79,15 @@ def get_puzzle():
     
     # Check if we're in debug mode for a specific type
     debug_type = request.args.get('debug_type')
+
+    mode = request.args.get('mode', '').lower()
+
     if debug_type and debug_type in captcha_types:
         puzzle_type = debug_type
+    elif not is_random and mode == 'sequential':
+        global sequential_index
+        puzzle_type = PUZZLE_TYPE_SEQUENCE[sequential_index % len(PUZZLE_TYPE_SEQUENCE)]
+        sequential_index += 1
     elif is_random:
         # Select a random CAPTCHA type, avoiding recently used types if possible
         available_types = [t for t in captcha_types if t not in recent_types]
@@ -513,6 +544,8 @@ def check_answer():
     puzzle_type = data.get('puzzle_type', 'Dice_Count')
     puzzle_id = data.get('puzzle_id')
     user_answer = data.get('answer')
+    elapsed_time = float(data.get('elapsed_time', 0))
+
     
     # Validate input
     if not puzzle_id or user_answer is None:
@@ -842,9 +875,13 @@ def check_answer():
             # User answer should be a number representing the hold time in seconds
             user_hold_time = float(user_answer)
             
-            # Check if the hold time is within the allowed range
-            is_correct = hold_time >= user_hold_time >= 0
-            correct_answer_info = hold_time
+            if elapsed_time > 8 and user_hold_time < hold_time:
+                is_correct = False
+                correct_answer_info = f"Timeout ({elapsed_time:.2f}s)"
+            else:
+                is_correct = hold_time >= user_hold_time >= 0
+                correct_answer_info = hold_time
+
         except (ValueError, TypeError):
             return jsonify({'error': 'Invalid answer format for Hold_Button'}), 400
     
