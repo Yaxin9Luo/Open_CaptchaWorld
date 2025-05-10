@@ -83,6 +83,18 @@
     "prompt": "Click the icons in order as shown in the reference image.",
     "description": "User needs to click the icons in the specified order shown in the reference image."
   },
+  "image8.png": {
+    "answer": [
+      [468, 118],
+      [280, 465],
+      [132, 121],
+      [470, 380]
+    ],
+    "order_image": "order7.png",
+    "tolerance": 50,
+    "prompt": "Click the icons in order as shown in the reference image.",
+    "description": "User needs to click the icons in the specified order shown in the reference image."
+  },
   "image9.png": {
     "answer": [
       [422, 70],
