@@ -1007,4 +1007,9 @@ def get_types():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001) 
+    # For local development
+    if os.environ.get('DEVELOPMENT'):
+        app.run(debug=True)
+    else:
+        # For production on Hugging Face Spaces
+        app.run(host='0.0.0.0', port=7860) 
