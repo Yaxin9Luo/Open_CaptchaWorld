@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const difficultyStars = document.getElementById('difficulty-stars');
 
     // Debug mode - set to true to show ground truth areas
-    const DEBUG_MODE = false;
+    const DEBUG_MODE = true;
 
     // Tracking state
     let currentPuzzle = null;
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bingoSelectedCells = []; // Track selected cells for Bingo swap
     let selectedAnimalIndex = -1; // Track selected animal index for Select_Animal
     // Add debug type tracking variable 
-    // let debugPuzzleType = null;
+    let debugPuzzleType = null;
     
     // Initialize difficulty stars with default value (to show something immediately)
     displayDifficultyStars('Dice_Count');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     puzzleImage.addEventListener('click', handleImageClick);
 
     // Add debug mode selector
-    // setupDebugModeSelector();
+    setupDebugModeSelector();
 
     // Functions
     function handleImageClick(e) {
@@ -1330,125 +1330,125 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
-    // // Function to set up the debug mode selector
+    // Function to set up the debug mode selector
 
-    // function setupDebugModeSelector() {
-    //     // Create the debug selector container
-    //     const debugContainer = document.createElement('div');
-    //     debugContainer.className = 'debug-selector';
-    //     debugContainer.style.marginTop = '10px';
-    //     debugContainer.style.marginBottom = '10px';
-    //     debugContainer.style.padding = '10px';
-    //     debugContainer.style.backgroundColor = '#f0f0f0';
-    //     debugContainer.style.borderRadius = '4px';
-    //     debugContainer.style.display = 'flex';
-    //     debugContainer.style.alignItems = 'center';
-    //     debugContainer.style.justifyContent = 'center';
-    //     debugContainer.style.flexWrap = 'wrap';
+    function setupDebugModeSelector() {
+        // Create the debug selector container
+        const debugContainer = document.createElement('div');
+        debugContainer.className = 'debug-selector';
+        debugContainer.style.marginTop = '10px';
+        debugContainer.style.marginBottom = '10px';
+        debugContainer.style.padding = '10px';
+        debugContainer.style.backgroundColor = '#f0f0f0';
+        debugContainer.style.borderRadius = '4px';
+        debugContainer.style.display = 'flex';
+        debugContainer.style.alignItems = 'center';
+        debugContainer.style.justifyContent = 'center';
+        debugContainer.style.flexWrap = 'wrap';
         
-    //     // Create a label
-    //     const label = document.createElement('label');
-    //     label.htmlFor = 'debug-type-selector';
-    //     label.textContent = 'Puzzle Type: ';
-    //     label.style.marginRight = '10px';
-    //     label.style.fontWeight = 'bold';
+        // Create a label
+        const label = document.createElement('label');
+        label.htmlFor = 'debug-type-selector';
+        label.textContent = 'Puzzle Type: ';
+        label.style.marginRight = '10px';
+        label.style.fontWeight = 'bold';
         
-    //     // Create the select element
-    //     const select = document.createElement('select');
-    //     select.id = 'debug-type-selector';
-    //     select.style.padding = '5px';
-    //     select.style.marginRight = '10px';
+        // Create the select element
+        const select = document.createElement('select');
+        select.id = 'debug-type-selector';
+        select.style.padding = '5px';
+        select.style.marginRight = '10px';
         
-    //     // Default option - random puzzles
-    //     const defaultOption = document.createElement('option');
-    //     defaultOption.value = '';
-    //     defaultOption.textContent = 'Random (All Types)';
-    //     select.appendChild(defaultOption);
+        // Default option - random puzzles
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Random (All Types)';
+        select.appendChild(defaultOption);
         
-    //     // Fetch available CAPTCHA types from the API
-    //     fetch('/api/types')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.types && data.types.length > 0) {
-    //                 // Add options for each CAPTCHA type
-    //                 data.types.forEach(type => {
-    //                     const option = document.createElement('option');
-    //                     option.value = type;
-    //                     option.textContent = type;
-    //                     select.appendChild(option);
-    //                 });
+        // Fetch available CAPTCHA types from the API
+        fetch('/api/types')
+            .then(response => response.json())
+            .then(data => {
+                if (data.types && data.types.length > 0) {
+                    // Add options for each CAPTCHA type
+                    data.types.forEach(type => {
+                        const option = document.createElement('option');
+                        option.value = type;
+                        option.textContent = type;
+                        select.appendChild(option);
+                    });
                     
-    //                 // Check if there's a debug type in URL parameters
-    //                 const urlParams = new URLSearchParams(window.location.search);
-    //                 const typeParam = urlParams.get('type');
-    //                 if (typeParam) {
-    //                     select.value = typeParam;
-    //                     debugPuzzleType = typeParam;
-    //                 }
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching CAPTCHA types:', error);
-    //         });
+                    // Check if there's a debug type in URL parameters
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const typeParam = urlParams.get('type');
+                    if (typeParam) {
+                        select.value = typeParam;
+                        debugPuzzleType = typeParam;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching CAPTCHA types:', error);
+            });
         
-    //     // Create apply button
-    //     const applyBtn = document.createElement('button');
-    //     applyBtn.textContent = 'Apply';
-    //     applyBtn.style.padding = '5px 10px';
-    //     applyBtn.style.backgroundColor = '#4CAF50';
-    //     applyBtn.style.color = 'white';
-    //     applyBtn.style.border = 'none';
-    //     applyBtn.style.borderRadius = '4px';
-    //     applyBtn.style.cursor = 'pointer';
+        // Create apply button
+        const applyBtn = document.createElement('button');
+        applyBtn.textContent = 'Apply';
+        applyBtn.style.padding = '5px 10px';
+        applyBtn.style.backgroundColor = '#4CAF50';
+        applyBtn.style.color = 'white';
+        applyBtn.style.border = 'none';
+        applyBtn.style.borderRadius = '4px';
+        applyBtn.style.cursor = 'pointer';
         
-    //     // Add event listener to the button
-    //     applyBtn.addEventListener('click', () => {
-    //         debugPuzzleType = select.value;
-    //         // Update URL parameter
-    //         const url = new URL(window.location);
-    //         if (debugPuzzleType) {
-    //             url.searchParams.set('type', debugPuzzleType);
-    //             // Show the debug indicator
-    //             const debugIndicator = document.getElementById('debug-indicator');
-    //             const debugTypeDisplay = document.getElementById('debug-type-display');
-    //             if (debugIndicator && debugTypeDisplay) {
-    //                 debugTypeDisplay.textContent = debugPuzzleType;
-    //                 debugIndicator.style.display = 'block';
-    //             }
-    //         } else {
-    //             url.searchParams.delete('type');
-    //             // Hide the debug indicator
-    //             const debugIndicator = document.getElementById('debug-indicator');
-    //             if (debugIndicator) {
-    //                 debugIndicator.style.display = 'none';
-    //             }
-    //         }
-    //         window.history.pushState({}, '', url);
+        // Add event listener to the button
+        applyBtn.addEventListener('click', () => {
+            debugPuzzleType = select.value;
+            // Update URL parameter
+            const url = new URL(window.location);
+            if (debugPuzzleType) {
+                url.searchParams.set('type', debugPuzzleType);
+                // Show the debug indicator
+                const debugIndicator = document.getElementById('debug-indicator');
+                const debugTypeDisplay = document.getElementById('debug-type-display');
+                if (debugIndicator && debugTypeDisplay) {
+                    debugTypeDisplay.textContent = debugPuzzleType;
+                    debugIndicator.style.display = 'block';
+                }
+            } else {
+                url.searchParams.delete('type');
+                // Hide the debug indicator
+                const debugIndicator = document.getElementById('debug-indicator');
+                if (debugIndicator) {
+                    debugIndicator.style.display = 'none';
+                }
+            }
+            window.history.pushState({}, '', url);
             
-    //         // Load a new puzzle with the selected type
-    //         loadNewPuzzle();
-    //     });
+            // Load a new puzzle with the selected type
+            loadNewPuzzle();
+        });
         
-    //     // Initialize the debug indicator if there's a type parameter
-    //     if (debugPuzzleType) {
-    //         const debugIndicator = document.getElementById('debug-indicator');
-    //         const debugTypeDisplay = document.getElementById('debug-type-display');
-    //         if (debugIndicator && debugTypeDisplay) {
-    //             debugTypeDisplay.textContent = debugPuzzleType;
-    //             debugIndicator.style.display = 'block';
-    //         }
-    //     }
+        // Initialize the debug indicator if there's a type parameter
+        if (debugPuzzleType) {
+            const debugIndicator = document.getElementById('debug-indicator');
+            const debugTypeDisplay = document.getElementById('debug-type-display');
+            if (debugIndicator && debugTypeDisplay) {
+                debugTypeDisplay.textContent = debugPuzzleType;
+                debugIndicator.style.display = 'block';
+            }
+        }
         
-    //     // Add elements to container
-    //     debugContainer.appendChild(label);
-    //     debugContainer.appendChild(select);
-    //     debugContainer.appendChild(applyBtn);
+        // Add elements to container
+        debugContainer.appendChild(label);
+        debugContainer.appendChild(select);
+        debugContainer.appendChild(applyBtn);
         
-    //     // Add container to the benchmark stats section
-    //     const benchmarkStats = document.querySelector('.benchmark-stats');
-    //     benchmarkStats.parentNode.insertBefore(debugContainer, benchmarkStats.nextSibling);
-    // }
-     // // Function to set up the debug mode selector
+        // Add container to the benchmark stats section
+        const benchmarkStats = document.querySelector('.benchmark-stats');
+        benchmarkStats.parentNode.insertBefore(debugContainer, benchmarkStats.nextSibling);
+    }
+     // Function to set up the debug mode selector
 
 
 
@@ -1556,10 +1556,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Construct URL with debug type parameter if set
         let url = '/api/get_puzzle?mode=sequential';
-        // // Function to set up the debug mode selector
-        // if (debugPuzzleType) {
-        //     url = `/api/get_puzzle?debug_type=${encodeURIComponent(debugPuzzleType)}`;
-        // }
+        // Function to set up the debug mode selector
+        if (debugPuzzleType) {
+            url = `/api/get_puzzle?debug_type=${encodeURIComponent(debugPuzzleType)}`;
+        }
         
         // Get a random puzzle from any available type
         fetch(url)
@@ -4149,26 +4149,26 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function displayDifficultyStars(puzzleType) {
         const difficultyRatings = {
-            'Dice_Count': 1,
-            'Geometry_Click': 1,
-            'Rotation_Match': 3,
+            'Dice_Count': 3,
+            'Geometry_Click': 2,
+            'Rotation_Match': 4,
             'Slide_Puzzle': 2,
-            'Unusual_Detection': 3,
-            'Image_Recognition': 2,
-            'Bingo': 4,
+            'Unusual_Detection': 2,
+            'Image_Recognition': 3,
+            'Bingo': 3,
             'Image_Matching': 2,
-            'Patch_Select': 3,
-            'Dart_Count': 3,
-            'Object_Match': 2,
+            'Patch_Select': 2,
+            'Dart_Count': 5,
+            'Object_Match': 3,
             'Select_Animal': 1,
-            'Coordinates': 3,
-            'Path_Finder': 3,
-            'Place_Dot': 2,
-            'Connect_icon': 3,
+            'Coordinates': 4,
+            'Path_Finder': 4,
+            'Place_Dot': 3,
+            'Connect_icon': 4,
             'Click_Order': 4,
-            'Hold_Button': 2,
-            'Misleading_Click': 4,
-            'Pick_Area': 5,
+            'Hold_Button': 1,
+            'Misleading_Click': 1,
+            'Pick_Area': 2,
         };
 
         const difficulty = difficultyRatings[puzzleType] || 1;
