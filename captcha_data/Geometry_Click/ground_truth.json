@@ -2,7 +2,7 @@
   "dingxiang_000001.jpg": {
     "answer": {
       "type": "Letter A",
-      "area": [[50, 30], [90, 90]]
+      "area": [[50, 35], [90, 80]]
     },
     "prompt": "Click the Letter on the left of the Parallelogram",
     "description": "Geometry click puzzle with a cube and letters"
@@ -18,7 +18,7 @@
   "dingxiang_000003.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[100, 55], [125, 145]]
+      "area": [[100, 65], [125, 145]]
     },
     "prompt": "Click the letter closest to the cube",
     "description": "Geometry click puzzle with a cube and letters"
@@ -36,94 +36,127 @@
       "type": "circle",
       "area": [[130, 60], [185, 125]]
     },
-    "prompt": "Click the 3-D Shape cloest to letter T",
+    "prompt": "Click the 3-D Shape closest to letter T",
     "description": "Geometry click puzzle with a cube and letters"
   },
   "geetest_000001.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[195, 90], [212, 165]]
+      "area": [[160, 90], [210, 125]]
     },
-    "prompt": "Click right edge part of the unique 3-D Shape",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the yellow cylinder",
+    "description": "Geometry click puzzle with various 3D shapes"
   },
   "geetest_000002.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[253, 120], [285, 160]]
+      "area": [[75, 170], [150, 230]]
     },
-    "prompt": "Click the unique 3-D Shape",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the green icosahedron",
+    "description": "Geometry click puzzle with various 3D shapes"
   },
-  
-  "geetest_000003.jpg": {
-    "answer": {
-      "type": "circle",
-      "area": [[100, 190], [168, 265]]
-    },
-    "prompt": "Click the Red Sphere",
-    "description": "Geometry click puzzle with a cube and letters"
-  },
-  "geetest_000004.jpg": {
-    "answer": {
-      "type": "circle",
-      "area": [[160, 180], [205, 225]]
-    },
-    "prompt": "Click the unique 3-D Shape",
-    "description": "Geometry click puzzle with a cube and letters"
-  },
-  
   "geetest_000005.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[320, 110], [350, 180]]
+      "area": [[120, 190], [165, 250]]
     },
-    "prompt": "Click the unique 3-D Shape",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the grey cube",
+    "description": "Geometry click puzzle with various 3D shapes"
   },
-
-
-
-
-  
-  "vtt_000001.jpg": {
+  "geetest_000006.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[85, 170], [145, 265]]
+      "area": [[5, 100], [65, 150]]
     },
-    "prompt": "Click the number which is unique",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the largest yellow cone",
+    "description": "Geometry click puzzle with various 3D shapes"
   },
-  "vtt_000002.jpg": {
+  "geetest_000009.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[500, 100], [550, 165]]
+      "area": [[210, 160], [270, 240]]
     },
-    "prompt": "Click Smallest Letter",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the gray cylinder that appears closer",
+    "description": "Geometry click puzzle with various 3D shapes"
   },
-  "vtt_000003.jpg": {
+  "geetest_000010.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[168, 30], [230, 135]]
+      "area": [[130, 60], [185, 125]]
     },
-    "prompt": "Click the Number on the Red Cylinder",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the smallest cube",
+    "description": "Geometry click puzzle with various 3D shapes"
+  },
+  "netease_000002.jpg": {
+    "answer": {
+      "type": "circle",
+      "area": [[50, 50], [90, 100]]
+    },
+    "prompt": "Click the gray capital X",
+    "description": "Geometry click puzzle with letters and various 3D shapes"
+  },
+  "netease_000003.jpg": {
+    "answer": {
+      "type": "circle",
+      "area": [[255, 90], [290, 135]]
+    },
+    "prompt": "Click the yellow capital N",
+    "description": "Geometry click puzzle with letters and various 3D shapes"
   },
   "vtt_000004.jpg": {
     "answer": {
       "type": "circle",
-      "area": [[170, 160], [225, 255]]
+      "area": [[380, 165], [490, 300]]
     },
-    "prompt": "Click the Letter on the Red Cylinder",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the green cylinder closest to letter C",
+    "description": "Geometry click puzzle with letters various 3D shapes"
   },
-  "vtt_000005.jpg": {
+  "xiaodun_000001.png": {
     "answer": {
       "type": "circle",
-      "area": [[210, 10], [305, 125]]
+      "area": [[32, 70], [75, 115]]
     },
-    "prompt": "Click the Letter on the green cube",
-    "description": "Geometry click puzzle with a cube and letters"
+    "prompt": "Click the blue cone",
+    "description": "Geometry click puzzle with letters various 3D shapes"
+  },
+  "xiaodun_000010.png": {
+    "answer": {
+      "type": "circle",
+      "area": [[112, 122], [165, 180]]
+    },
+    "prompt": "Click the blue cone",
+    "description": "Geometry click puzzle with letters various 3D shapes"
+  },
+  "xiaodun_000009.png": {
+    "answer": {
+      "type": "circle",
+      "area": [[145, 20], [175, 60]]
+    },
+    "prompt": "Click the red Capital Z",
+    "description": "Geometry click puzzle with letters various 3D shapes"
+  },
+  "xiaodun_000003.png": {
+    "answer": {
+      "type": "circle",
+      "area": [[106, 33], [140, 70]]
+    },
+    "prompt": "Click the yellow Capital B",
+    "description": "Geometry click puzzle with letters various 3D shapes"
+  },
+  "xiaodun_000007.png": {
+    "answer": {
+      "type": "circle",
+      "area": [[70, 40], [100, 50]]
+    },
+    "prompt": "Click the green letter e",
+    "description": "Geometry click puzzle with letters various 3D shapes"
+  },
+  "vtt_000007.jpg": {
+    "answer": {
+      "type": "circle",
+      "area": [[91, 250], [136, 313]]
+    },
+    "prompt": "Click the number six",
+    "description": "Geometry click puzzle with letters various 3D shapes"
   }
 }
