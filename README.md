@@ -1,6 +1,7 @@
-<h1 align="center">Open CaptchaWorld</h1>
 <p align="center">
-  <img src="./assets/open_captchaworld_icon.jpg" alt="Open CaptchaWorld Icon" width="180"/>
+  <a href="http://swe-bench.github.io">
+    <img src="./assets/band_image.png" style="height: 10em" alt="Kawi the SWE-Llama" />
+  </a>
 </p>
 <div align="center">
 
