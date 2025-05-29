@@ -25,7 +25,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 
 ## 📰 News
 
-* [2025-05-29] ✅ We have released the first version of <span style="color:#00ffff; font-weight:bold;">**Open CaptchaWorld**</span> Benchmark and dataset.
+* [2025-05-29] ✅ We have released the first version of <span style="color:#00ffff; font-weight:bold;">**Open CaptchaWorld**</span> Benchmark and Dataset.
 
 ## 📋 Table of Contents
 
