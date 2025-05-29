@@ -1,8 +1,6 @@
+<h1 align="center">Open CaptchaWorld</h1>
 <p align="center">
   <img src="./assets/open_captchaworld_icon.jpg" alt="Open CaptchaWorld Icon" width="180"/>
-</p>
-<p align="center" style="font-size: 6em; font-weight: bold; margin-top: 0.5em; margin-bottom: 0.5em;">
-  Open CaptchaWorld
 </p>
 <div align="center">
 
