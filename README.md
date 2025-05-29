@@ -2,7 +2,7 @@
   <img src="./assets/open_captchaworld_icon.jpg" alt="Open CaptchaWorld Icon" width="180"/>
 </p>
 <p align="center">
-  <b><font size="16"> Open CaptchaWorld </font></b>
+  <b><font size="66"> Open CaptchaWorld </font></b>
 </p>
 <div align="center">
 
