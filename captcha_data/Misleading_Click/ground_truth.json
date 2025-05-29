@@ -36,10 +36,10 @@
     "description": "Grid of cute animals with a person labeled 'Don't click me'",
     "prompt": "Click the image to continue.",
     "avoid_area": {
-      "x": 140,
-      "y": 80,
-      "width": 235,
-      "height": 350
+      "x": 160,
+      "y": 160,
+      "width": 355,
+      "height": 330
     },
     "answer": "avoid_person"
   },
@@ -91,9 +91,9 @@
     "description": "Grid of cute animals with a person labeled 'Don't click me'",
     "prompt": "Click the image to continue.",
     "avoid_area": {
-      "x": 250,
+      "x": 0,
       "y": 0,
-      "width": 230,
+      "width": 300,
       "height": 350
     },
     "answer": "avoid_person"
@@ -102,10 +102,120 @@
     "description": "Grid of cute animals with a person labeled 'Don't click me'",
     "prompt": "Click the image to continue.",
     "avoid_area": {
-      "x": 230,
-      "y": 0,
-      "width": 230,
+      "x": 210,
+      "y": 20,
+      "width": 210,
       "height": 350
+    },
+    "answer": "avoid_person"
+  },
+  "image11.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 230,
+      "y": 20,
+      "width": 350,
+      "height": 350
+    },
+    "answer": "avoid_person"
+  },
+  "image12.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 180,
+      "y": 160,
+      "width": 320,
+      "height": 350
+    },
+    "answer": "avoid_person"
+  },
+  "image13.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 90,
+      "y": 0,
+      "width": 320,
+      "height": 330
+    },
+    "answer": "avoid_person"
+  },
+  "image14.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 0,
+      "y": 50,
+      "width": 370,
+      "height": 350
+    },
+    "answer": "avoid_person"
+  },
+  "image15.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 230,
+      "y": 90,
+      "width": 330,
+      "height": 330
+    },
+    "answer": "avoid_person"
+  },
+  "image16.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 180,
+      "y": 20,
+      "width": 320,
+      "height": 370
+    },
+    "answer": "avoid_person"
+  },
+  "image17.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 20,
+      "y": 210,
+      "width": 330,
+      "height": 300
+    },
+    "answer": "avoid_person"
+  },
+  "image18.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 130,
+      "y": 210,
+      "width": 300,
+      "height": 250
+    },
+    "answer": "avoid_person"
+  },
+  "image19.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 0,
+      "y": 180,
+      "width": 420,
+      "height": 250
+    },
+    "answer": "avoid_person"
+  },
+  "image20.png": {
+    "description": "Grid of cute animals with a person labeled 'Don't click me'",
+    "prompt": "Click the image to continue.",
+    "avoid_area": {
+      "x": 0,
+      "y": 60,
+      "width": 600,
+      "height": 320
     },
     "answer": "avoid_person"
   }

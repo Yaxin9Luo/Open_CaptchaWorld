@@ -118,5 +118,125 @@
     ],
     "correct_option_index": 0,
     "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example11.png": {
+    "reference_image": "reference11.png",
+    "option_images": [
+      "image25.png", 
+      "image20.png", 
+      "image26.png", 
+      "image15.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 0,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example12.png": {
+    "reference_image": "reference12.png",
+    "option_images": [
+      "image25.png", 
+      "image20.png", 
+      "image26.png", 
+      "image15.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 2,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example13.png": {
+    "reference_image": "reference13.png",
+    "option_images": [
+      "image25.png", 
+      "image20.png", 
+      "image26.png", 
+      "image22.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 3,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example14.png": {
+    "reference_image": "reference14.png",
+    "option_images": [
+      "image25.png", 
+      "image20.png", 
+      "image26.png", 
+      "image22.png", 
+      "image23.png"
+    ],
+    "correct_option_index": 4,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example15.png": {
+    "reference_image": "reference15.png",
+    "option_images": [
+      "image25.png", 
+      "image20.png", 
+      "image26.png", 
+      "image22.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 1,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example16.png": {
+    "reference_image": "reference16.png",
+    "option_images": [
+      "image25.png", 
+      "image20.png", 
+      "image26.png", 
+      "image24.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 3,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example17.png": {
+    "reference_image": "reference17.png",
+    "option_images": [
+      "image20.png", 
+      "image25.png", 
+      "image26.png", 
+      "image24.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 1,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example18.png": {
+    "reference_image": "reference18.png",
+    "option_images": [
+      "image20.png", 
+      "image25.png", 
+      "image26.png", 
+      "image24.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 1,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example19.png": {
+    "reference_image": "reference19.png",
+    "option_images": [
+      "image20.png", 
+      "image25.png", 
+      "image26.png", 
+      "image24.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 2,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
+  },
+  "example20.png": {
+    "reference_image": "reference20.png",
+    "option_images": [
+      "image20.png", 
+      "image25.png", 
+      "image26.png", 
+      "image24.png", 
+      "image18.png"
+    ],
+    "correct_option_index": 2,
+    "prompt": "Use the arrows to change the number of objects until it matches the left image."
   }
 } 

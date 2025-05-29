@@ -1,12 +1,4 @@
 {
-  "ground_image4.png": {
-    "prompt": "Using the arrows, match the animal in the left and right image.",
-    "description": "Match the animals in both images",
-    "answer": "panda",
-    "reference_image": "ground_image4.png",
-    "option_images": ["ground_image2_sub1.png", "ground_image2_sub2.png", "ground_image2_sub3.png","ground_image2_sub6.png", "ground_image2_sub4.png", "ground_image2_sub5.png"],
-    "correct_option_index": 3
-  },
   "ground_image2.png": {
     "prompt": "Using the arrows, match the animal in the left and right image.",
     "description": "Match the animals in both images",
@@ -75,8 +67,88 @@
     "prompt": "Using the arrows, match the animal in the left and right image.",
     "description": "Match the animals in both images",
     "answer": "tiger",
-    "reference_image": "ground_image2_sub4.png",
-    "option_images": ["ground_image2_sub1.png", "ground_image2_sub2.png", "ground_image2_sub3.png","ground_image2_sub6.png", "ground_image7.png", "ground_image2_sub5.png"],
+    "reference_image": "ground_image10.png",
+    "option_images": ["ground_image11.png", "ground_image8.png", "ground_image12.png", "ground_image1.png", "ground_image5.png"],
+    "correct_option_index": 3
+  },
+  "ground_image11.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "mouse",
+    "reference_image": "ground_image8.png",
+    "option_images": ["ground_image11.png", "ground_image16.png", "ground_image12.png", "ground_image1.png", "ground_image5.png"],
+    "correct_option_index": 1
+  },
+  "ground_image12.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "fox",
+    "reference_image": "ground_image9.png",
+    "option_images": ["ground_image11.png", "ground_image16.png", "ground_image5.png", "ground_image1.png", "ground_image3.png"],
+    "correct_option_index": 2
+  },
+  "ground_image13.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "leopard",
+    "reference_image": "ground_image15.png",
+    "option_images": ["ground_image11.png", "ground_image10.png", "ground_image5.png", "ground_image1.png", "ground_image3.png"],
+    "correct_option_index": 0
+  },
+  "ground_image14.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "lion",
+    "reference_image": "ground_image14.png",
+    "option_images": ["ground_image11.png", "ground_image10.png", "ground_image12.png", "ground_image1.png", "ground_image3.png"],
+    "correct_option_index": 2
+  },
+  "ground_image15.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "cat",
+    "reference_image": "ground_image7.png",
+    "option_images": ["ground_image11.png", "ground_image10.png", "ground_image12.png", "ground_image1.png", "ground_image6.png"],
     "correct_option_index": 4
+  },
+  "ground_image16.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "dog",
+    "reference_image": "ground_image13.png",
+    "option_images": ["ground_image11.png", "ground_image10.png", "ground_image3.png", "ground_image1.png", "ground_image6.png"],
+    "correct_option_index": 2
+  },
+  "ground_image17.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "leopard",
+    "reference_image": "ground_image11.png",
+    "option_images": ["ground_image14.png", "ground_image15.png", "ground_image3.png", "ground_image1.png", "ground_image6.png"],
+    "correct_option_index": 1
+  },
+  "ground_image18.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "lion",
+    "reference_image": "ground_image12.png",
+    "option_images": ["ground_image14.png", "ground_image15.png", "ground_image3.png", "ground_image1.png", "ground_image6.png"],
+    "correct_option_index": 0
+  },
+  "ground_image19.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "cat",
+    "reference_image": "ground_image2_sub1.png",
+    "option_images": ["ground_image14.png", "ground_image7.png", "ground_image3.png", "ground_image10.png", "ground_image11.png"],
+    "correct_option_index": 1
+  },
+  "ground_image20.png": {
+    "prompt": "Using the arrows, match the animal in the left and right image.",
+    "description": "Match the animals in both images",
+    "answer": "dog",
+    "reference_image": "ground_image2_sub4.png",
+    "option_images": ["ground_image14.png", "ground_image7.png", "ground_image3.png", "ground_image10.png", "ground_image11.png"],
+    "correct_option_index": 2
   }
 } 
