@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://swe-bench.github.io">
-    <img src="./assets/band_image.png" style="height: 10em" alt="Kawi the SWE-Llama" />
+    <img src="./assets/band_image.png" style="height: 10em" alt="Open CaptchaWorld" />
   </a>
 </p>
 <div align="center">
