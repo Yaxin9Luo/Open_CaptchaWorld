@@ -277,6 +277,93 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Rotated to:', currentRotationAngle);
     }
     
+
+
+    function addPickAreaCursorTracking(imageDisplayContainer) { // Renamed param for clarity, matches call site
+        if (!DEBUG_MODE || !currentPuzzle || currentPuzzle.puzzle_type !== 'Pick_Area') {
+            return;
+        }
+    
+        const imageElement = document.getElementById('puzzle-image');
+        if (!imageElement) {
+            console.error("puzzle-image element not found for Pick_Area cursor tracking.");
+            return;
+        }
+    
+        // Function to set up listeners, can be called on image load or if already loaded
+        const setupTrackingListeners = () => {
+            let cursorDisplay = document.querySelector('.pick-area-cursor-display');
+            if (!cursorDisplay) {
+                cursorDisplay = document.createElement('div');
+                cursorDisplay.className = 'pick-area-cursor-display'; // Used in loadNewPuzzle cleanup
+                cursorDisplay.style.position = 'fixed';
+                cursorDisplay.style.top = '30px'; // Adjust position to avoid other debug elements
+                cursorDisplay.style.left = '10px';
+                cursorDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.75)';
+                cursorDisplay.style.color = 'white';
+                cursorDisplay.style.padding = '5px 10px';
+                cursorDisplay.style.borderRadius = '4px';
+                cursorDisplay.style.fontSize = '12px';
+                cursorDisplay.style.zIndex = '1005'; // Ensure it's on top
+                cursorDisplay.style.pointerEvents = 'none'; // So it doesn't interfere with clicks
+                document.body.appendChild(cursorDisplay); // Append to body for fixed positioning
+            }
+            cursorDisplay.style.display = 'none'; // Initially hidden
+    
+            // Remove previously attached listeners to avoid duplication
+            if (imageElement.pickAreaMouseMove) {
+                imageElement.removeEventListener('mousemove', imageElement.pickAreaMouseMove);
+            }
+            if (imageElement.pickAreaMouseLeave) {
+                imageElement.removeEventListener('mouseleave', imageElement.pickAreaMouseLeave);
+            }
+            if (imageElement.pickAreaMouseEnter) {
+                 imageElement.removeEventListener('mouseenter', imageElement.pickAreaMouseEnter);
+            }
+    
+    
+            const mouseMoveHandler = (e) => {
+                const rect = imageElement.getBoundingClientRect();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+    
+                // Check if cursor is within the image bounds
+                if (x >= 0 && x <= imageElement.clientWidth && y >= 0 && y <= imageElement.clientHeight) {
+                    cursorDisplay.textContent = `Cursor: (${x}, ${y})`;
+                    cursorDisplay.style.display = 'block';
+                } else {
+                    cursorDisplay.style.display = 'none'; // Hide if outside image
+                }
+            };
+    
+            const mouseLeaveHandler = () => {
+                cursorDisplay.style.display = 'none';
+            };
+            
+            const mouseEnterHandler = () => {
+                // Display will be handled by mousemove if within bounds
+            };
+    
+            // Store handlers on the element itself so they can be explicitly removed later
+            imageElement.pickAreaMouseMove = mouseMoveHandler;
+            imageElement.pickAreaMouseLeave = mouseLeaveHandler;
+            imageElement.pickAreaMouseEnter = mouseEnterHandler;
+    
+            imageElement.addEventListener('mousemove', imageElement.pickAreaMouseMove);
+            imageElement.addEventListener('mouseleave', imageElement.pickAreaMouseLeave);
+            imageElement.addEventListener('mouseenter', imageElement.pickAreaMouseEnter);
+        };
+    
+        // Ensure image is loaded before attaching listeners or run immediately if already loaded
+        if (imageElement.complete && imageElement.naturalHeight !== 0) {
+            setupTrackingListeners();
+        } else {
+            imageElement.addEventListener('load', setupTrackingListeners, { once: true });
+        }
+    }
+
+
+
     function updateObjectRotation() {
         const objectImg = document.getElementById('object-image');
         if (objectImg) {
@@ -341,14 +428,17 @@ document.addEventListener('DOMContentLoaded', () => {
         sliderComponent.style.zIndex = '10';
         sliderComponent.style.userSelect = 'none';
         sliderComponent.style.touchAction = 'none';
-        sliderComponent.style.width = '50px'; 
         
         // Add component image
         const componentImg = document.createElement('img');
         componentImg.src = currentPuzzle.component_image;
         componentImg.alt = 'Slide component';
-        componentImg.style.width = '150%';
+
+
+        componentImg.style.width = 'auto'; // Let it be its natural size
         componentImg.style.height = 'auto';
+
+
         componentImg.style.display = 'block';
         componentImg.draggable = false; // Prevent default dragging behavior
         sliderComponent.appendChild(componentImg);
@@ -360,7 +450,13 @@ document.addEventListener('DOMContentLoaded', () => {
         puzzleImageContainer.appendChild(backgroundContainer);
         
         // Wait for images to load to get proper dimensions
-        backgroundImg.onload = () => {
+
+
+
+        Promise.all([
+            new Promise(resolve => backgroundImg.onload = resolve),
+            new Promise(resolve => componentImg.onload = resolve)
+        ]).then(() => {
             // Get container dimensions
             const containerWidth = backgroundImg.width;
             const containerHeight = backgroundImg.height;
@@ -370,12 +466,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 const originalComponentWidth = componentImg.naturalWidth;
                 const originalComponentHeight = componentImg.naturalHeight;
                 
-                const componentWidth = containerWidth * 0.08;
+
                 
-                const aspectRatio = originalComponentWidth / originalComponentHeight;
-                const componentHeight = componentWidth / aspectRatio;
-                
+                let componentWidth, componentHeight;
+
+                // Check if we have piece_size in the metadata
+                if (currentPuzzle.piece_size) {
+                    // Use the exact size from backend
+                    const [exactWidth, exactHeight] = currentPuzzle.piece_size;
+                    // Scale it relative to the container size
+                    const scaleFactor = containerWidth / 512;
+                    componentWidth = exactWidth * scaleFactor;
+                    componentHeight = exactHeight * scaleFactor;
+                } else {
+                    // Fallback: use natural dimensions but scale appropriately
+                    const desiredRatio = currentPuzzle.piece_ratio || 0.25;
+                    const naturalAspectRatio = componentImg.naturalWidth / componentImg.naturalHeight;
+                    
+                    componentWidth = containerWidth * desiredRatio;
+                    componentHeight = componentWidth / naturalAspectRatio;
+                }
+
+
                 sliderComponent.style.width = `${componentWidth}px`;
+                sliderComponent.style.height = `${componentHeight}px`;
+                
+                // Make sure the image fills the component
+                componentImg.style.width = '100%';
+                componentImg.style.height = '100%';
+                componentImg.style.objectFit = 'contain';
+
+
                 
                 // Initial position for the slider component - bottom right corner (far from typical target)
                 const initialLeft = containerWidth - componentWidth - 20;
@@ -413,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
             };
-        };
+        });
         
         // Set up draggable functionality
         let isDragging = false;
@@ -919,6 +1040,50 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Log result
             console.log('Click check:', { inAvoidArea, message: inAvoidArea ? 'INSIDE avoid area (incorrect)' : 'OUTSIDE avoid area (correct)' });
+
+
+            if (DEBUG_MODE && currentPuzzle && currentPuzzle.puzzle_type === 'Pick_Area') {
+                const targetArea = puzzleImageContainer.querySelector('.area-marker');
+                if (targetArea) {
+                    const targetRect = targetArea.getBoundingClientRect();
+                    const containerRect = puzzleImageContainer.getBoundingClientRect();
+                    
+                    // Calculate relative positions
+                    const areaLeft = targetRect.left - containerRect.left;
+                    const areaTop = targetRect.top - containerRect.top;
+                    const areaRight = areaLeft + targetRect.width;
+                    const areaBottom = areaTop + targetRect.height;
+                    
+                    // Check if click is inside the target area
+                    const insideArea = x >= areaLeft && x <= areaRight && y >= areaTop && y <= areaBottom;
+                    
+                    // Add status indicator
+                    const statusIndicator = document.createElement('div');
+                    statusIndicator.className = 'click-status';
+                    statusIndicator.style.position = 'absolute';
+                    statusIndicator.style.top = '40px';
+                    statusIndicator.style.left = '20px';
+                    statusIndicator.style.padding = '3px 6px';
+                    statusIndicator.style.borderRadius = '3px';
+                    statusIndicator.style.fontSize = '10px';
+                    statusIndicator.style.fontWeight = 'bold';
+                    
+                    if (insideArea) {
+                        statusIndicator.textContent = 'INSIDE TARGET AREA - CORRECT';
+                        statusIndicator.style.backgroundColor = 'rgba(0, 255, 0, 0.8)';
+                        statusIndicator.style.color = 'white';
+                        marker.style.borderColor = 'green';
+                    } else {
+                        statusIndicator.textContent = 'OUTSIDE TARGET AREA - INCORRECT';
+                        statusIndicator.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+                        statusIndicator.style.color = 'white';
+                        marker.style.borderColor = 'red';
+                    }
+                    
+                    marker.appendChild(statusIndicator);
+                }
+            }
+        
         }
     }
 
@@ -1456,6 +1621,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset state
         clickCoordinates = null;
         processingClick = false;
+
+
+
+        // Clean up Pick_Area cursor tracking if it exists
+        const pickAreaCursorDisplay = document.querySelector('.pick-area-cursor-display');
+        if (pickAreaCursorDisplay) {
+            pickAreaCursorDisplay.style.display = 'none';
+        }
+
+        // Remove Pick_Area event listeners if they exist
+        if (puzzleImage.pickAreaMouseMove) {
+            puzzleImage.removeEventListener('mousemove', puzzleImage.pickAreaMouseMove);
+            puzzleImage.removeEventListener('mouseleave', puzzleImage.pickAreaMouseLeave);
+            delete puzzleImage.pickAreaMouseMove;
+            delete puzzleImage.pickAreaMouseLeave;
+        }
+
+
         currentRotationAngle = 0;
         selectedCells = [];
         bingoSelectedCells = [];
@@ -1618,11 +1801,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     
                     // For debugging, when image loads, show the target areas
+
+
+
+
+
+
                     puzzleImage.onload = () => {
                         if (DEBUG_MODE) {
                             // Show ground truth area differently based on puzzle type
                             if (data.puzzle_type === 'Pick_Area') {
-                                showPickAreaTargets(puzzleImageContainer);
+                                showPickAreaTargets(puzzleImageContainer); // Make sure this function targets puzzleImageContainer
+                                // Add cursor tracking for Pick_Area
+                                addPickAreaCursorTracking(puzzleImageContainer); // Call the new function
                             } else if (data.puzzle_type === 'Geometry_Click') {
                                 fetchAndShowGeometryClickArea(puzzleImageContainer);
                             } else if (data.puzzle_type === 'Misleading_Click') {
@@ -1631,8 +1822,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                     showMisleadingClickArea(puzzleImageContainer, data.avoid_area);
                                 }
                             }
+                            // Any other general onload debug logic for click types can go here
                         }
+                        // Any non-debug general onload logic for click types can also be merged here
                     };
+
+
+
+
+
                 } else if (data.input_type === 'rotation') {
                     // Setup for rotation-based CAPTCHAs
                     inputGroup.style.display = 'none';
@@ -2921,6 +3119,89 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset any previous click coordinates
         clickCoordinates = null;
         
+        // Create cursor position display for debug mode
+        let cursorDisplay = null;
+        if (DEBUG_MODE) {
+            cursorDisplay = document.createElement('div');
+            cursorDisplay.className = 'cursor-position-display';
+            cursorDisplay.style.position = 'fixed';
+            cursorDisplay.style.top = '10px';
+            cursorDisplay.style.left = '10px';
+            cursorDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            cursorDisplay.style.color = 'white';
+            cursorDisplay.style.padding = '8px 12px';
+            cursorDisplay.style.borderRadius = '4px';
+            cursorDisplay.style.fontSize = '14px';
+            cursorDisplay.style.fontFamily = 'monospace';
+            cursorDisplay.style.zIndex = '1000';
+            cursorDisplay.style.display = 'none'; // Hidden by default
+            cursorDisplay.innerHTML = 'Cursor: (0, 0)';
+            document.body.appendChild(cursorDisplay);
+            
+            // Also create a crosshair indicator that follows the cursor
+            const crosshair = document.createElement('div');
+            crosshair.className = 'cursor-crosshair';
+            crosshair.style.position = 'absolute';
+            crosshair.style.width = '30px';
+            crosshair.style.height = '30px';
+            crosshair.style.pointerEvents = 'none';
+            crosshair.style.display = 'none';
+            crosshair.style.zIndex = '20';
+            
+            // Create crosshair lines
+            const verticalLine = document.createElement('div');
+            verticalLine.style.position = 'absolute';
+            verticalLine.style.width = '1px';
+            verticalLine.style.height = '100%';
+            verticalLine.style.backgroundColor = 'rgba(255, 255, 0, 0.8)';
+            verticalLine.style.left = '50%';
+            verticalLine.style.transform = 'translateX(-50%)';
+            
+            const horizontalLine = document.createElement('div');
+            horizontalLine.style.position = 'absolute';
+            horizontalLine.style.width = '100%';
+            horizontalLine.style.height = '1px';
+            horizontalLine.style.backgroundColor = 'rgba(255, 255, 0, 0.8)';
+            horizontalLine.style.top = '50%';
+            horizontalLine.style.transform = 'translateY(-50%)';
+            
+            crosshair.appendChild(verticalLine);
+            crosshair.appendChild(horizontalLine);
+            container.appendChild(crosshair);
+            
+            // Add mouse move handler to track cursor position
+            img.addEventListener('mousemove', (e) => {
+                const rect = e.target.getBoundingClientRect();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+                
+                // Update cursor display
+                cursorDisplay.innerHTML = `Cursor: (${x}, ${y})`;
+                cursorDisplay.style.display = 'block';
+                
+                // Update crosshair position
+                crosshair.style.left = `${x}px`;
+                crosshair.style.top = `${y}px`;
+                crosshair.style.transform = 'translate(-50%, -50%)';
+                crosshair.style.display = 'block';
+            });
+            
+            // Hide cursor display when mouse leaves the image
+            img.addEventListener('mouseleave', () => {
+                if (cursorDisplay) {
+                    cursorDisplay.style.display = 'none';
+                }
+                crosshair.style.display = 'none';
+            });
+            
+            // Show cursor display when mouse enters the image
+            img.addEventListener('mouseenter', () => {
+                if (cursorDisplay) {
+                    cursorDisplay.style.display = 'block';
+                }
+            });
+        }
+        
         // Add click handler to the image
         img.addEventListener('click', (e) => {
             // Remove any existing dot
@@ -2954,6 +3235,25 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Add animation
             dot.style.animation = 'pulse 1s infinite alternate';
+            
+            // Add coordinate label to the dot in debug mode
+            if (DEBUG_MODE) {
+                const coordLabel = document.createElement('div');
+                coordLabel.className = 'dot-coord-label';
+                coordLabel.textContent = `(${x}, ${y})`;
+                coordLabel.style.position = 'absolute';
+                coordLabel.style.top = '100%';
+                coordLabel.style.left = '50%';
+                coordLabel.style.transform = 'translateX(-50%)';
+                coordLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                coordLabel.style.color = 'white';
+                coordLabel.style.padding = '2px 6px';
+                coordLabel.style.fontSize = '12px';
+                coordLabel.style.borderRadius = '3px';
+                coordLabel.style.whiteSpace = 'nowrap';
+                coordLabel.style.marginTop = '5px';
+                dot.appendChild(coordLabel);
+            }
             
             // Add dot to container
             container.appendChild(dot);
@@ -3003,68 +3303,12 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true; // Disabled until user places a dot
         submitBtn.style.display = 'inline-block';
         inputGroup.style.display = 'flex';
-    }
-    
-    /**
-     * Show the target area for the Place_Dot puzzle in debug mode
-     * @param {HTMLElement} container - The container element
-     * @param {Array} targetPosition - The target position [x, y]
-     * @param {number} tolerance - The tolerance radius in pixels
-     */
-    function showTargetDotArea(container, targetPosition, tolerance = 15) {
-        if (!DEBUG_MODE) return;
         
-        // Remove any existing target visualization
-        const existingTarget = container.querySelector('.target-dot-area');
-        if (existingTarget) {
-            existingTarget.remove();
-        }
-        
-        // Get target coordinates
-        const [targetX, targetY] = targetPosition;
-        
-        // Create a target element - visualized as a circle
-        const targetArea = document.createElement('div');
-        targetArea.className = 'target-dot-area';
-        
-        // Calculate diameter based on tolerance
-        const diameter = tolerance * 2;
-        
-        // Style the target area
-        targetArea.style.position = 'absolute';
-        targetArea.style.left = `${targetX - tolerance}px`;
-        targetArea.style.top = `${targetY - tolerance}px`;
-        targetArea.style.width = `${diameter}px`;
-        targetArea.style.height = `${diameter}px`;
-        targetArea.style.borderRadius = '50%';
-        targetArea.style.border = '2px dashed green';
-        targetArea.style.backgroundColor = 'rgba(0, 255, 0, 0.2)';
-        targetArea.style.zIndex = '5';
-        targetArea.style.pointerEvents = 'none'; // Allow clicks to pass through
-        
-        // Add coordinates label
-        const coordsLabel = document.createElement('div');
-        coordsLabel.className = 'coords-label';
-        coordsLabel.textContent = `Target: (${targetX}, ${targetY}) ±${tolerance}px`;
-        coordsLabel.style.position = 'absolute';
-        coordsLabel.style.top = '-25px';
-        coordsLabel.style.left = '0';
-        coordsLabel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        coordsLabel.style.color = 'white';
-        coordsLabel.style.padding = '2px 5px';
-        coordsLabel.style.fontSize = '10px';
-        coordsLabel.style.borderRadius = '3px';
-        coordsLabel.style.whiteSpace = 'nowrap';
-        targetArea.appendChild(coordsLabel);
-        
-        // Add to the container
-        container.appendChild(targetArea);
-        
-        // Log the target details
-        console.log('Place_Dot target position:', { 
-            x: targetX, 
-            y: targetY,
-            tolerance: tolerance
+        // Clean up cursor display when leaving the page or loading new puzzle
+        window.addEventListener('beforeunload', () => {
+            if (cursorDisplay && cursorDisplay.parentNode) {
+                cursorDisplay.parentNode.removeChild(cursorDisplay);
+            }
         });
     }
 

@@ -4,7 +4,7 @@
       "area": [[10, 150], [280, 490]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image2.png": {
@@ -12,7 +12,7 @@
       "area": [[200, 0], [500, 300]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image3.png": {
@@ -20,7 +20,7 @@
       "area": [[270, 0], [500, 300]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image4.png": {
@@ -28,7 +28,7 @@
       "area": [[150,30], [400, 430]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image5.png": {
@@ -36,7 +36,7 @@
       "area": [[200,300], [510, 500]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image6.png": {
@@ -44,7 +44,7 @@
       "area": [[0,0], [320, 190]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image7.png": {
@@ -52,7 +52,7 @@
       "area": [[110,80], [270, 450]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image8.png": {
@@ -60,7 +60,7 @@
       "area": [[190,0], [500, 170]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image9.png": {
@@ -68,7 +68,7 @@
       "area": [[150,200], [400, 300]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   },
   "image10.png": {
@@ -76,7 +76,167 @@
       "area": [[0,0], [350, 250]],
       "type": "largest region"
     },
-    "prompt": "Click on the largest area outlined by the dotted line",
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image11.png": {
+    "answer": {
+      "area": [[0,0], [260, 290]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image12.png": {
+    "answer": {
+      "area": [[0,0], [310, 230]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image13.png": {
+    "answer": {
+      "area": [[230,0], [496, 310]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image14.png": {
+    "answer": {
+      "area": [[0,0], [496, 150]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image15.png": {
+    "answer": {
+      "area": [[140,0], [497, 190]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image16.png": {
+    "answer": {
+      "area": [[0,0], [495, 150]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image17.png": {
+    "answer": {
+      "area": [[250,0], [495, 300]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image18.png": {
+    "answer": {
+      "area": [[70,330], [410, 495]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image19.png": {
+    "answer": {
+      "area": [[0,0], [115, 496]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image20.png": {
+    "answer": {
+      "area": [[100,0], [496, 130]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image21.png": {
+    "answer": {
+      "area": [[0,210], [210, 495]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image22.png": {
+    "answer": {
+      "area": [[0,60], [190, 330]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image23.png": {
+    "answer": {
+      "area": [[240,0], [496, 230]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image24.png": {
+    "answer": {
+      "area": [[70,0], [495, 170]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image25.png": {
+    "answer": {
+      "area": [[320,0], [495, 360]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image26.png": {
+    "answer": {
+      "area": [[0,0], [190, 310]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image27.png": {
+    "answer": {
+      "area": [[350,30], [495, 435]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image28.png": {
+    "answer": {
+      "area": [[110,0], [420, 170]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image29.png": {
+    "answer": {
+      "area": [[170,330], [496, 496]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
+    "description": "An image with multiple outlined areas where the user must identify the largest one"
+  },
+  "image30.png": {
+    "answer": {
+      "area": [[260,0], [495, 205]],
+      "type": "largest region"
+    },
+    "prompt": "Click on the center of the largest area outlined by the dotted line",
     "description": "An image with multiple outlined areas where the user must identify the largest one"
   }
 } 

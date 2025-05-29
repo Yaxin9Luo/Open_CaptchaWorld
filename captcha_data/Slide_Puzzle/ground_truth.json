@@ -87,5 +87,365 @@
     "prompt": "Drag the slider component to the correct position",
     "description": "Sliding puzzle requiring the user to drag a component to a specific position",
     "answer": [85, 240]
+  },
+  "slide21.png": {
+    "answer": [
+      338,
+      144
+    ],
+    "component_image": "slide21_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      77
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      338,
+      144
+    ],
+    "tolerance": 15
+  },
+  "slide22.png": {
+    "answer": [
+      326,
+      274
+    ],
+    "component_image": "slide22_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      95
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      326,
+      274
+    ],
+    "tolerance": 15
+  },
+  "slide23.png": {
+    "answer": [
+      65,
+      158
+    ],
+    "component_image": "slide23_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      95
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      65,
+      158
+    ],
+    "tolerance": 15
+  },
+  "slide24.png": {
+    "answer": [
+      275,
+      312
+    ],
+    "component_image": "slide24_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      95
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      275,
+      312
+    ],
+    "tolerance": 15
+  },
+  "slide25.png": {
+    "answer": [
+      437,
+      292
+    ],
+    "component_image": "slide25_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      437,
+      292
+    ],
+    "tolerance": 15
+  },
+  "slide26.png": {
+    "answer": [
+      169,
+      232
+    ],
+    "component_image": "slide26_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      169,
+      232
+    ],
+    "tolerance": 15
+  },
+  "slide27.png": {
+    "answer": [
+      174,
+      318
+    ],
+    "component_image": "slide27_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      174,
+      318
+    ],
+    "tolerance": 15
+  },
+  "slide28.png": {
+    "answer": [
+      287,
+      149
+    ],
+    "component_image": "slide28_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      287,
+      149
+    ],
+    "tolerance": 15
+  },
+  "slide29.png": {
+    "answer": [
+      303,
+      418
+    ],
+    "component_image": "slide29_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      303,
+      418
+    ],
+    "tolerance": 15
+  },
+  "slide30.png": {
+    "answer": [
+      377,
+      329
+    ],
+    "component_image": "slide30_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      377,
+      329
+    ],
+    "tolerance": 15
+  },
+  "slide31.png": {
+    "answer": [
+      295,
+      335
+    ],
+    "component_image": "slide31_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      295,
+      335
+    ],
+    "tolerance": 15
+  },
+  "slide32.png": {
+    "answer": [
+      249,
+      117
+    ],
+    "component_image": "slide32_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      95
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      249,
+      117
+    ],
+    "tolerance": 15
+  },
+  "slide33.png": {
+    "answer": [
+      345,
+      82
+    ],
+    "component_image": "slide33_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      345,
+      82
+    ],
+    "tolerance": 15
+  },
+  "slide34.png": {
+    "answer": [
+      127,
+      130
+    ],
+    "component_image": "slide34_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      95
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      127,
+      130
+    ],
+    "tolerance": 15
+  },
+  "slide35.png": {
+    "answer": [
+      328,
+      281
+    ],
+    "component_image": "slide35_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      77
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      328,
+      281
+    ],
+    "tolerance": 15
+  },
+  "slide36.png": {
+    "answer": [
+      184,
+      421
+    ],
+    "component_image": "slide36_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      77
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      184,
+      421
+    ],
+    "tolerance": 15
+  },
+  "slide37.png": {
+    "answer": [
+      210,
+      58
+    ],
+    "component_image": "slide37_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      95,
+      77
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      210,
+      58
+    ],
+    "tolerance": 15
+  },
+  "slide38.png": {
+    "answer": [
+      289,
+      354
+    ],
+    "component_image": "slide38_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      113,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      289,
+      354
+    ],
+    "tolerance": 15
+  },
+  "slide39.png": {
+    "answer": [
+      316,
+      340
+    ],
+    "component_image": "slide39_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      113,
+      113
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      316,
+      340
+    ],
+    "tolerance": 15
+  },
+  "slide40.png": {
+    "answer": [
+      199,
+      98
+    ],
+    "component_image": "slide40_component.png",
+    "description": "Sliding puzzle requiring the user to drag a component to a specific position",
+    "piece_size": [
+      77,
+      95
+    ],
+    "prompt": "Drag the slider component to the correct position",
+    "target_position": [
+      199,
+      98
+    ],
+    "tolerance": 15
   }
 } 

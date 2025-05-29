@@ -58,5 +58,138 @@
     "tolerance": 20,
     "prompt": "Click to place a Dot at the end of the car's path",
     "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path11.png": {
+    "target_position": [285, 210],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path12.png": {
+    "target_position": [530, 91],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path13.png": {
+    "target_position": [496, 287],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path14.png": {
+    "target_position": [415, 149],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path15.png": {
+    "target_position": [463, 298],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path16.png": {
+    "target_position": [498, 173],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path17.png": {
+    "target_position": [359, 125],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path18.png": {
+    "target_position": [380, 159],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path19.png": {
+    "target_position": [307, 507],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path20.png": {
+    "target_position": [455, 239],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path21.png": {
+    "target_position": [414, 131],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path22.png": {
+    "target_position": [466, 538],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path23.png": {
+    "target_position": [566, 188],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path24.png": {
+    "target_position": [465, 116],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path25.png": {
+    "target_position": [461, 286],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path26.png": {
+    "target_position": [525, 202],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path27.png": {
+    "target_position": [491, 236],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path28.png": {
+    "target_position": [456, 413],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path29.png": {
+    "target_position": [494, 216],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path30.png": {
+    "target_position": [483, 220],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path31.png": {
+    "target_position": [172, 352],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
+  },
+  "path32.png": {
+    "target_position": [442, 190],
+    "tolerance": 20,
+    "prompt": "Click to place a Dot at the end of the car's path",
+    "description": "Car path CAPTCHA requiring placement of a dot at the end of the green path"
   }
+
 } 

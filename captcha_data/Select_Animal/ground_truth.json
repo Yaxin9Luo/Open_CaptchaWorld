@@ -7,6 +7,26 @@
 "image7.png": {"target_object": "panda", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick a panda", "description": "A grid of 2x3 images containing different animals on buildings"},
 "image8.png": {"target_object": "squirrel", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a squirrel", "description": "A grid of 2x3 images containing different animals on buildings"},
 "image9.png": {"target_object": "penguin", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a penguin", "description": "A grid of 2x3 images containing different animals on buildings"},
-"image10.png": {"target_object": "frog", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a frog", "description": "A grid of 2x3 images containing different animals on buildings"}
+"image10.png": {"target_object": "frog", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a frog", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image11.png": {"target_object": "elephant", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick an elephant", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image12.png": {"target_object": "penguin", "grid_size": [2, 3], "correct_patches": [1], "prompt": "Pick a penguin", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image13.png": {"target_object": "lion", "grid_size": [2, 3], "correct_patches": [2], "prompt": "Pick a lion", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image14.png": {"target_object": "giraffe", "grid_size": [2, 3], "correct_patches": [3], "prompt": "Pick a giraffe", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image15.png": {"target_object": "penguin", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a penguin", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image16.png": {"target_object": "monkey", "grid_size": [2, 3], "correct_patches": [5], "prompt": "Pick a monkey", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image17.png": {"target_object": "bear", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick a bear", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image18.png": {"target_object": "fox", "grid_size": [2, 3], "correct_patches": [1], "prompt": "Pick a fox", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image19.png": {"target_object": "lion", "grid_size": [2, 3], "correct_patches": [2], "prompt": "Pick a lion", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image20.png": {"target_object": "tiger", "grid_size": [2, 3], "correct_patches": [3], "prompt": "Pick a tiger", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image21.png": {"target_object": "giraffe", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a giraffe", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image22.png": {"target_object": "panda", "grid_size": [2, 3], "correct_patches": [5], "prompt": "Pick a panda", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image23.png": {"target_object": "elephant", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick an elephant", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image24.png": {"target_object": "monkey", "grid_size": [2, 3], "correct_patches": [1], "prompt": "Pick a monkey", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image25.png": {"target_object": "pig", "grid_size": [2, 3], "correct_patches": [2], "prompt": "Pick a pig", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image26.png": {"target_object": "cat", "grid_size": [2, 3], "correct_patches": [3], "prompt": "Pick a cat", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image27.png": {"target_object": "tiger", "grid_size": [2, 3], "correct_patches": [4], "prompt": "Pick a tiger", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image28.png": {"target_object": "bear", "grid_size": [2, 3], "correct_patches": [5], "prompt": "Pick a bear", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image29.png": {"target_object": "elephant", "grid_size": [2, 3], "correct_patches": [0], "prompt": "Pick an elephant", "description": "A grid of 2x3 images containing different animals on buildings"},
+"image30.png": {"target_object": "monkey", "grid_size": [2, 3], "correct_patches": [1], "prompt": "Pick a monkey", "description": "A grid of 2x3 images containing different animals on buildings"}
 }
 
