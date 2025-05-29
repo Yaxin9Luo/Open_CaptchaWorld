@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://swe-bench.github.io">
+  <a href="https://github.com/Yaxin9Luo/Open_CaptchaWorld">
     <img src="./assets/band_image.png" style="height: 10em" alt="Open CaptchaWorld" />
   </a>
 </p>
